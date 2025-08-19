@@ -26,7 +26,7 @@ export default function Home() {
 
           <Input
             type="text"
-            placeholder="Nhập nội dung..."
+            placeholder="Nhập nội dung cần tạo mã QR"
             value={text}
             onChange={(e) => setText(e.target.value)}
             className="rounded-lg"
