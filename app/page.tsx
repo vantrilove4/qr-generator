@@ -11,6 +11,7 @@ export default function Home() {
   const [qrUrl, setQrUrl] = useState("");
 
   const generateQR = async () => {
+
     if (!text) return;
     const url = await QRCode.toDataURL(text);
     setQrUrl(url);
@@ -26,7 +27,7 @@ export default function Home() {
 
           <Input
             type="text"
-            placeholder="Nhập nội dung cần tạo mã QR"
+            placeholder="Nhập thông tin cần tạo QR"
             value={text}
             onChange={(e) => setText(e.target.value)}
             className="rounded-lg"
