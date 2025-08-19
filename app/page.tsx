@@ -22,7 +22,7 @@ export default function Home() {
       <Card className="w-full max-w-md p-8 shadow-md rounded-2xl bg-white">
         <CardContent className="space-y-6">
           <h1 className="text-xl font-semibold text-center text-gray-800">
-            QR Code Generator
+            Trình Tạo QR Code Miễn Phí
           </h1>
 
           <Input
