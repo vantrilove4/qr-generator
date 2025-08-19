@@ -6,7 +6,7 @@ type QRPageProps = {
   };
 };
 
-export default async function QRPage({ params }: QRPageProps) {
+export default async function QRPage({ params }: { params: { slug: string } }){
   const res = await fetch(
     `${process.env.SUPABASE_URL}/rest/v1/qr_links?slug=eq.${params.slug}`,
     {
