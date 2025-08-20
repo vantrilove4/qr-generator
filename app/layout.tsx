@@ -18,11 +18,11 @@ export const metadata: Metadata = {
     title: "Tạo mã QR miễn phí | Free QR Generator",
     description:
       "Công cụ tạo mã QR online miễn phí, hỗ trợ nhiều loại nội dung và tải xuống PNG chất lượng cao.",
-    url: "https://freeqr.vercel.app",
+    url: "https://qrfree.io.vn",
     siteName: "Free QR Generator",
     images: [
       {
-        url: "https://freeqr.vercel.app/og-image.png",
+        url: "https://qrfree.io.vn/og-image.png",
         width: 1200,
         height: 630,
         alt: "Tạo mã QR nhanh chóng và miễn phí",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Tạo mã QR miễn phí | Free QR Generator",
     description:
       "Công cụ tạo mã QR online miễn phí, hỗ trợ URL, văn bản, điện thoại và tải về ảnh PNG.",
-    images: ["https://freeqr.vercel.app/og-image.png"],
+    images: ["https://qrfree.io.vn/og-image.png"],
   },
 };
 
