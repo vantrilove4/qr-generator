@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-
+import { Analytics } from '@vercel/analytics/next';
+ 
 export const metadata: Metadata = {
   title: "Tạo mã QR miễn phí | Free QR Generator",
   description:
@@ -44,8 +45,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi">
-      <body>{children}</body>
+    <html lang="en">
+      <head>
+        <title>Next.js</title>
+      </head>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
