@@ -219,12 +219,7 @@ export default function Home() {
                   >
                     📥 Tải QR ({downloadFormat.toUpperCase()})
                   </Button>
-                  <Button
-                    onClick={copyQRText}
-                    className="flex-1 rounded-lg bg-gray-300 text-gray-800 font-medium hover:bg-gray-400 text-lg py-3"
-                  >
-                    📋 Copy nội dung
-                  </Button>
+                  
                   
                 </div>
                 
