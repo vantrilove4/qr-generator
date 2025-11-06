@@ -19,10 +19,13 @@ export default function Home() {
   const [qrValue, setQrValue] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [zoom, setZoom] = useState(1);
-  const [history, setHistory] = useState<{ text: string; url: string }[]>([]);
+  const [history, setHistory] = useState<{ text: string }[]>([]);
   const [downloadFormat, setDownloadFormat] = useState("png");
   const [downloadCount, setDownloadCount] = useState<number>(0);
   const [logo, setLogo] = useState<string | null>(null);
+  const [qrColor, setQrColor] = useState("#000000");
+  const [bgColor, setBgColor] = useState("#ffffff");
+  const [cornerRadius, setCornerRadius] = useState(20);
 
   const qrRef = useRef<HTMLDivElement>(null);
 
@@ -36,7 +39,7 @@ export default function Home() {
     localStorage.setItem("qrHistory", JSON.stringify(history));
   }, [history]);
 
-  // Lấy số lượt tải khi load trang
+  // Lấy số lượt tải
   useEffect(() => {
     const fetchCount = async () => {
       const { data, error } = await supabase
@@ -44,21 +47,18 @@ export default function Home() {
         .select("downloads")
         .eq("qr_text", 1)
         .single();
-
       if (!error && data) setDownloadCount(data.downloads);
       else setDownloadCount(0);
     };
     fetchCount();
   }, []);
 
-  // Tăng lượt tải
   const increaseDownload = async () => {
     const { data: existing, error: fetchError } = await supabase
       .from("qr_downloads")
       .select("downloads")
       .eq("qr_text", 1)
       .single();
-
     if (!fetchError && existing) {
       const { data, error } = await supabase
         .from("qr_downloads")
@@ -66,7 +66,6 @@ export default function Home() {
         .eq("qr_text", 1)
         .select()
         .single();
-
       if (!error && data) setDownloadCount(data.downloads);
     }
   };
@@ -74,28 +73,46 @@ export default function Home() {
   const generateQR = async () => {
     if (!text) return;
     setQrValue(text);
-    setHistory((prev) => [{ text, url: text }, ...prev].slice(0, 10));
+    setHistory((prev) => [{ text }, ...prev].slice(0, 10));
     await increaseDownload();
   };
 
-  // Tải QR với logo
-  const downloadQR = () => {
+  const downloadQR = async () => {
     if (!qrRef.current || !qrValue) return;
     const svg = qrRef.current.querySelector("svg");
     if (!svg) return;
-
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svg);
     const img = new Image();
     img.src = "data:image/svg+xml;base64," + btoa(svgString);
-
     img.onload = () => {
+      const size = 300;
       const canvas = document.createElement("canvas");
-      const size = 256;
       canvas.width = size;
       canvas.height = size;
       const ctx = canvas.getContext("2d")!;
+      // Nền
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, size, size);
+
+      // Bo góc
+      const radius = cornerRadius;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(radius, 0);
+      ctx.lineTo(size - radius, 0);
+      ctx.quadraticCurveTo(size, 0, size, radius);
+      ctx.lineTo(size, size - radius);
+      ctx.quadraticCurveTo(size, size, size - radius, size);
+      ctx.lineTo(radius, size);
+      ctx.quadraticCurveTo(0, size, 0, size - radius);
+      ctx.lineTo(0, radius);
+      ctx.quadraticCurveTo(0, 0, radius, 0);
+      ctx.closePath();
+      ctx.clip();
+
       ctx.drawImage(img, 0, 0, size, size);
+      ctx.restore();
 
       if (logo) {
         const logoImg = new Image();
@@ -106,7 +123,13 @@ export default function Home() {
           ctx.beginPath();
           ctx.arc(size / 2, size / 2, logoSize / 2, 0, Math.PI * 2);
           ctx.clip();
-          ctx.drawImage(logoImg, size / 2 - logoSize / 2, size / 2 - logoSize / 2, logoSize, logoSize);
+          ctx.drawImage(
+            logoImg,
+            size / 2 - logoSize / 2,
+            size / 2 - logoSize / 2,
+            logoSize,
+            logoSize
+          );
           ctx.restore();
           const link = document.createElement("a");
           link.download = `qr_logo.png`;
@@ -122,23 +145,22 @@ export default function Home() {
     };
   };
 
-  // Share QR
   const shareQR = () => {
     if (!qrRef.current || !qrValue) return;
     const svg = qrRef.current.querySelector("svg");
     if (!svg) return;
-
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svg);
     const img = new Image();
     img.src = "data:image/svg+xml;base64," + btoa(svgString);
-
     img.onload = () => {
+      const size = 300;
       const canvas = document.createElement("canvas");
-      const size = 256;
       canvas.width = size;
       canvas.height = size;
       const ctx = canvas.getContext("2d")!;
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, size, size);
       ctx.drawImage(img, 0, 0, size, size);
 
       if (logo) {
@@ -150,7 +172,13 @@ export default function Home() {
           ctx.beginPath();
           ctx.arc(size / 2, size / 2, logoSize / 2, 0, Math.PI * 2);
           ctx.clip();
-          ctx.drawImage(logoImg, size / 2 - logoSize / 2, size / 2 - logoSize / 2, logoSize, logoSize);
+          ctx.drawImage(
+            logoImg,
+            size / 2 - logoSize / 2,
+            size / 2 - logoSize / 2,
+            logoSize,
+            logoSize
+          );
           ctx.restore();
           canvas.toBlob((blob) => {
             if (!blob) return;
@@ -172,22 +200,20 @@ export default function Home() {
     };
   };
 
-  const copyQRText = () => {
-    if (qrValue) navigator.clipboard.writeText(qrValue);
-  };
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-between bg-gradient-to-br from-indigo-100 to-white p-6">
       <p className="mb-6 text-xl font-semibold text-indigo-700 text-center">
-        Tạo mã QR miễn phí, không chèn quảng cáo, tải về nhanh chóng 🚀
+        Tạo mã QR tùy chỉnh: màu, nền, bo góc, logo 🚀
       </p>
 
       <div className="flex-1 flex items-center justify-center w-full">
         <Card className="w-full max-w-lg p-10 shadow-xl rounded-2xl bg-white">
           <CardContent className="space-y-6">
-            <h1 className="text-3xl font-bold text-center text-gray-900">Tạo QR Code Free</h1>
+            <h1 className="text-3xl font-bold text-center text-gray-900">
+              Tạo QR Code Free
+            </h1>
 
-            {/* Input + nút upload tệp */}
+            {/* Input + file upload */}
             <div className="flex gap-2 items-center">
               <Input
                 type="text"
@@ -196,12 +222,11 @@ export default function Home() {
                 onChange={(e) => setText(e.target.value)}
                 className="flex-1 rounded-lg text-lg p-3"
               />
-              
               <label
                 htmlFor="file-input"
                 className="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 text-sm"
               >
-                📁 Chọn tệp chèn vào QRcode
+                📁 Chọn logo
               </label>
               <input
                 id="file-input"
@@ -219,6 +244,19 @@ export default function Home() {
               />
             </div>
 
+            {/* Color, bg, radius */}
+            <div className="flex gap-2 items-center">
+              <label className="flex items-center gap-1 text-sm">
+                Màu QR: <input type="color" value={qrColor} onChange={(e) => setQrColor(e.target.value)} />
+              </label>
+              <label className="flex items-center gap-1 text-sm">
+                Nền: <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} />
+              </label>
+              <label className="flex items-center gap-1 text-sm">
+                Bo góc: <input type="number" min={0} max={50} value={cornerRadius} onChange={(e) => setCornerRadius(Number(e.target.value))} className="w-16" />
+              </label>
+            </div>
+
             <Button
               onClick={generateQR}
               className="w-full rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 text-lg py-3"
@@ -232,14 +270,10 @@ export default function Home() {
             </p>
 
             {qrValue && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex flex-col items-center gap-4 mt-6"
-              >
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center gap-4 mt-6">
                 <div ref={qrRef} onClick={() => setIsOpen(true)}>
                   <div style={{ position: "relative", display: "inline-block" }}>
-                    <QRCode value={qrValue} size={256} id="qr-canvas" />
+                    <QRCode value={qrValue} size={256} fgColor={qrColor} bgColor={bgColor} />
                     {logo && (
                       <img
                         src={logo}
@@ -260,63 +294,44 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex gap-4 mt-2">
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" value="png" checked={downloadFormat === "png"} onChange={(e) => setDownloadFormat(e.target.value)} />
-                    PNG
-                  </label>
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" value="pdf" checked={downloadFormat === "pdf"} onChange={(e) => setDownloadFormat(e.target.value)} />
-                    PDF
-                  </label>
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" value="svg" checked={downloadFormat === "svg"} onChange={(e) => setDownloadFormat(e.target.value)} />
-                    SVG
-                  </label>
-                </div>
-
-                <div className="flex gap-2 w-full">
-                  <Button onClick={downloadQR} className="flex-1 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 text-lg py-3">
-                    📥 Tải QR ({downloadFormat.toUpperCase()})
+                <div className="flex gap-4 mt-2 w-full">
+                  <Button onClick={downloadQR} className="flex-1 bg-green-600 hover:bg-green-700 text-white rounded-lg py-2">
+                    📥 Tải QR
                   </Button>
-                  <Button onClick={shareQR} className="flex-1 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 text-lg py-3">
+                  <Button onClick={shareQR} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-2">
                     📤 Chia sẻ QR
                   </Button>
                 </div>
-              </motion.div>
-            )}
 
-            {history.length > 0 && (
-              <div className="mt-6">
-                <h2 className="text-lg font-semibold text-gray-700 mb-2">Lịch sử QR</h2>
-                <div className="space-y-2 max-h-40 overflow-y-auto">
-                  {history.map((item, i) => (
-                    <div
-                      key={i}
-                      className="p-2 border rounded-lg cursor-pointer hover:bg-gray-50"
-                      onClick={() => {
-                        setQrValue(item.text);
-                        setText(item.text);
-                      }}
-                    >
-                      {item.text}
+                {/* Lịch sử */}
+                {history.length > 0 && (
+                  <div className="mt-6 w-full">
+                    <h2 className="text-lg font-semibold text-gray-700 mb-2">Lịch sử QR</h2>
+                    <div className="space-y-2 max-h-40 overflow-y-auto">
+                      {history.map((item, i) => (
+                        <div
+                          key={i}
+                          className="p-2 border rounded-lg cursor-pointer hover:bg-gray-50"
+                          onClick={() => {
+                            setQrValue(item.text);
+                            setText(item.text);
+                          }}
+                        >
+                          {item.text}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                )}
+              </motion.div>
             )}
           </CardContent>
         </Card>
       </div>
 
-      <footer className="mt-6 text-center text-gray-500 text-sm">
-        Made by: <span className="font-medium text-indigo-600">TriNguyen - </span>
-        Liên hệ: <span className="font-medium text-indigo-600">nvantri93@gmail.com</span>
-      </footer>
-
       {/* Modal phóng to */}
       <AnimatePresence>
-        {isOpen && (
+        {isOpen && qrValue && (
           <motion.div
             className="fixed inset-0 flex items-center justify-center bg-black/70 z-50"
             initial={{ opacity: 0 }}
@@ -336,7 +351,7 @@ export default function Home() {
                 ✖
               </button>
               <div style={{ position: "relative" }}>
-                <QRCode value={qrValue || ""} size={300} />
+                <QRCode value={qrValue} size={300} fgColor={qrColor} bgColor={bgColor} />
                 {logo && (
                   <img
                     src={logo}
@@ -345,8 +360,8 @@ export default function Home() {
                       position: "absolute",
                       top: "50%",
                       left: "50%",
-                      width: "66px",
-                      height: "66px",
+                      width: "70px",
+                      height: "70px",
                       transform: "translate(-50%, -50%)",
                       borderRadius: "50%",
                       objectFit: "cover",
