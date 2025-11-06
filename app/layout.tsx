@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tạo mã QR miễn phí | Free QR Generator",
     description:
-      "Công cụ tạo mã QR online miễn phí, hỗ trợ URL, văn bản, điện thoại và tải về ảnh PNG.",
+      "Công cụ tạo mã QR online miễn phí, hỗ trợ URL, văn bản, điện thoại và tải về ảnh PNG,pdf,svr.",
     images: ["https://qrfree.io.vn/og-image.png"],
   },
 };

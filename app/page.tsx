@@ -22,6 +22,7 @@ export default function Home() {
   const [history, setHistory] = useState<{ text: string; url: string }[]>([]);
   const [downloadFormat, setDownloadFormat] = useState("png");
   const [downloadCount, setDownloadCount] = useState<number>(0);
+  const [logo, setLogo] = useState<string | null>(null);
 
   const qrRef = useRef<HTMLDivElement>(null);
 
@@ -50,9 +51,8 @@ export default function Home() {
     fetchCount();
   }, []);
 
-  // Tăng lượt tải bằng cách lấy số hiện tại +1
+  // Tăng lượt tải
   const increaseDownload = async () => {
-    // Lấy số hiện tại
     const { data: existing, error: fetchError } = await supabase
       .from("qr_downloads")
       .select("downloads")
@@ -60,7 +60,6 @@ export default function Home() {
       .single();
 
     if (!fetchError && existing) {
-      // Update +1
       const { data, error } = await supabase
         .from("qr_downloads")
         .update({ downloads: existing.downloads + 1 })
@@ -74,64 +73,103 @@ export default function Home() {
 
   const generateQR = async () => {
     if (!text) return;
-
-    // Tạo QR
     setQrValue(text);
-
-    // Lưu lịch sử
     setHistory((prev) => [{ text, url: text }, ...prev].slice(0, 10));
-
-    // Tăng lượt tải
     await increaseDownload();
   };
 
-  const downloadQR = async () => {
+  // Tải QR với logo
+  const downloadQR = () => {
     if (!qrRef.current || !qrValue) return;
     const svg = qrRef.current.querySelector("svg");
     if (!svg) return;
 
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svg);
+    const img = new Image();
+    img.src = "data:image/svg+xml;base64," + btoa(svgString);
 
-    const handleDownload = (canvas: HTMLCanvasElement) => {
-      if (downloadFormat === "png") {
-        const pngUrl = canvas.toDataURL("image/png");
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const size = 256;
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0, size, size);
+
+      if (logo) {
+        const logoImg = new Image();
+        logoImg.src = logo;
+        logoImg.onload = () => {
+          const logoSize = size * 0.22;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(size / 2, size / 2, logoSize / 2, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(logoImg, size / 2 - logoSize / 2, size / 2 - logoSize / 2, logoSize, logoSize);
+          ctx.restore();
+          const link = document.createElement("a");
+          link.download = `qr_logo.png`;
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        };
+      } else {
         const link = document.createElement("a");
-        link.href = pngUrl;
-        link.download = "qrcode.png";
+        link.download = `qr.png`;
+        link.href = canvas.toDataURL("image/png");
         link.click();
-      } else if (downloadFormat === "pdf") {
-        const pdf = new jsPDF();
-        const imgData = canvas.toDataURL("image/png");
-        pdf.addImage(imgData, "PNG", 20, 20, 150, 150);
-        pdf.save("qrcode.pdf");
       }
     };
+  };
 
-    if (downloadFormat === "svg") {
-      const blob = new Blob([svgString], { type: "image/svg+xml" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "qrcode.svg";
-      link.click();
-      URL.revokeObjectURL(url);
-    } else {
+  // Share QR
+  const shareQR = () => {
+    if (!qrRef.current || !qrValue) return;
+    const svg = qrRef.current.querySelector("svg");
+    if (!svg) return;
+
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(svg);
+    const img = new Image();
+    img.src = "data:image/svg+xml;base64," + btoa(svgString);
+
+    img.onload = () => {
       const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      const img = new Image();
-      const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
-      const url = URL.createObjectURL(svgBlob);
+      const size = 256;
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0, size, size);
 
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx?.drawImage(img, 0, 0);
-        URL.revokeObjectURL(url);
-        handleDownload(canvas);
-      };
-      img.src = url;
-    }
+      if (logo) {
+        const logoImg = new Image();
+        logoImg.src = logo;
+        logoImg.onload = () => {
+          const logoSize = size * 0.22;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(size / 2, size / 2, logoSize / 2, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(logoImg, size / 2 - logoSize / 2, size / 2 - logoSize / 2, logoSize, logoSize);
+          ctx.restore();
+          canvas.toBlob((blob) => {
+            if (!blob) return;
+            const file = new File([blob], "qrcode.png", { type: "image/png" });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              navigator.share({ title: "Chia sẻ mã QR", text: qrValue, files: [file] });
+            } else alert("Thiết bị không hỗ trợ chia sẻ trực tiếp.");
+          });
+        };
+      } else {
+        canvas.toBlob((blob) => {
+          if (!blob) return;
+          const file = new File([blob], "qrcode.png", { type: "image/png" });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({ title: "Chia sẻ mã QR", text: qrValue, files: [file] });
+          } else alert("Thiết bị không hỗ trợ chia sẻ trực tiếp.");
+        });
+      }
+    };
   };
 
   const copyQRText = () => {
@@ -147,17 +185,39 @@ export default function Home() {
       <div className="flex-1 flex items-center justify-center w-full">
         <Card className="w-full max-w-lg p-10 shadow-xl rounded-2xl bg-white">
           <CardContent className="space-y-6">
-            <h1 className="text-3xl font-bold text-center text-gray-900">
-              Tạo QR Code Free
-            </h1>
+            <h1 className="text-3xl font-bold text-center text-gray-900">Tạo QR Code Free</h1>
 
-            <Input
-              type="text"
-              placeholder="Nhập thông tin cần tạo QR"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              className="rounded-lg text-lg p-3"
-            />
+            {/* Input + nút upload tệp */}
+            <div className="flex gap-2 items-center">
+              <Input
+                type="text"
+                placeholder="Nhập thông tin cần tạo QR"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className="flex-1 rounded-lg text-lg p-3"
+              />
+              
+              <label
+                htmlFor="file-input"
+                className="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 text-sm"
+              >
+                📁 Chọn tệp chèn vào QRcode
+              </label>
+              <input
+                id="file-input"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = () => setLogo(reader.result as string);
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                className="hidden"
+              />
+            </div>
 
             <Button
               onClick={generateQR}
@@ -166,9 +226,10 @@ export default function Home() {
             >
               Tạo QR
             </Button>
+
             <p className="text-sm text-gray-600">
-                  📊 Số mã QR đã được tạo: <span className="font-semibold">{downloadCount}</span> lần
-                </p>
+              📊 Số mã QR đã được tạo: <span className="font-semibold">{downloadCount}</span> lần
+            </p>
 
             {qrValue && (
               <motion.div
@@ -177,54 +238,52 @@ export default function Home() {
                 className="flex flex-col items-center gap-4 mt-6"
               >
                 <div ref={qrRef} onClick={() => setIsOpen(true)}>
-                  <QRCode value={qrValue} size={220} />
+                  <div style={{ position: "relative", display: "inline-block" }}>
+                    <QRCode value={qrValue} size={256} id="qr-canvas" />
+                    {logo && (
+                      <img
+                        src={logo}
+                        alt="logo"
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          width: "56px",
+                          height: "56px",
+                          transform: "translate(-50%, -50%)",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          border: "3px solid white",
+                        }}
+                      />
+                    )}
+                  </div>
                 </div>
-
-                
 
                 <div className="flex gap-4 mt-2">
                   <label className="flex items-center gap-2 text-sm">
-                    <input
-                      type="radio"
-                      value="png"
-                      checked={downloadFormat === "png"}
-                      onChange={(e) => setDownloadFormat(e.target.value)}
-                    />
+                    <input type="radio" value="png" checked={downloadFormat === "png"} onChange={(e) => setDownloadFormat(e.target.value)} />
                     PNG
                   </label>
                   <label className="flex items-center gap-2 text-sm">
-                    <input
-                      type="radio"
-                      value="pdf"
-                      checked={downloadFormat === "pdf"}
-                      onChange={(e) => setDownloadFormat(e.target.value)}
-                    />
+                    <input type="radio" value="pdf" checked={downloadFormat === "pdf"} onChange={(e) => setDownloadFormat(e.target.value)} />
                     PDF
                   </label>
                   <label className="flex items-center gap-2 text-sm">
-                    <input
-                      type="radio"
-                      value="svg"
-                      checked={downloadFormat === "svg"}
-                      onChange={(e) => setDownloadFormat(e.target.value)}
-                    />
+                    <input type="radio" value="svg" checked={downloadFormat === "svg"} onChange={(e) => setDownloadFormat(e.target.value)} />
                     SVG
                   </label>
                 </div>
 
                 <div className="flex gap-2 w-full">
-                  <Button
-                    onClick={downloadQR}
-                    className="flex-1 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 text-lg py-3"
-                  >
+                  <Button onClick={downloadQR} className="flex-1 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 text-lg py-3">
                     📥 Tải QR ({downloadFormat.toUpperCase()})
                   </Button>
-                  
-                  
+                  <Button onClick={shareQR} className="flex-1 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 text-lg py-3">
+                    📤 Chia sẻ QR
+                  </Button>
                 </div>
-                
               </motion.div>
-              
             )}
 
             {history.length > 0 && (
@@ -276,7 +335,26 @@ export default function Home() {
               >
                 ✖
               </button>
-              <QRCode value={qrValue || ""} size={300} />
+              <div style={{ position: "relative" }}>
+                <QRCode value={qrValue || ""} size={300} />
+                {logo && (
+                  <img
+                    src={logo}
+                    alt="logo"
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      width: "66px",
+                      height: "66px",
+                      transform: "translate(-50%, -50%)",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      border: "3px solid white",
+                    }}
+                  />
+                )}
+              </div>
               <div className="flex gap-4 mt-4">
                 <Button onClick={() => setZoom(zoom + 0.2)}>➕</Button>
                 <Button onClick={() => setZoom(Math.max(0.5, zoom - 0.2))}>➖</Button>
