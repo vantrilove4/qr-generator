@@ -209,19 +209,13 @@ export default function Home() {
       <p>
         <a href="https://qrfree.io.vn" target="_blank" rel="noopener noreferrer">
 
-        <img src= "/makeqr.png" alt="Logo" width={150} height={150} />
-        </a></p>
-      <p className="mb-6 text-xl font-semibold text-indigo-700 text-center">
-        
-          Tạo mã QR tùy chỉnh: màu, nền, logo 🚀
-      </p>
-      
-
+        <img src= "/makeqr.png" alt="Logo" width={200} height={200} />
+        </a></p>    
       <div className="flex-1 flex items-center justify-center w-full">
         <Card className="w-full max-w-lg p-10 shadow-xl rounded-2xl bg-white">
           <CardContent className="space-y-6">
             <h1 className="text-3xl font-bold text-center text-gray-900">
-              Tạo QR Code Free
+              TẠO MÃ QR MIỄN PHÍ
             </h1>
 
             <div className="flex gap-2 items-center">
@@ -239,7 +233,7 @@ export default function Home() {
                 htmlFor="file-input"
                 className="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 text-sm"
               >
-                📁 Chọn logo
+                📁 Chọn ảnh đặt vào mã QR
               </label>
               <input
                 id="file-input"
@@ -271,7 +265,7 @@ export default function Home() {
               className="w-full rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 text-lg py-3"
               disabled={!text}
             >
-              Tạo QR
+              Tạo Ngay
             </Button>
 
             <p className="text-sm text-gray-600">
