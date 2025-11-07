@@ -64,11 +64,7 @@ export default function Home() {
         .update({ downloads: existing.downloads + 1 })
         .eq("qr_text", 1)
         .single();
-      if (!error && data && typeof (data as any).downloads === "number") {
-        setDownloadCount((data as any).downloads);
-}     else {
-        setDownloadCount(0);
-}
+      
     }
   };
 
