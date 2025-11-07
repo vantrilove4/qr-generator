@@ -2,7 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
- 
+import Script from "next/script";
+
 export const metadata: Metadata = {
   title: "Tạo mã QR miễn phí & Tùy chỉnh | QR Generator",
   description: "Tạo mã QR online miễn phí, hỗ trợ nhiều loại nội dung: văn bản, URL, Wi-Fi, vCard, Crypto. Tùy chỉnh màu QR, màu nền, bo góc, thêm logo, lưu lịch sử, phóng to/thu nhỏ, tải về PNG/PDF/SVG và chia sẻ trực tiếp.",
@@ -42,16 +43,27 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <head>
-        <title>Next.js</title>
+        {/* Google Analytics */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-TESRRYTM8Z"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TESRRYTM8Z');
+          `}
+        </Script>
       </head>
       <body>
         {children}
