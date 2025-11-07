@@ -204,10 +204,18 @@ export default function Home() {
   };
 
   return (
+    
     <div className="min-h-screen flex flex-col items-center justify-between bg-gradient-to-br from-indigo-100 to-white p-6">
+      <p>
+        <a href="https://qrfree.io.vn" target="_blank" rel="noopener noreferrer">
+
+        <img src= "/makeqr.png" alt="Logo" width={150} height={150} />
+        </a></p>
       <p className="mb-6 text-xl font-semibold text-indigo-700 text-center">
-        Tạo mã QR tùy chỉnh: màu, nền, logo 🚀
+        
+          Tạo mã QR tùy chỉnh: màu, nền, logo 🚀
       </p>
+      
 
       <div className="flex-1 flex items-center justify-center w-full">
         <Card className="w-full max-w-lg p-10 shadow-xl rounded-2xl bg-white">
