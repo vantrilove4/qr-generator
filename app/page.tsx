@@ -27,6 +27,10 @@ export default function Home() {
   const [vCardName, setVCardName] = useState("");
   const [vCardPhone, setVCardPhone] = useState("");
 
+  // Crypto
+  const [cryptoCoin, setCryptoCoin] = useState("BTC");
+  const [cryptoAddress, setCryptoAddress] = useState("");
+
   const [qrValue, setQrValue] = useState<string | null>(null);
   const [history, setHistory] = useState<{ text: string }[]>([]);
   const [downloadCount, setDownloadCount] = useState<number>(0);
@@ -89,6 +93,11 @@ export default function Home() {
       case "vcard":
         value = `BEGIN:VCARD\nVERSION:3.0\nFN:${vCardName}\nTEL:${vCardPhone}\nEND:VCARD`;
         break;
+      case "crypto":
+  if (!cryptoAddress) return;
+  value = `${cryptoCoin.toLowerCase()}:${cryptoAddress}`; // SOL cũng được convert thành sol:<address>
+  break;
+
       default:
         value = text;
     }
@@ -200,6 +209,7 @@ export default function Home() {
                 <option value="url">URL</option>
                 <option value="wifi">Wi-Fi</option>
                 <option value="vcard">vCard</option>
+                <option value="crypto">Crypto</option>
               </select>
             </div>
 
@@ -223,6 +233,26 @@ export default function Home() {
                 <Input placeholder="Số điện thoại" value={vCardPhone} onChange={(e) => setVCardPhone(e.target.value)} className="rounded-lg p-3" />
               </div>
             )}
+            {qrType === "crypto" && (
+  <div className="space-y-2">
+    <select value={cryptoCoin} onChange={(e) => setCryptoCoin(e.target.value)} className="rounded-lg p-2 border">
+      <option value="BTC">Bitcoin (BTC)</option>
+      <option value="ETH">Ethereum (ETH)</option>
+      <option value="USDT">Tether (USDT)</option>
+      <option value="BNB">Binance Coin (BNB)</option>
+      <option value="LTC">Litecoin (LTC)</option>
+      <option value="DOGE">Dogecoin (DOGE)</option>
+      <option value="XRP">Ripple (XRP)</option>
+      <option value="SOL">Solana (SOL)</option> {/* Thêm SOL */}
+    </select>
+    <Input
+      placeholder="Nhập địa chỉ ví"
+      value={cryptoAddress}
+      onChange={(e) => setCryptoAddress(e.target.value)}
+      className="rounded-lg p-3"
+    />
+  </div>
+)}
 
             {/* Chọn logo */}
             <label htmlFor="file-input" className="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 text-sm">
