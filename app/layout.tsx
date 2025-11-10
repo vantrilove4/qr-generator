@@ -64,6 +64,8 @@ export default function RootLayout({
             gtag('config', 'G-TESRRYTM8Z');
           `}
         </Script>
+        <meta name="msvalidate.01" content="9DA58065EEC86FB88BAEB21C5A7EEDAC" />
+    
       </head>
       <body>
         {children}
