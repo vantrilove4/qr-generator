@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { jsPDF } from "jspdf";
 import { createClient } from "@supabase/supabase-js";
+import Link from "next/link";
 
 
 // Kết nối Supabase
@@ -341,15 +342,23 @@ export default function Home() {
                         >
                           {item.text}
                         </div>
+                        
                       ))}
                     </div>
+                    
                   </div>
                 )}
               </motion.div>
             )}
           </CardContent>
         </Card>
+        
       </div>
+      <nav className="p-4 flex gap-4 justify-center">
+                <h5 className="text-blue-600 font-bold"> Made by: TriNguyen</h5>
+
+          </nav>
+          
     </div>
   );
 }

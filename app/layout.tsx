@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Script from "next/script";
+import Link from "next/link";
+
 
 export const metadata: Metadata = {
   title: "Tạo mã QR miễn phí & Tùy chỉnh | QR Generator",
@@ -71,15 +73,17 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        
         <footer className="text-center text-sm py-6">
           <nav className="p-4 flex gap-4 justify-center">
-            <a href="/" className="text-blue-600">Home</a>
-            <a href="/about" className="text-blue-600">Giới thiệu</a>
-            <a href="/contact" className="text-blue-600">Liên hệ</a>
-            <a href="/terms" className="text-blue-600">Điều khoản</a>
-            <a href="/privacy" className="text-blue-600">Chính sách bảo mật</a>
+            <Link href="/" className="text-blue-600 font-bold">Home</Link>
+            <Link href="/about" className="text-blue-600 font-bold">Giới thiệu</Link>
+            <Link href="/contact" className="text-blue-600 font-bold">Liên hệ</Link>
+            <Link href="/terms" className="text-blue-600 font-bold">Điều khoản</Link>
+            <Link href="/privacy" className="text-blue-600 font-bold">Chính sách bảo mật</Link>
+                   
           </nav>
-
+          
         </footer>
       </body>
     </html>
