@@ -71,6 +71,16 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        <footer className="text-center text-sm py-6">
+          <nav className="p-4 flex gap-4 justify-center">
+            <a href="/" className="text-blue-600">Home</a>
+            <a href="/about" className="text-blue-600">Giới thiệu</a>
+            <a href="/contact" className="text-blue-600">Liên hệ</a>
+            <a href="/terms" className="text-blue-600">Điều khoản</a>
+            <a href="/privacy" className="text-blue-600">Chính sách bảo mật</a>
+          </nav>
+
+        </footer>
       </body>
     </html>
   );
