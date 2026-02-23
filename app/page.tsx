@@ -202,7 +202,7 @@ export default function Home() {
         <Card className="w-full max-w-lg p-10 shadow-xl rounded-2xl bg-white">
           <CardContent className="space-y-6">
             <h1 className="text-3xl font-bold text-center text-gray-900">TẠO MÃ QR MIỄN PHÍ</h1>
-
+            
             {/* Dropdown chọn loại QR */}
             <div className="flex gap-2 items-center">
               <label className="text-sm">Loại QR:</label>
@@ -283,7 +283,17 @@ export default function Home() {
             <Button onClick={generateQR} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-lg py-3">
               Tạo Ngay
             </Button>
-
+              <p className="text-sm text-gray-600 text-center mt-2">
+    <a
+    href="https://watermarkpro.io.vn/"
+    target="_blank"
+    rel="noopener"
+    className="text-indigo-600 font-semibold hover:underline"
+  >
+    Tạo watermark online miễn phí tại Watermarkpro.io.vn
+  </a>{" "}
+  để bảo vệ ảnh khỏi bị sao chép.
+</p>
             <p className="text-sm text-gray-600">📊 Số mã QR đã được tạo: <span className="font-semibold">{downloadCount}</span> lần</p>
 
             {qrValue && (
