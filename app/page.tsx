@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { jsPDF } from "jspdf";
 import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
+import { ScanLine } from "lucide-react";
 
 
 // Kết nối Supabase
@@ -192,15 +193,43 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-between bg-gradient-to-br from-indigo-100 to-white p-6">
+      
       <p>
         <a href="https://qrfree.io.vn" target="_blank" rel="noopener noreferrer">
           <img src="/makeqr.png" alt="Logo" width={200} height={200} />
         </a>
       </p>
-
+      
       <div className="flex-1 flex items-center justify-center w-full">
+        
         <Card className="w-full max-w-lg p-10 shadow-xl rounded-2xl bg-white">
+          
           <CardContent className="space-y-6">
+            <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+  <div className="rounded-2xl bg-black p-4 text-white shadow-md">
+    <h3 className="text-lg font-semibold">
+      Tạo QR Code
+    </h3>
+
+    <p className="mt-1 text-sm text-zinc-300">
+      Link, WiFi, văn bản...
+    </p>
+  </div>
+
+  <Link
+    href="/scan"
+    className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-md transition hover:bg-zinc-50"
+  >
+    <h3 className="flex items-center gap-2 text-lg font-semibold">
+      <ScanLine size={18} />
+      Quét QR Code
+    </h3>
+
+    <p className="mt-1 text-sm text-zinc-500">
+      Camera hoặc ảnh QR
+    </p>
+  </Link>
+</div>
             <h1 className="text-3xl font-bold text-center text-gray-900">TẠO MÃ QR MIỄN PHÍ</h1>
             
             {/* Dropdown chọn loại QR */}
@@ -364,6 +393,9 @@ export default function Home() {
         </Card>
         
       </div>
+      <Link href="/scan">
+  Scan QR
+    </Link>
       <nav className="p-4 flex gap-4 justify-center">
                 <h5 className="text-blue-600 font-bold"> Made by: TriNguyen</h5>
 
