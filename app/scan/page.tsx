@@ -1,8 +1,59 @@
-"use client";
+//"use client";
 
 import QrScanner from "@/components/qr-scanner";
 import Link from "next/link";
 import { ScanLine } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Scan QR Code Online Free | QRFree",
+
+  description:
+    "Scan QR codes online using camera or image upload for free. Fast, secure and works on mobile.",
+
+  keywords: [
+    "scan qr code",
+    "qr scanner online",
+    "quét qr online",
+    "đọc mã qr",
+    "scan qr from image",
+    "qrfree",
+  ],
+
+  openGraph: {
+    title: "Scan QR Code Online Free | QRFree",
+
+    description:
+      "Scan QR codes online using camera or image upload for free.",
+
+    url: "https://qrfree.io.vn/scan",
+
+    siteName: "QRFree",
+
+    locale: "vi_VN",
+
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title: "Scan QR Code Online Free | QRFree",
+
+    description:
+      "Scan QR codes online using camera or image upload for free.",
+  },
+
+  alternates: {
+    canonical: "https://qrfree.io.vn/scan",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 export default function ScanPage() {
   return (
     
