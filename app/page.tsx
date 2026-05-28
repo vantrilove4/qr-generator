@@ -400,7 +400,47 @@ export default function Home() {
                 <h5 className="text-blue-600 font-bold"> Made by: TriNguyen</h5>
 
           </nav>
-          
+          <>
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+
+        "@type": "SoftwareApplication",
+
+        name: "QRFree QR Generator",
+
+        applicationCategory:
+          "UtilitiesApplication",
+
+        operatingSystem: "Web Browser",
+
+        description:
+          "Free online QR code generator with custom colors, logo support, and downloadable QR codes.",
+
+        url: "https://qrfree.io.vn",
+
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+
+        featureList: [
+          "Generate QR codes",
+          "Custom QR colors",
+          "Logo QR codes",
+          "Download QR code PNG",
+          "Free QR generator",
+        ],
+      }),
+    }}
+  />
+
+  {/* GIỮ NGUYÊN UI CŨ */}
+</>
     </div>
+    
   );
 }

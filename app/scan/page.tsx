@@ -54,6 +54,7 @@ export const metadata: Metadata = {
 
 export default function ScanPage() {
   return (
+    
     <main className="min-h-screen bg-[#f5f7fb]">
       <div className="mx-auto flex min-h-screen max-w-[1200px] items-center px-4 py-10">
         <div className="grid w-full gap-8 lg:grid-cols-[340px_minmax(0,1fr)]">
@@ -107,6 +108,35 @@ export default function ScanPage() {
           <QrScanner />
         </div>
       </div>
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+
+      "@type": "SoftwareApplication",
+
+      name: "QRFree Scanner",
+
+      applicationCategory:
+        "UtilitiesApplication",
+
+      operatingSystem: "Web Browser",
+
+      description:
+        "Free online QR code scanner using camera, image upload, and screen capture.",
+
+      url: "https://qrfree.io.vn/scan",
+
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+    }),
+  }}
+/>
+
     </main>
   );
 }
