@@ -2,13 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
+import { BrowserQRCodeReader } from "@zxing/browser";
+import ReactCrop from "react-image-crop";
 
-import ReactCrop, {
+import type {
   Crop,
   PixelCrop,
 } from "react-image-crop";
 
-import "react-image-crop/dist/ReactCrop.css";
+// @ts-ignore: CSS side-effect import without type declarations
+//import "react-image-crop/dist/style.css";
+
 
 export default function QrScanner() {
   const scannerRef = useRef<Html5Qrcode | null>(null);
@@ -86,29 +90,44 @@ export default function QrScanner() {
   };
 
   // UPLOAD IMAGE
-  const handleFileUpload = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
+const handleFileUpload = async (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+  const file = e.target.files?.[0];
 
-    if (!file) return;
+  if (!file) return;
 
-    try {
-      const scanner = new Html5Qrcode("reader");
+  try {
+    const imageUrl =
+      URL.createObjectURL(file);
 
-      const decoded = await scanner.scanFile(
-        file,
-        true
-      );
+    const img = new Image();
 
-      setResult(decoded);
-    } catch (err) {
-      console.error(err);
+    img.src = imageUrl;
 
-      alert("Không đọc được QR");
-    }
-  };
+    img.onload = async () => {
+      try {
+        const reader =
+          new BrowserQRCodeReader();
 
+        const result =
+          await reader.decodeFromImageElement(
+            img
+          );
+
+        setResult(result.getText());
+      } catch (err) {
+        console.error(err);
+
+        alert("Không đọc được QR");
+      }
+    };
+  } catch (err) {
+    console.error(err);
+
+    alert("Lỗi xử lý ảnh");
+  }
+};
   // SCREEN CAPTURE
   const captureScreen = async () => {
     try {
@@ -266,16 +285,34 @@ export default function QrScanner() {
         );
 
         try {
-          const scanner =
-            new Html5Qrcode("reader");
+          const imageUrl =
+  URL.createObjectURL(file);
 
-          const decoded =
-            await scanner.scanFile(
-              file,
-              true
-            );
+const img = new Image();
 
-          setResult(decoded);
+img.src = imageUrl;
+
+img.onload = async () => {
+  try {
+    const reader =
+      new BrowserQRCodeReader();
+
+    const result =
+      await reader.decodeFromImageElement(
+        img
+      );
+
+    setResult(result.getText());
+
+    setScreenImage(null);
+  } catch (err) {
+    console.error(err);
+
+    alert(
+      "Không tìm thấy QR trong vùng đã chọn"
+    );
+  }
+};
 
           setScreenImage(null);
         } catch (err) {
