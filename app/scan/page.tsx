@@ -6,31 +6,37 @@ import { ScanLine } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Scan QR Code Online Free | QRFree",
+  title:
+    "Free QR Code Scanner Online | Camera, Image & Screen Scanner",
 
   description:
-    "Scan QR codes online using camera or image upload for free. Fast, secure and works on mobile.",
+    "Scan QR codes instantly using camera, image upload, or screen capture. Free online QR scanner with snipping tool support.",
 
   keywords: [
+    "qr scanner",
     "scan qr code",
-    "qr scanner online",
-    "quét qr online",
-    "đọc mã qr",
+    "qr code scanner online",
     "scan qr from image",
-    "qrfree",
+    "scan qr from screen",
+    "free qr scanner",
   ],
 
+  alternates: {
+    canonical: "https://qrfree.io.vn/scan",
+  },
+
   openGraph: {
-    title: "Scan QR Code Online Free | QRFree",
+    title:
+      "Free QR Code Scanner Online | QRFree",
 
     description:
-      "Scan QR codes online using camera or image upload for free.",
+      "Scan QR codes using camera, uploaded images, or screen capture.",
 
     url: "https://qrfree.io.vn/scan",
 
     siteName: "QRFree",
 
-    locale: "vi_VN",
+    locale: "en_US",
 
     type: "website",
   },
@@ -38,19 +44,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Scan QR Code Online Free | QRFree",
+    title:
+      "Free QR Code Scanner Online | QRFree",
 
     description:
-      "Scan QR codes online using camera or image upload for free.",
-  },
-
-  alternates: {
-    canonical: "https://qrfree.io.vn/scan",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
+      "Scan QR codes instantly from camera, images, or your screen.",
   },
 };
 
@@ -73,7 +71,10 @@ export default function ScanPage() {
               <br />
               instantly
             </h1>
-
+            <h2 className="sr-only">
+  Scan QR codes from camera, image upload,
+  and screen capture online for free
+</h2>
             <p className="mt-5 max-w-sm text-base leading-7 text-zinc-500">
               Quét mã QR bằng camera hoặc tải ảnh lên.
               Nhanh, đơn giản và hoạt động trực tiếp trên trình duyệt.
