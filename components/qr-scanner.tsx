@@ -10,7 +10,6 @@ import type {
   PixelCrop,
 } from "react-image-crop";
 
-// @ts-ignore: CSS side-effect import without type declarations
 //import "react-image-crop/dist/style.css";
 
 
@@ -67,8 +66,8 @@ export default function QrScanner() {
         },
         () => {}
       );
-    } catch (err) {
-      console.error(err);
+    } catch  {
+      console.error();
 
       alert("Không thể mở camera");
     }

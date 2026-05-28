@@ -2,7 +2,7 @@
 
 import QrScanner from "@/components/qr-scanner";
 import Link from "next/link";
-import { ScanLine } from "lucide-react";
+//import { ScanLine } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
