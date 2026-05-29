@@ -11,7 +11,7 @@ import Link from "next/link";
 import { ScanLine } from "lucide-react";
 
 
-// Kết nối Supabase
+//// Kết nối Supabase
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
