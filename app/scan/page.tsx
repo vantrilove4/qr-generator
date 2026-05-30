@@ -5,6 +5,8 @@ import Link from "next/link";
 //import { ScanLine } from "lucide-react";
 import type { Metadata } from "next";
 
+
+
 export const metadata: Metadata = {
   title:
     "Free QR Code Scanner Online | Camera, Image & Screen Scanner",
@@ -68,9 +70,7 @@ export default function ScanPage() {
             </Link>
 
             <h1 className="text-5xl font-bold leading-tight tracking-tight text-zinc-900">
-              Scan QR
-              <br />
-              instantly
+              Quét mã QR trực tuyến miễn phí
             </h1>
             <h2 className="sr-only">
   Scan QR codes from camera, image upload,

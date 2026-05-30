@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import { BrowserQRCodeReader } from "@zxing/browser";
 import ReactCrop from "react-image-crop";
+import { createClient } from "@supabase/supabase-js";
 
 import type {
   Crop,
@@ -11,6 +12,12 @@ import type {
 } from "react-image-crop";
 
 //import "react-image-crop/dist/style.css";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
 
 
 export default function QrScanner() {
@@ -34,15 +41,19 @@ export default function QrScanner() {
     width: 50,
     height: 50,
   });
-
+  const [scanCount, setScanCount] =
+  useState<number>(0);
+  
   const [completedCrop, setCompletedCrop] =
     useState<PixelCrop>();
 
   useEffect(() => {
-    return () => {
-      stopScanner();
-    };
-  }, []);
+  fetchScanCount();
+
+  return () => {
+    stopScanner();
+  };
+}, []);
 
   // CAMERA SCAN
   const startScanner = async () => {
@@ -61,6 +72,7 @@ export default function QrScanner() {
         },
         (decodedText) => {
           setResult(decodedText);
+          incrementScanCount();
 
           stopScanner();
         },
@@ -115,6 +127,7 @@ const handleFileUpload = async (
           );
 
         setResult(result.getText());
+await incrementScanCount();
       } catch (err) {
         console.error(err);
 
@@ -127,6 +140,43 @@ const handleFileUpload = async (
     alert("Lỗi xử lý ảnh");
   }
 };
+
+
+const fetchScanCount = async () => {
+  const { data } = await supabase
+    .from("qr_downloads")
+    .select("downloads")
+    .eq("qr_text", 2)
+    .single();
+
+  if (data) {
+    setScanCount(data.downloads);
+  }
+};
+
+const incrementScanCount = async () => {
+  const { data } = await supabase
+    .from("qr_downloads")
+    .select("downloads")
+    .eq("qr_text", 2)
+    .single();
+
+  if (!data) return;
+
+  const newCount = data.downloads + 1;
+
+  await supabase
+    .from("qr_downloads")
+    .update({
+      downloads: newCount,
+    })
+    .eq("qr_text", 2);
+
+  setScanCount(newCount);
+};
+
+
+
   // SCREEN CAPTURE
   const captureScreen = async () => {
     try {
@@ -303,7 +353,9 @@ img.onload = async () => {
 
     setResult(result.getText());
 
-    setScreenImage(null);
+await incrementScanCount();
+
+setScreenImage(null);
   } catch (err) {
     console.error(err);
 
@@ -397,6 +449,7 @@ img.onload = async () => {
                   Cancel
                 </button>
               </div>
+              
             </div>
           </div>
         )}
@@ -409,7 +462,7 @@ img.onload = async () => {
                 onClick={startScanner}
                 className="rounded-2xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
               >
-                Start Scan
+              Quét bằng camera
               </button>
             ) : (
               <button
@@ -421,7 +474,7 @@ img.onload = async () => {
             )}
 
             <label className="cursor-pointer rounded-2xl border border-zinc-200 bg-white px-5 py-3 text-sm font-medium text-zinc-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-zinc-50 hover:shadow-md">
-              Upload QR
+              Tải ảnh mã QR lên
 
               <input
                 type="file"
@@ -435,9 +488,16 @@ img.onload = async () => {
               onClick={captureScreen}
               className="rounded-2xl border border-zinc-200 bg-white px-5 py-3 text-sm font-medium text-zinc-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-zinc-50 hover:shadow-md"
             >
-              Scan Area
+              Quét màn hình máy tính
             </button>
+                     <div className="mt-3 text-sm text-zinc-500">
+  📊 Đã quét:{" "}
+  <span className="font-semibold">
+    {scanCount.toLocaleString()}
+  </span>
+</div>
           </div>
+          
         )}
 
         {/* RESULT */}
