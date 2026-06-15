@@ -1,11 +1,17 @@
+
+import Link from "next/link";
+
 export const metadata = {
   title: "Điều khoản sử dụng | Terms of Use | QRFree",
   description: "Điều khoản sử dụng của QRFree.io.vn",
 };
+
 export default function TermsPage() {
   return (
     <main className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Điều khoản sử dụng</h1>
+      <h1 className="mb-4 text-3xl font-bold">
+        Điều khoản sử dụng
+      </h1>
 
       <p>
         Khi sử dụng QR Generator, bạn đồng ý không sử dụng dịch vụ vào các mục đích
@@ -13,10 +19,19 @@ export default function TermsPage() {
       </p>
 
       <p className="mt-4">
-        Chúng tôi không chịu trách nhiệm đối với nội dung được người dùng tạo ra thông qua mã QR.
+        Chúng tôi không chịu trách nhiệm đối với nội dung được người dùng tạo ra
+        thông qua mã QR.
       </p>
 
-     
+      {/* Nút quay về trang chủ */}
+      <div className="mt-8">
+        <Link
+          href="/"
+          className="inline-flex items-center rounded-lg bg-cyan-500 px-5 py-3 font-medium text-black transition hover:bg-cyan-400"
+        >
+          ← Quay về trang chủ
+        </Link>
+      </div>
     </main>
   );
 }

@@ -11,11 +11,14 @@ import Link from "next/link";
 import { ScanLine } from "lucide-react";
 
 
+
+
 //// Kết nối Supabase
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
+
 
 export default function Home() {
   // Loại QR
@@ -393,9 +396,7 @@ export default function Home() {
         </Card>
         
       </div>
-      <Link href="/scan">
-  Scan QR
-    </Link>
+      
       <nav className="p-4 flex gap-4 justify-center">
                 <h5 className="text-blue-600 font-bold"> Made by: TriNguyen</h5>
 

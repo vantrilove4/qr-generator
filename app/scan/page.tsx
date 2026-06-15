@@ -63,7 +63,7 @@ export default function ScanPage() {
           {/* Left */}
           <div className="flex flex-col justify-center">
             <Link
-              href="/"
+              href="/generate"
               className="mb-8 w-fit rounded-2xl border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               ← Tạo QR
