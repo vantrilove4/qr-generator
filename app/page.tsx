@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import VisitorCounter from "@/components/VisitorCounter";
 
 export default function HomePage() {
   return (
@@ -135,6 +136,7 @@ export default function HomePage() {
           <p className="mt-4">
             Made with ❤️ by TriNguyen
           </p>
+          <VisitorCounter />
         </footer>
       </div>
     </main>
