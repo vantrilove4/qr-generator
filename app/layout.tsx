@@ -1,3 +1,4 @@
+// @ts-ignore: Allow side-effect CSS import without type declarations
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";

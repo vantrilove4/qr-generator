@@ -20,6 +20,7 @@ export default function HomePage() {
           >
             <p>
         <a href="https://qrfree.io.vn" target="_blank" rel="noopener noreferrer">
+
           <img src="/makeqr.png" alt="Logo" width={100} height={100} />
         </a>
       </p>
@@ -131,6 +132,7 @@ export default function HomePage() {
             <Link href="/contact">Liên hệ</Link>
             <Link href="/privacy">Bảo mật</Link>
             <Link href="/terms">Điều khoản</Link>
+            <Link href="/blog">Blog</Link>
           </div>
 
           <p className="mt-4">
