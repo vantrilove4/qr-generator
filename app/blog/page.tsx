@@ -12,7 +12,7 @@ const posts = [
     title: "QR Code là gì? Cách tạo mã QR miễn phí năm 2026",
     description:
       "Tìm hiểu QR Code là gì, cách hoạt động và ứng dụng trong cuộc sống.",
-    href: "/blog/qr-code-la-gi",
+    href: "/blog/qrcode-la-gi",
     category: "Kiến thức QR",
     time: "5 phút đọc",
   },
