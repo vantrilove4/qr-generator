@@ -129,6 +129,7 @@ export default function RootLayout({
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
+        <meta name="google-adsense-account" content="ca-pub-7426230349740633"></meta>
       </head>
 
       <body suppressHydrationWarning>
