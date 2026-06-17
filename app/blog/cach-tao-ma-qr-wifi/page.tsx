@@ -69,7 +69,7 @@ export default function WifiQRBlog() {
 
             <ol className="space-y-4 text-slate-300">
               <li>1. Truy cập QRFree.io.vn.</li>
-              <li>2. Chọn loại QR "WiFi".</li>
+              <li>2. Chọn loại QR WiFi.</li>
               <li>3. Nhập tên mạng và mật khẩu.</li>
               <li>4. Chọn loại bảo mật.</li>
               <li>5. Nhấn tạo và tải xuống.</li>

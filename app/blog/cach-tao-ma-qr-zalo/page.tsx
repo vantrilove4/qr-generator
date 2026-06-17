@@ -92,7 +92,7 @@ export default function ZaloQRBlogPage() {
             <ol className="space-y-4 text-slate-300">
               <li>1. Sao chép liên kết Zalo của bạn.</li>
               <li>2. Truy cập QRFree.io.vn.</li>
-              <li>3. Chọn loại QR "Website".</li>
+              <li>3. Chọn loại QR Website.</li>
               <li>4. Dán liên kết Zalo vào.</li>
               <li>5. Tùy chỉnh màu sắc hoặc logo.</li>
               <li>6. Tải mã QR về thiết bị.</li>

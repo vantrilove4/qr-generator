@@ -91,7 +91,7 @@ export default function FacebookQRBlogPage() {
             <ol className="space-y-4 text-slate-300">
               <li>1. Sao chép liên kết Facebook cá nhân hoặc Fanpage.</li>
               <li>2. Truy cập QRFree.io.vn.</li>
-              <li>3. Chọn loại QR "Website".</li>
+              <li>3. Chọn loại QR Website.</li>
               <li>4. Dán liên kết Facebook vào ô nhập liệu.</li>
               <li>5. Tùy chỉnh màu sắc hoặc logo nếu cần.</li>
               <li>6. Tải mã QR về thiết bị.</li>
