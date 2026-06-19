@@ -177,7 +177,8 @@ export default function ScanQRBlogPage() {
                 Tìm hiểu về mã QR và cách hoạt động của công nghệ này.
               </p>
             </Link>
-
+<script async="async" data-cfasync="false" src="https://pl29783748.effectivecpmnetwork.com/721828cd8f8c6a17755c9736f4a6116a/invoke.js"></script>
+<div id="container-721828cd8f8c6a17755c9736f4a6116a"></div>
             <Link
               href="/blog/cach-tao-ma-qr-wifi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
