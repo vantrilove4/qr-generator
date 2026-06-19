@@ -139,7 +139,8 @@ export default function ScanQRBlogPage() {
             </p>
           </section>
         </article>
-
+<script async="async" data-cfasync="false" src="https://pl29783748.effectivecpmnetwork.com/721828cd8f8c6a17755c9736f4a6116a/invoke.js"></script>
+<div id="container-721828cd8f8c6a17755c9736f4a6116a"></div>
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">
           <h2 className="text-3xl font-bold">
@@ -190,8 +191,10 @@ export default function ScanQRBlogPage() {
                 Chia sẻ WiFi nhanh chóng mà không cần nhập mật khẩu.
               </p>
             </Link>
+            
           </div>
         </section>
+        
       </div>
     </main>
   );

@@ -102,6 +102,9 @@ export default function BlogPage() {
             và nhiều mẹo hữu ích giúp bạn sử dụng QR hiệu quả hơn.
           </p>
         </section>
+           <script async="async" data-cfasync="false" src="https://pl29783748.effectivecpmnetwork.com/721828cd8f8c6a17755c9736f4a6116a/invoke.js"></script>
+<div id="container-721828cd8f8c6a17755c9736f4a6116a"></div>
+
 
         {/* Blog Grid */}
         <section className="mx-auto max-w-7xl px-5 pb-20">
