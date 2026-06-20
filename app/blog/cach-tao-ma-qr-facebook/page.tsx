@@ -32,7 +32,8 @@ export default function FacebookQRBlogPage() {
         >
           ← Quay lại Blog
         </Link>
-
+<script async data-cfasync="false" src="https://pl29783748.effectivecpmnetwork.com/721828cd8f8c6a17755c9736f4a6116a/invoke.js"></script>
+<div id="container-721828cd8f8c6a17755c9736f4a6116a"></div>
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
           <span className="rounded-full bg-cyan-500/10 px-4 py-1 text-sm text-cyan-300">
