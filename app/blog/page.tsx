@@ -56,6 +56,54 @@ const posts = [
     category: "QR Facebook",
     time: "5 phút đọc",
   },
+  {
+    title: "Cách tạo mã QR thanh toán ngân hàng",
+    description:
+      "Tạo mã QR VietQR để nhận chuyển khoản nhanh chóng.",
+    href: "/blog/cach-tao-ma-qr-thanh-toan-ngan-hang",
+    category: "VietQR",
+    time: "5 phút đọc",
+  },
+  {
+    title: "QR động và QR tĩnh khác nhau thế nào?",
+    description:
+      "So sánh chi tiết Dynamic QR và Static QR.",
+    href: "/blog/qr-dong-va-qr-tinh-khac-nhau-the-nao",
+    category: "Kiến thức QR",
+    time: "6 phút đọc",
+  },
+  {
+    title: "Cách tạo mã QR Google Maps miễn phí",
+    description:
+      "Chia sẻ vị trí và chỉ đường bằng QR Code.",
+    href: "/blog/cach-tao-ma-qr-google-maps",
+    category: "Google Maps",
+    time: "5 phút đọc",
+  },
+  {
+    title: "Cách tạo mã QR cho file PDF",
+    description:
+      "Biến tài liệu PDF thành QR Code để chia sẻ dễ dàng.",
+    href: "/blog/cach-tao-ma-qr-pdf",
+    category: "PDF QR",
+    time: "5 phút đọc",
+  },
+  {
+    title: "Cách tạo mã QR danh thiếp (vCard)",
+    description:
+      "Chia sẻ thông tin liên hệ chuyên nghiệp bằng QR.",
+    href: "/blog/cach-tao-ma-qr-danh-thiep-vcard",
+    category: "vCard",
+    time: "6 phút đọc",
+  },
+  {
+    title: "Những lỗi thường gặp khi quét mã QR",
+    description:
+      "Tổng hợp các lỗi phổ biến và cách khắc phục.",
+    href: "/blog/nhung-loi-thuong-gap-khi-quet-ma-qr",
+    category: "QR Scanner",
+    time: "6 phút đọc",
+  },
 ];
 
 export default function BlogPage() {
