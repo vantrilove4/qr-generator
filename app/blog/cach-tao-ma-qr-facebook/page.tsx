@@ -1,21 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cách tạo mã QR Facebook cá nhân và Fanpage miễn phí | QRFree",
-  description:
-    "Hướng dẫn tạo mã QR Facebook miễn phí để chia sẻ trang cá nhân hoặc Fanpage nhanh chóng.",
-  keywords: [
-    "tạo qr facebook",
-    "mã qr facebook",
-    "qr fanpage",
-    "facebook qr code",
-    "tạo mã qr fanpage",
-  ],
-  alternates: {
-    canonical: "https://qrfree.io.vn/blog/cach-tao-ma-qr-facebook",
-  },
-};
+export const metadata = createPageMetadata("Cách tạo mã QR Facebook cá nhân và Fanpage miễn phí | QRFree", "Hướng dẫn tạo mã QR Facebook miễn phí để chia sẻ trang cá nhân hoặc Fanpage nhanh chóng.", "/blog/cach-tao-ma-qr-facebook");
 
 export default function FacebookQRBlogPage() {
   return (
@@ -39,7 +25,7 @@ export default function FacebookQRBlogPage() {
             FACEBOOK QR
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách tạo mã QR Facebook
             <span className="mt-2 block text-cyan-400">
               miễn phí trong vài giây
@@ -47,8 +33,8 @@ export default function FacebookQRBlogPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 17/06/2026</span>
-            <span>⏱️ 5 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>5 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -58,48 +44,48 @@ export default function FacebookQRBlogPage() {
         </div>
 
         {/* Nội dung */}
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Mã QR Facebook là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
               Đây là mã QR chứa liên kết đến trang Facebook cá nhân hoặc Fanpage.
-              Khi quét, người dùng sẽ được chuyển đến đúng trang mà bạn muốn chia sẻ.
+              Khi quét, điện thoại mở liên kết bằng ứng dụng Facebook hoặc trình duyệt tùy thiết bị và trạng thái đăng nhập. Người xem có thể cần đăng nhập để xem một số nội dung.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Lợi ích của QR Facebook
             </h2>
 
             <ul className="space-y-4 text-slate-300">
-              <li>✓ Tăng lượt theo dõi Fanpage.</li>
+              <li>✓ Giúp khách tìm đúng trang cá nhân hoặc Fanpage để xem và theo dõi.</li>
               <li>✓ Dễ dàng kết nối với khách hàng.</li>
               <li>✓ Chia sẻ nhanh tại sự kiện hoặc hội chợ.</li>
               <li>✓ In trên danh thiếp hoặc poster.</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách tạo mã QR Facebook
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Sao chép liên kết Facebook cá nhân hoặc Fanpage.</li>
+              <li>1. Sao chép liên kết Facebook cá nhân hoặc Fanpage và thử mở để kiểm tra quyền xem.</li>
               <li>2. Truy cập QRFree.io.vn.</li>
               <li>3. Chọn loại QR Website.</li>
               <li>4. Dán liên kết Facebook vào ô nhập liệu.</li>
-              <li>5. Tùy chỉnh màu sắc hoặc logo nếu cần.</li>
+              <li>5. Dán liên kết, tạo mã và quét thử để chắc chắn mở đúng trang.</li>
               <li>6. Tải mã QR về thiết bị.</li>
             </ol>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Nên sử dụng QR Facebook ở đâu?
             </h2>
 
@@ -130,7 +116,7 @@ export default function FacebookQRBlogPage() {
 
         {/* Bài liên quan */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
@@ -149,7 +135,7 @@ export default function FacebookQRBlogPage() {
             </Link>
 
             <Link
-              href="/blog/qr-code-la-gi"
+              href="/blog/qrcode-la-gi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
             >
               <h3 className="text-xl font-bold">

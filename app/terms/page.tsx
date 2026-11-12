@@ -1,10 +1,8 @@
 
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Điều khoản sử dụng | Terms of Use | QRFree",
-  description: "Điều khoản sử dụng của QRFree.io.vn",
-};
+export const metadata = createPageMetadata("Điều khoản sử dụng QRFree", "Điều khoản sử dụng của QRFree.io.vn", "/terms");
 
 export default function TermsPage() {
   return (

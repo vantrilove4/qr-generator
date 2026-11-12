@@ -1,22 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Những lỗi thường gặp khi quét mã QR và cách khắc phục | QRFree",
-  description:
-    "Tổng hợp các lỗi phổ biến khi quét mã QR như không nhận diện được mã, camera không đọc được QR hoặc QR bị hỏng cùng cách khắc phục hiệu quả.",
-  keywords: [
-    "lỗi quét qr",
-    "không quét được qr",
-    "camera không đọc qr",
-    "qr không hoạt động",
-    "khắc phục lỗi qr",
-  ],
-  alternates: {
-    canonical:
-      "https://qrfree.io.vn/blog/nhung-loi-thuong-gap-khi-quet-ma-qr",
-  },
-};
+export const metadata = createPageMetadata("Những lỗi thường gặp khi quét mã QR và cách khắc phục | QRFree", "Tổng hợp các lỗi phổ biến khi quét mã QR như không nhận diện được mã, camera không đọc được QR hoặc QR bị hỏng cùng cách khắc phục hiệu quả.", "/blog/nhung-loi-thuong-gap-khi-quet-ma-qr");
 
 export default function QRScanErrorsPage() {
   return (
@@ -39,7 +24,7 @@ export default function QRScanErrorsPage() {
             QR SCANNER
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Những lỗi thường gặp
             <span className="block text-cyan-400">
               khi quét mã QR
@@ -47,8 +32,8 @@ export default function QRScanErrorsPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 20/06/2026</span>
-            <span>⏱️ 6 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>6 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -58,10 +43,10 @@ export default function QRScanErrorsPage() {
         </div>
 
         {/* Nội dung */}
-        <article className="mt-10 space-y-10">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               1. Mã QR bị mờ hoặc quá nhỏ
             </h2>
 
@@ -77,8 +62,8 @@ export default function QRScanErrorsPage() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               2. Camera điện thoại bị bẩn
             </h2>
 
@@ -94,8 +79,8 @@ export default function QRScanErrorsPage() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               3. Liên kết bên trong QR không còn tồn tại
             </h2>
 
@@ -109,8 +94,8 @@ export default function QRScanErrorsPage() {
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               4. QR có độ tương phản thấp
             </h2>
 
@@ -125,23 +110,22 @@ export default function QRScanErrorsPage() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
-              5. Ứng dụng quét QR không hỗ trợ
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
+              5. Camera chưa nhận diện mã QR
             </h2>
 
             <p className="leading-8 text-slate-300">
-              Một số điện thoại đời cũ không hỗ trợ quét QR trực tiếp bằng camera.
+              Khả năng quét phụ thuộc vào mẫu điện thoại, ứng dụng Camera và cài đặt. Đảm bảo toàn bộ mã nằm trong khung hình, giữ máy ổn định để lấy nét, bật đủ sáng và kiểm tra quyền Camera nếu ứng dụng yêu cầu.
             </p>
 
             <p className="mt-4 leading-8 text-slate-300">
-              Bạn có thể sử dụng công cụ quét QR trực tuyến tại QRFree.io.vn
-              bằng cách tải ảnh mã QR lên hệ thống.
+              Nếu vẫn không nhận diện được, mở QRFree để tải ảnh lên hoặc dán ảnh QR đã sao chép vào trang /scan.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách kiểm tra mã QR có hoạt động không
             </h2>
 
@@ -185,7 +169,7 @@ export default function QRScanErrorsPage() {
 
         {/* Related */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
@@ -227,7 +211,7 @@ export default function QRScanErrorsPage() {
             </Link>
 
             <Link
-              href="/blog/qr-code-la-gi"
+              href="/blog/qrcode-la-gi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 hover:border-cyan-500/40"
             >
               <h3 className="text-xl font-bold">

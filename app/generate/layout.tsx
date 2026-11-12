@@ -1,32 +1,6 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Tạo mã QR miễn phí - QR Generator Online",
-  description:
-    "Tạo mã QR miễn phí trực tuyến cho Website, Văn bản, WiFi, Email, Số điện thoại và Danh bạ.",
-
-  alternates: {
-    canonical: "https://qrfree.io.vn/generate",
-  },
-
-  openGraph: {
-    title: "Tạo mã QR miễn phí - QR Generator Online",
-    description:
-      "Tạo mã QR trực tuyến miễn phí cho URL, WiFi, Email và nhiều loại nội dung khác.",
-    url: "https://qrfree.io.vn/generate",
-    siteName: "QRFree",
-    locale: "vi_VN",
-    type: "website",
-    images: [
-      {
-        url: "/og-image-generate.png",
-        width: 1200,
-        height: 630,
-        alt: "QR Generator",
-      },
-    ],
-  },
-};
+export const metadata = createPageMetadata("Tạo mã QR miễn phí", "Tạo mã QR tĩnh cho website, văn bản, Wi-Fi, danh bạ vCard hoặc địa chỉ ví crypto. Tùy chỉnh màu sắc, thêm logo và tải ảnh PNG hoặc PDF.", "/generate");
 
 export default function GenerateLayout({
   children,

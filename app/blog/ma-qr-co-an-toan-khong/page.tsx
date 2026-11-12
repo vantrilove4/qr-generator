@@ -1,21 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Mã QR có an toàn không? 7 lưu ý giúp tránh bị lừa đảo | QRFree",
-  description:
-    "Tìm hiểu mã QR có an toàn không và những lưu ý quan trọng giúp bạn tránh các hình thức lừa đảo thông qua QR Code.",
-  keywords: [
-    "mã qr có an toàn không",
-    "lừa đảo qr code",
-    "quét qr an toàn",
-    "bảo mật qr code",
-    "qr scam",
-  ],
-  alternates: {
-    canonical: "https://qrfree.io.vn/blog/ma-qr-co-an-toan-khong",
-  },
-};
+export const metadata = createPageMetadata("Mã QR có an toàn không? 7 lưu ý giúp tránh bị lừa đảo | QRFree", "Tìm hiểu mã QR có an toàn không và những lưu ý quan trọng giúp bạn tránh các hình thức lừa đảo thông qua QR Code.", "/blog/ma-qr-co-an-toan-khong");
 
 export default function QRSecurityBlogPage() {
   return (
@@ -39,7 +25,7 @@ export default function QRSecurityBlogPage() {
             BẢO MẬT QR
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Mã QR có an toàn không?
             <span className="mt-2 block text-cyan-400">
               7 lưu ý giúp tránh bị lừa đảo
@@ -47,8 +33,8 @@ export default function QRSecurityBlogPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 17/06/2026</span>
-            <span>⏱️ 6 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>6 phút đọc</span>
           </div>
 
           <p className="mt-6 max-w-3xl leading-8 text-slate-300">
@@ -60,70 +46,70 @@ export default function QRSecurityBlogPage() {
         </div>
 
         {/* Content */}
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               QR Code bản thân không nguy hiểm
             </h2>
 
             <p className="leading-8 text-slate-300">
-              QR Code chỉ là một phương tiện lưu trữ dữ liệu. Tương tự như một
-              đường link hoặc mã vạch, bản thân mã QR không chứa virus hay gây
-              hại cho thiết bị của bạn.
+              QR Code là cách mã hóa dữ liệu thành hình ảnh. Camera đọc mã thường chỉ hiển thị nội dung hoặc đường dẫn; rủi ro thường xuất hiện khi bạn mở trang, tải tệp, cài ứng dụng, đăng nhập hoặc xác nhận thanh toán theo hướng dẫn từ nguồn không đáng tin.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Nguy cơ đến từ nội dung bên trong
             </h2>
 
             <p className="leading-8 text-slate-300">
-              Kẻ xấu có thể tạo mã QR dẫn đến các website giả mạo nhằm đánh cắp
-              thông tin đăng nhập, lừa chuyển tiền hoặc cài đặt ứng dụng độc hại.
+              Kẻ gian có thể dán mã giả lên mã thật hoặc dẫn tới trang giả mạo để dụ bạn nhập thông tin, tải ứng dụng hay chuyển tiền. Hãy đọc địa chỉ website hiển thị và chỉ tiếp tục nếu tin cậy.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               7 lưu ý khi quét mã QR
             </h2>
 
             <ul className="space-y-4 text-slate-300">
               <li>✓ Kiểm tra nguồn gốc của mã QR.</li>
               <li>✓ Đọc kỹ đường dẫn trước khi mở.</li>
-              <li>✓ Không nhập mật khẩu vào website đáng ngờ.</li>
+              <li>✓ Không nhập mật khẩu, mã OTP hoặc thông tin thẻ từ liên kết đáng ngờ.</li>
               <li>✓ Không quét mã QR dán đè lên mã gốc.</li>
               <li>✓ Cập nhật điện thoại thường xuyên.</li>
               <li>✓ Chỉ cài ứng dụng từ nguồn chính thức.</li>
-              <li>✓ Sử dụng công cụ quét đáng tin cậy.</li>
+              <li>✓ Tự mở ứng dụng ngân hàng chính thức nếu cần thanh toán.</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               QR thanh toán có an toàn không?
             </h2>
 
             <p className="leading-8 text-slate-300">
-              QR thanh toán được các ngân hàng và tổ chức tài chính áp dụng rộng
-              rãi. Tuy nhiên, bạn vẫn nên kiểm tra kỹ tên người nhận và số tiền
-              trước khi xác nhận giao dịch.
+              Trước khi chuyển tiền, hãy kiểm tra tên người nhận, ngân hàng, số tài khoản và số tiền ngay trong ứng dụng ngân hàng. Nếu thông tin không khớp, dừng giao dịch và xác nhận lại với người nhận qua kênh khác.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               QRFree bảo vệ quyền riêng tư như thế nào?
             </h2>
 
             <p className="leading-8 text-slate-300">
-              Nội dung mã QR được xử lý trực tiếp trên thiết bị của bạn.
-              QRFree không lưu trữ dữ liệu mã QR trên máy chủ, giúp giảm thiểu
-              rủi ro liên quan đến quyền riêng tư.
+              Nội dung mã QR được tạo hoặc giải mã ngay trên thiết bị; nội dung đó không được gửi lên máy chủ để xử lý. Website vẫn ghi nhận số lượt sử dụng và dùng dịch vụ phân tích truy cập. Xem thêm tại <Link href="/privacy" className="text-cyan-300 underline">chính sách bảo mật</Link>.
             </p>
           </section>
         </article>
+
+        <section className="mt-10 rounded-3xl border border-slate-800 bg-white/5 p-8">
+          <h2 className="mb-4 text-2xl font-bold">Nguồn tham khảo</h2>
+          <ul className="list-disc space-y-2 pl-5 text-slate-300">
+            <li><a href="https://consumer.ftc.gov/consumer-alerts/2026/09/see-qr-code-parked-somewhere-dont-scan-ityet" target="_blank" rel="noopener noreferrer" className="underline decoration-slate-500 underline-offset-4 hover:text-cyan-300">Federal Trade Commission: cách nhận biết liên kết lừa đảo trong mã QR</a></li>
+          </ul>
+        </section>
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">
@@ -154,13 +140,13 @@ export default function QRSecurityBlogPage() {
 
         {/* Related */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
           <div className="grid gap-6 md:grid-cols-2">
             <Link
-              href="/blog/qr-code-la-gi"
+              href="/blog/qrcode-la-gi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
             >
               <h3 className="text-xl font-bold">

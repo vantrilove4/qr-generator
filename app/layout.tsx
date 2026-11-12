@@ -8,13 +8,10 @@ import Script from "next/script";
 export const metadata: Metadata = {
   metadataBase: new URL("https://qrfree.io.vn"),
 
-  title: {
-    default: "QRFree - Tạo & Quét Mã QR Miễn Phí",
-    template: "%s | QRFree",
-  },
+  title: "QRFree - Tạo & Quét Mã QR Miễn Phí",
 
   description:
-    "Tạo và quét mã QR miễn phí trực tuyến. Hỗ trợ URL, WiFi, Email, Văn bản, Danh bạ, Số điện thoại và nhiều loại mã QR khác. Tải về PNG, SVG, PDF nhanh chóng.",
+    "Tạo mã QR tĩnh cho website, văn bản, Wi-Fi, danh bạ vCard và địa chỉ ví crypto; tùy chỉnh màu, thêm logo và tải PNG hoặc PDF. Quét mã QR bằng camera, ảnh hoặc màn hình.",
 
   keywords: [
     "QR Code",
@@ -25,7 +22,6 @@ export const metadata: Metadata = {
     "QR miễn phí",
     "Tạo QR online",
     "QR WiFi",
-    "QR Email",
     "QR URL",
     "QR Contact",
     "QRFree",
@@ -41,10 +37,6 @@ export const metadata: Metadata = {
 
   creator: "TriNguyen",
   publisher: "QRFree",
-
-  alternates: {
-    canonical: "https://qrfree.io.vn",
-  },
 
   robots: {
     index: true,
@@ -63,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "QRFree - Tạo & Quét Mã QR Miễn Phí",
     description:
-      "Tạo và quét mã QR miễn phí trực tuyến. Hỗ trợ URL, WiFi, Email, Văn bản, Danh bạ và nhiều loại QR khác.",
+      "Tạo mã QR cho URL, văn bản, Wi-Fi, danh bạ vCard và địa chỉ ví crypto; quét QR bằng camera, ảnh hoặc màn hình.",
 
     url: "https://qrfree.io.vn",
     siteName: "QRFree",

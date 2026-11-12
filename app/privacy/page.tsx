@@ -1,11 +1,9 @@
 
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Chính sách bảo mật | Privacy Policy | QRFree",
-  description: "Chính sách bảo mật song ngữ (Việt – Anh) của QRFree.io.vn",
-};
+export const metadata = createPageMetadata("Chính sách bảo mật QRFree", "Chính sách bảo mật song ngữ (Việt – Anh) của QRFree.io.vn", "/privacy");
 
 export default function PrivacyPage() {
   return (

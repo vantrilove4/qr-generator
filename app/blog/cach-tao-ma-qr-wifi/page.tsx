@@ -1,11 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cách tạo mã QR WiFi miễn phí năm 2026 | QRFree",
-  description:
-    "Hướng dẫn tạo mã QR WiFi miễn phí để khách hàng, bạn bè kết nối mạng nhanh chóng mà không cần nhập mật khẩu.",
-};
+export const metadata = createPageMetadata("Cách tạo mã QR WiFi miễn phí | QRFree", "Hướng dẫn tạo mã QR WiFi để chia sẻ mạng nhanh chóng và lưu ý bảo mật khi chia sẻ mật khẩu.", "/blog/cach-tao-ma-qr-wifi");
 
 export default function WifiQRBlog() {
   return (
@@ -27,9 +23,14 @@ export default function WifiQRBlog() {
             WIFI QR
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách tạo mã QR WiFi miễn phí
           </h1>
+
+          <div className="mt-5 flex flex-wrap gap-5 text-sm text-slate-400">
+            <span>Biên soạn: QRFree</span>
+            <span>4 phút đọc</span>
+          </div>
 
           <p className="mt-6 text-slate-300 leading-8">
             Thay vì đọc mật khẩu WiFi dài và khó nhớ, bạn có thể tạo mã QR
@@ -37,20 +38,24 @@ export default function WifiQRBlog() {
           </p>
         </div>
 
-        <article className="mt-10 space-y-8">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-4 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-8">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               QR WiFi là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
               QR WiFi là mã QR chứa tên mạng (SSID), mật khẩu và loại bảo mật.
-              Khi quét, điện thoại sẽ tự động đề xuất kết nối mà không cần nhập tay.
+              Điện thoại tương thích có thể hiện lời nhắc kết nối để người dùng xác nhận. Hành vi này tùy hệ điều hành và ứng dụng camera.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-4 text-3xl font-bold">
+          <aside className="rounded-2xl border border-amber-400/25 bg-amber-300/5 p-5 text-sm leading-7 text-amber-100/90">
+            Mã QR Wi-Fi chứa tên mạng và mật khẩu. Chỉ chia sẻ ở nơi phù hợp; nếu mạng chính chỉ dành cho gia đình hoặc nhân viên, hãy cân nhắc tạo mạng khách riêng.
+          </aside>
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Lợi ích của QR WiFi
             </h2>
 
@@ -62,8 +67,8 @@ export default function WifiQRBlog() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-4 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách tạo QR WiFi
             </h2>
 
@@ -71,8 +76,8 @@ export default function WifiQRBlog() {
               <li>1. Truy cập QRFree.io.vn.</li>
               <li>2. Chọn loại QR WiFi.</li>
               <li>3. Nhập tên mạng và mật khẩu.</li>
-              <li>4. Chọn loại bảo mật.</li>
-              <li>5. Nhấn tạo và tải xuống.</li>
+              <li>4. Chọn đúng kiểu bảo mật đang dùng trên router; chọn “Không mật khẩu” nếu mạng mở.</li>
+              <li>5. Tạo mã, quét thử bằng điện thoại khác rồi tải xuống.</li>
             </ol>
           </section>
         </article>

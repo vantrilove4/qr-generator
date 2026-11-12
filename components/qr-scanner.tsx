@@ -1,541 +1,274 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import { BrowserQRCodeReader } from "@zxing/browser";
 import ReactCrop from "react-image-crop";
 import { createClient } from "@supabase/supabase-js";
-
-import type {
-  Crop,
-  PixelCrop,
-} from "react-image-crop";
-
-//import "react-image-crop/dist/style.css";
+import type { Crop, PixelCrop } from "react-image-crop";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-
-
 export default function QrScanner() {
   const scannerRef = useRef<Html5Qrcode | null>(null);
-
-  const imageRef =
-    useRef<HTMLImageElement | null>(null);
-
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const [result, setResult] = useState("");
+  const [imageStatus, setImageStatus] = useState("Sao chép ảnh QR, bấm vào khung này rồi nhấn Ctrl+V.");
+  const [scanError, setScanError] = useState("");
+  const [scanning, setScanning] = useState(false);
+  const [screenImage, setScreenImage] = useState<string | null>(null);
+  const [scanCount, setScanCount] = useState(0);
+  const [crop, setCrop] = useState<Crop>({ unit: "%", x: 25, y: 25, width: 50, height: 50 });
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
 
-  const [scanning, setScanning] =
-    useState(false);
+  const fetchScanCount = useCallback(async () => {
+    const { data } = await supabase
+      .from("qr_downloads")
+      .select("downloads")
+      .eq("qr_text", 2)
+      .single();
+    if (data) setScanCount(data.downloads);
+  }, []);
 
-  const [screenImage, setScreenImage] =
-    useState<string | null>(null);
+  const incrementScanCount = useCallback(async () => {
+    const { data } = await supabase
+      .from("qr_downloads")
+      .select("downloads")
+      .eq("qr_text", 2)
+      .single();
+    if (!data) return;
+    const newCount = data.downloads + 1;
+    await supabase
+      .from("qr_downloads")
+      .update({ downloads: newCount })
+      .eq("qr_text", 2);
+    setScanCount(newCount);
+  }, []);
 
-  const [crop, setCrop] = useState<Crop>({
-    unit: "%",
-    x: 25,
-    y: 25,
-    width: 50,
-    height: 50,
-  });
-  const [scanCount, setScanCount] =
-  useState<number>(0);
-  
-  const [completedCrop, setCompletedCrop] =
-    useState<PixelCrop>();
+  const processImageFile = useCallback(async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      setImageStatus("Clipboard không chứa ảnh. Hãy copy ảnh QR rồi thử lại.");
+      return;
+    }
+
+    const imageUrl = URL.createObjectURL(file);
+    const img = new Image();
+    try {
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error("Image could not be loaded"));
+        img.src = imageUrl;
+      });
+      const reader = new BrowserQRCodeReader();
+      const decoded = await reader.decodeFromImageElement(img);
+      setResult(decoded.getText());
+      setScanError("");
+      setImageStatus("Đã đọc QR trong ảnh thành công.");
+      await incrementScanCount();
+    } catch (error) {
+      console.error(error);
+      setImageStatus("Không đọc được QR trong ảnh. Hãy thử ảnh rõ hơn hoặc cắt sát vùng mã.");
+    } finally {
+      URL.revokeObjectURL(imageUrl);
+    }
+  }, [incrementScanCount]);
 
   useEffect(() => {
-  fetchScanCount();
+    void fetchScanCount();
+  }, [fetchScanCount]);
 
-  return () => {
-    stopScanner();
-  };
-}, []);
+  useEffect(() => {
+    const handlePaste = (event: ClipboardEvent) => {
+      const items = Array.from(event.clipboardData?.items ?? []);
+      const imageItem = items.find((item) => item.type.startsWith("image/"));
+      const fileFromItems = imageItem?.getAsFile();
+      const fileFromFiles = Array.from(event.clipboardData?.files ?? []).find((file) => file.type.startsWith("image/"));
+      const imageFile = fileFromItems ?? fileFromFiles;
+      if (!imageFile) return;
+      event.preventDefault();
+      setImageStatus("Đang đọc ảnh vừa dán…");
+      void processImageFile(imageFile);
+    };
+    window.addEventListener("paste", handlePaste);
+    return () => window.removeEventListener("paste", handlePaste);
+  }, [processImageFile]);
 
-  // CAMERA SCAN
+  useEffect(() => () => {
+    const scanner = scannerRef.current;
+    if (scanner?.isScanning) {
+      void scanner.stop().then(() => scanner.clear()).catch(() => undefined);
+    }
+  }, []);
+
   const startScanner = async () => {
+    setScanError("");
+    const scanner = new Html5Qrcode("reader");
+    scannerRef.current = scanner;
+    setScanning(true);
     try {
-      const scanner = new Html5Qrcode("reader");
-
-      scannerRef.current = scanner;
-
-      setScanning(true);
-
       await scanner.start(
         { facingMode: "environment" },
-        {
-          fps: 15,
-          qrbox: 280,
-        },
+        { fps: 15, qrbox: 280 },
         (decodedText) => {
           setResult(decodedText);
-          incrementScanCount();
-
-          stopScanner();
+          void incrementScanCount();
+          void scanner.stop().then(() => scanner.clear()).catch(() => undefined);
+          setScanning(false);
         },
-        () => {}
+        () => undefined
       );
-    } catch  {
-      console.error();
-
-      alert("Không thể mở camera");
+    } catch (error) {
+      console.error(error);
+      setScanning(false);
+      setScanError("Không mở được camera. Hãy kiểm tra quyền camera hoặc thử tải ảnh lên.");
     }
   };
 
   const stopScanner = async () => {
+    const scanner = scannerRef.current;
     try {
-      if (
-        scannerRef.current &&
-        scannerRef.current.isScanning
-      ) {
-        await scannerRef.current.stop();
-
-        await scannerRef.current.clear();
+      if (scanner?.isScanning) {
+        await scanner.stop();
+        await scanner.clear();
       }
-    } catch (err) {}
-
-    setScanning(false);
-  };
-
-  // UPLOAD IMAGE
-const handleFileUpload = async (
-  e: React.ChangeEvent<HTMLInputElement>
-) => {
-  const file = e.target.files?.[0];
-
-  if (!file) return;
-
-  try {
-    const imageUrl =
-      URL.createObjectURL(file);
-
-    const img = new Image();
-
-    img.src = imageUrl;
-
-    img.onload = async () => {
-      try {
-        const reader =
-          new BrowserQRCodeReader();
-
-        const result =
-          await reader.decodeFromImageElement(
-            img
-          );
-
-        setResult(result.getText());
-await incrementScanCount();
-      } catch (err) {
-        console.error(err);
-
-        alert("Không đọc được QR");
-      }
-    };
-  } catch (err) {
-    console.error(err);
-
-    alert("Lỗi xử lý ảnh");
-  }
-};
-
-
-const fetchScanCount = async () => {
-  const { data } = await supabase
-    .from("qr_downloads")
-    .select("downloads")
-    .eq("qr_text", 2)
-    .single();
-
-  if (data) {
-    setScanCount(data.downloads);
-  }
-};
-
-const incrementScanCount = async () => {
-  const { data } = await supabase
-    .from("qr_downloads")
-    .select("downloads")
-    .eq("qr_text", 2)
-    .single();
-
-  if (!data) return;
-
-  const newCount = data.downloads + 1;
-
-  await supabase
-    .from("qr_downloads")
-    .update({
-      downloads: newCount,
-    })
-    .eq("qr_text", 2);
-
-  setScanCount(newCount);
-};
-
-
-
-  // SCREEN CAPTURE
-  const captureScreen = async () => {
-    try {
-      const stream =
-        await navigator.mediaDevices.getDisplayMedia(
-          {
-            video: true,
-          }
-        );
-
-      const video =
-        document.createElement("video");
-
-      video.srcObject = stream;
-
-      await video.play();
-
-      const canvas =
-        document.createElement("canvas");
-
-      canvas.width = video.videoWidth;
-
-      canvas.height = video.videoHeight;
-
-      const ctx = canvas.getContext("2d");
-
-      if (!ctx) return;
-
-      ctx.drawImage(
-        video,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      stream
-        .getTracks()
-        .forEach((track) => track.stop());
-
-      const image =
-        canvas.toDataURL("image/png");
-
-      setScreenImage(image);
-    } catch (err) {
-      console.error(err);
-
-      alert("Đã hủy capture màn hình");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setScanning(false);
     }
   };
 
-  // SCAN SELECTED AREA
-  const scanSelectedArea = async () => {
-    if (
-      !completedCrop ||
-      !imageRef.current
-    ) {
-      alert("Hãy chọn vùng QR");
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImageStatus("Đang đọc ảnh…");
+      void processImageFile(file);
+    }
+    event.currentTarget.value = "";
+  };
 
+  const captureScreen = async () => {
+    let stream: MediaStream | undefined;
+    try {
+      stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      const video = document.createElement("video");
+      video.srcObject = stream;
+      await video.play();
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const context = canvas.getContext("2d");
+      if (!context || !canvas.width || !canvas.height) throw new Error("Could not capture screen");
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      setScreenImage(canvas.toDataURL("image/png"));
+    } catch (error) {
+      console.error(error);
+      setScanError("Không chụp được màn hình. Bạn có thể tải ảnh QR lên thay thế.");
+    } finally {
+      stream?.getTracks().forEach((track) => track.stop());
+    }
+  };
+
+  const scanSelectedArea = () => {
+    if (!completedCrop || !imageRef.current) {
+      setScanError("Hãy chọn vùng chứa mã QR trước.");
       return;
     }
+    const image = imageRef.current;
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) return;
 
-    try {
-      const image = imageRef.current;
-
-      const canvas =
-        document.createElement("canvas");
-
-      const ctx =
-        canvas.getContext("2d");
-
-      if (!ctx) return;
-
-      // SCALE FIX
-      const scaleX =
-        image.naturalWidth /
-        image.width;
-
-      const scaleY =
-        image.naturalHeight /
-        image.height;
-
-      // REAL crop size
-      const cropX =
-        completedCrop.x * scaleX;
-
-      const cropY =
-        completedCrop.y * scaleY;
-
-      const cropWidth =
-        completedCrop.width * scaleX;
-
-      const cropHeight =
-        completedCrop.height * scaleY;
-
-      // Upscale for better QR reading
-      canvas.width = cropWidth * 2;
-
-      canvas.height = cropHeight * 2;
-
-      // Draw cropped area
-      ctx.drawImage(
-        image,
-        cropX,
-        cropY,
-        cropWidth,
-        cropHeight,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      // Enhance contrast
-      const imageData =
-        ctx.getImageData(
-          0,
-          0,
-          canvas.width,
-          canvas.height
-        );
-
-      const data = imageData.data;
-
-      for (
-        let i = 0;
-        i < data.length;
-        i += 4
-      ) {
-        const avg =
-          (data[i] +
-            data[i + 1] +
-            data[i + 2]) /
-          3;
-
-        const value =
-          avg > 128 ? 255 : 0;
-
-        data[i] = value;
-        data[i + 1] = value;
-        data[i + 2] = value;
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    const cropX = completedCrop.x * scaleX;
+    const cropY = completedCrop.y * scaleY;
+    const cropWidth = completedCrop.width * scaleX;
+    const cropHeight = completedCrop.height * scaleY;
+    canvas.width = Math.max(1, Math.round(cropWidth * 2));
+    canvas.height = Math.max(1, Math.round(cropHeight * 2));
+    context.drawImage(image, cropX, cropY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        setScanError("Không xử lý được vùng ảnh đã chọn. Hãy thử lại.");
+        return;
       }
-
-      ctx.putImageData(imageData, 0, 0);
-
-      canvas.toBlob(async (blob) => {
-        if (!blob) return;
-
-        const file = new File(
-          [blob],
-          "cropped.png",
-          {
-            type: "image/png",
-          }
-        );
-
-        try {
-          const imageUrl =
-  URL.createObjectURL(file);
-
-const img = new Image();
-
-img.src = imageUrl;
-
-img.onload = async () => {
-  try {
-    const reader =
-      new BrowserQRCodeReader();
-
-    const result =
-      await reader.decodeFromImageElement(
-        img
-      );
-
-    setResult(result.getText());
-
-await incrementScanCount();
-
-setScreenImage(null);
-  } catch (err) {
-    console.error(err);
-
-    alert(
-      "Không tìm thấy QR trong vùng đã chọn"
-    );
-  }
-};
-
-          setScreenImage(null);
-        } catch (err) {
-          console.error(err);
-
-          alert(
-            "Không tìm thấy QR trong vùng đã chọn"
-          );
-        }
-      }, "image/png");
-    } catch (err) {
-      console.error(err);
-
-      alert("Lỗi xử lý vùng chọn");
-    }
+      setScreenImage(null);
+      setImageStatus("Đang đọc vùng ảnh đã chọn…");
+      void processImageFile(new File([blob], "qr-crop.png", { type: "image/png" }));
+    }, "image/png");
   };
 
   return (
-    <div className="relative overflow-hidden rounded-[28px] border border-white/60 bg-white/80 p-4 shadow-2xl backdrop-blur-xl">
-      {/* Glow */}
-      <div className="absolute -right-20 -top-20 h-52 w-52 rounded-full bg-blue-200/40 blur-3xl" />
-
-      <div className="relative z-10">
-        {/* CAMERA */}
-        {!screenImage && (
-          <div className="overflow-hidden rounded-[24px] border border-zinc-200 bg-zinc-100 shadow-inner">
-            <div
-              id="reader"
-              className={
-                scanning
-                  ? "aspect-square w-full max-h-[520px]"
-                  : "hidden"
-              }
-            />
-
-            {!scanning && (
-              <div className="flex h-[220px] items-center justify-center text-sm text-zinc-400">
-                Ready to scan QR code
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* SCREEN OVERLAY */}
-        {screenImage && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-6">
-            <div className="max-h-[95vh] overflow-auto rounded-3xl bg-white p-5 shadow-2xl">
-              <p className="mb-4 text-sm font-medium text-zinc-500">
-                Kéo chọn vùng chứa QR code
-              </p>
-
-              <ReactCrop
-                crop={crop}
-                onChange={(c) =>
-                  setCrop(c)
-                }
-                onComplete={(c) =>
-                  setCompletedCrop(c)
-                }
-              >
-                <img
-                  ref={imageRef}
-                  src={screenImage}
-                  alt="Capture"
-                  className="max-h-[75vh] rounded-xl"
-                />
-              </ReactCrop>
-
-              <div className="mt-5 flex gap-3">
-                <button
-                  onClick={scanSelectedArea}
-                  className="rounded-2xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
-                >
-                  Scan Selected Area
-                </button>
-
-                <button
-                  onClick={() =>
-                    setScreenImage(null)
-                  }
-                  className="rounded-2xl border border-zinc-200 bg-white px-5 py-3 text-sm font-medium text-zinc-700 shadow-sm transition hover:bg-zinc-50"
-                >
-                  Cancel
-                </button>
-              </div>
-              
-            </div>
-          </div>
-        )}
-
-        {/* BUTTONS */}
-        {!screenImage && (
-          <div className="mt-5 flex flex-wrap gap-3">
-            {!scanning ? (
-              <button
-                onClick={startScanner}
-                className="rounded-2xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
-              >
-              Quét bằng camera
-              </button>
-            ) : (
-              <button
-                onClick={stopScanner}
-                className="rounded-2xl border border-zinc-200 bg-white px-5 py-3 text-sm font-medium text-zinc-700 shadow-sm transition hover:bg-zinc-50"
-              >
-                Stop
-              </button>
-            )}
-
-            <label className="cursor-pointer rounded-2xl border border-zinc-200 bg-white px-5 py-3 text-sm font-medium text-zinc-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-zinc-50 hover:shadow-md">
-              Tải ảnh mã QR lên
-
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleFileUpload}
-              />
-            </label>
-
-            <button
-              onClick={captureScreen}
-              className="rounded-2xl border border-zinc-200 bg-white px-5 py-3 text-sm font-medium text-zinc-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-zinc-50 hover:shadow-md"
-            >
-              Quét màn hình máy tính
-            </button>
-                     <div className="mt-3 text-sm text-zinc-500">
-  📊 Đã quét:{" "}
-  <span className="font-semibold">
-    {scanCount.toLocaleString()}
-  </span>
-</div>
-          </div>
-          
-        )}
-
-        {/* RESULT */}
-        {result && (
-          <div className="mt-6 rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="mb-3 text-sm font-medium text-zinc-500">
-              Result
-            </p>
-
-            <div className="rounded-2xl bg-zinc-50 p-4 text-sm leading-7 break-all text-zinc-800">
-              {result}
-            </div>
-
-            <div className="mt-5 flex gap-3">
-              <button
-                onClick={() =>
-                  navigator.clipboard.writeText(
-                    result
-                  )
-                }
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-medium transition hover:bg-zinc-50"
-              >
-                Copy
-              </button>
-
-              {result.startsWith("http") && (
-                <a
-                  href={result}
-                  target="_blank"
-                  className="rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white shadow-md transition hover:opacity-90"
-                >
-                  Open
-                </a>
-              )}
-            </div>
-          </div>
-        )}
+    <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+      <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-semibold text-slate-900">Chọn cách quét</h2>
+          <p className="mt-1 text-sm text-slate-500">Dùng camera, ảnh có sẵn hoặc nội dung trong clipboard.</p>
+        </div>
+        <div className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600">Đã quét {scanCount.toLocaleString("vi-VN")}</div>
       </div>
-    </div>
+
+      {!screenImage && <>
+        <div className="grid gap-2 sm:grid-cols-3">
+          {!scanning ? (
+            <button type="button" onClick={startScanner} className="rounded-xl bg-slate-900 px-3 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">Bật camera</button>
+          ) : (
+            <button type="button" onClick={stopScanner} className="rounded-xl border border-slate-300 bg-white px-3 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Dừng camera</button>
+          )}
+          <label className="cursor-pointer rounded-xl border border-slate-300 bg-white px-3 py-3 text-center text-sm font-semibold text-slate-700 transition hover:border-indigo-300 hover:text-indigo-700">
+            Tải ảnh lên
+            <input type="file" accept="image/*" className="sr-only" onChange={handleFileUpload} />
+          </label>
+          <button type="button" onClick={captureScreen} className="rounded-xl border border-slate-300 bg-white px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-indigo-300 hover:text-indigo-700">Chụp màn hình</button>
+        </div>
+
+        <button type="button" onClick={(event) => event.currentTarget.focus()} className="mt-3 w-full rounded-2xl border border-dashed border-indigo-300 bg-indigo-50/70 px-4 py-4 text-left outline-none transition hover:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+          <span className="block text-sm font-semibold text-indigo-950">Dán ảnh QR từ clipboard <span className="ml-1 rounded-md bg-white px-1.5 py-0.5 text-xs font-medium text-indigo-700">Ctrl + V</span></span>
+          <span className="mt-1 block text-sm text-indigo-800/75">Copy ảnh QR, bấm vào đây rồi nhấn Ctrl+V (hoặc ⌘+V trên Mac).</span>
+          <span aria-live="polite" className="mt-2 block text-xs text-slate-600">{imageStatus}</span>
+        </button>
+
+        <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+          <div id="reader" className={scanning ? "min-h-[260px] w-full" : "hidden"} />
+          {!scanning && <div className="flex min-h-[250px] flex-col items-center justify-center px-6 text-center">
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-2xl text-indigo-600 shadow-sm">⌗</span>
+            <p className="mt-4 font-semibold text-slate-800">Khung camera sẽ hiện ở đây</p>
+            <p className="mt-1 max-w-sm text-sm leading-6 text-slate-500">Bật camera, tải ảnh lên hoặc dán ảnh để bắt đầu quét.</p>
+          </div>}
+        </div>
+        {scanError && <p role="alert" className="mt-3 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-800">{scanError}</p>}
+      </>}
+
+      {screenImage && <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <p className="mb-3 text-sm font-medium text-slate-700">Kéo chọn vùng có mã QR trong ảnh chụp.</p>
+        <div className="max-h-[65vh] overflow-auto rounded-xl bg-white p-2">
+          <ReactCrop crop={crop} onChange={(nextCrop) => setCrop(nextCrop)} onComplete={(nextCrop) => setCompletedCrop(nextCrop)}>
+            <img ref={imageRef} src={screenImage} alt="Ảnh màn hình để chọn vùng QR" className="max-h-[62vh] rounded-lg" />
+          </ReactCrop>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <button type="button" onClick={scanSelectedArea} className="rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-700">Quét vùng đã chọn</button>
+          <button type="button" onClick={() => setScreenImage(null)} className="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">Hủy</button>
+        </div>
+      </div>}
+
+      {result && <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 sm:p-5">
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="font-semibold text-slate-900">Kết quả quét</h3>
+          <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800">Đã nhận diện</span>
+        </div>
+        <div className="mt-3 max-h-48 overflow-auto break-all rounded-xl bg-white p-4 text-sm leading-6 text-slate-800">{result}</div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button type="button" onClick={() => { void navigator.clipboard.writeText(result); }} className="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Sao chép nội dung</button>
+          {/^https?:\/\//i.test(result) && <a href={result} target="_blank" rel="noopener noreferrer" className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700">Mở liên kết</a>}
+        </div>
+      </div>}
+
+      <p className="mt-4 text-center text-xs leading-5 text-slate-500">Nội dung QR được đọc ngay trong trình duyệt của bạn.</p>
+    </section>
   );
 }

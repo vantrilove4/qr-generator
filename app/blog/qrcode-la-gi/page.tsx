@@ -1,11 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "QR Code là gì? Cách tạo mã QR miễn phí năm 2026 | QRFree",
-  description:
-    "Tìm hiểu QR Code là gì, cách hoạt động và cách tạo mã QR miễn phí chỉ trong vài giây.",
-};
+export const metadata = createPageMetadata("QR Code là gì? Cách tạo mã QR miễn phí", "Tìm hiểu QR Code là gì, cách hoạt động, các ứng dụng phổ biến và cách tạo mã QR tĩnh.", "/blog/qrcode-la-gi");
 
 export default function BlogPage() {
   return (
@@ -30,75 +26,78 @@ export default function BlogPage() {
             QR CODE
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             QR Code là gì?
             <span className="mt-2 block text-cyan-400">
-              Cách tạo mã QR miễn phí năm 2026
+              Cách tạo mã QR miễn phí
             </span>
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 17/06/2026</span>
-            <span>⏱️ 5 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>5 phút đọc</span>
           </div>
         </div>
 
         {/* TOC */}
-        <div className="mt-10 rounded-3xl border border-slate-800 bg-white/5 p-6">
-          <h2 className="mb-4 text-xl font-bold">Mục lục</h2>
+        <nav aria-label="Mục lục bài viết" className="mt-10 rounded-2xl border border-white/10 bg-slate-900/70 p-6">
+          <h2 className="mb-4 text-lg font-bold">Trong bài viết</h2>
 
-          <ul className="space-y-2 text-slate-300">
-            <li>• QR Code là gì?</li>
-            <li>• QR Code hoạt động như thế nào?</li>
-            <li>• QR Code dùng để làm gì?</li>
-            <li>• Cách tạo mã QR miễn phí</li>
-            <li>• QR Code có an toàn không?</li>
+          <ul className="grid gap-2 text-slate-300 sm:grid-cols-2">
+            <li><a className="hover:text-cyan-300" href="#qr-code-la-gi">• QR Code là gì?</a></li>
+            <li><a className="hover:text-cyan-300" href="#cach-hoat-dong">• QR Code hoạt động như thế nào?</a></li>
+            <li><a className="hover:text-cyan-300" href="#ung-dung">• QR Code dùng để làm gì?</a></li>
+            <li><a className="hover:text-cyan-300" href="#cach-tao">• Cách tạo mã QR miễn phí</a></li>
+            <li><a className="hover:text-cyan-300" href="#an-toan">• QR Code có an toàn không?</a></li>
           </ul>
-        </div>
+        </nav>
 
         {/* Content */}
-        <article className="mt-10 space-y-12">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-12">
+          <section className="border-b border-white/10 pb-8">
+            <h2 id="qr-code-la-gi" className="mb-4 scroll-mt-24 text-2xl font-bold tracking-tight sm:text-3xl">
               QR Code là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
-              QR Code (Quick Response Code) là một loại mã vạch hai chiều
-              có khả năng lưu trữ nhiều thông tin hơn mã vạch truyền thống.
-              Người dùng có thể quét mã QR bằng điện thoại để truy cập website,
-              kết nối WiFi, lưu danh bạ hoặc thực hiện nhiều tác vụ khác.
+              QR Code (Quick Response Code) là mã hai chiều lưu dữ liệu theo
+              ma trận ô vuông. Định dạng này có thể mã hóa chữ, số và dữ liệu
+              khác; khi quét, ứng dụng đọc mã giải mã nội dung rồi cho bạn xem
+              hoặc thực hiện hành động phù hợp. QR Code được DENSO WAVE phát triển
+              và được chuẩn hóa theo ISO/IEC 18004.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 id="cach-hoat-dong" className="mb-4 scroll-mt-24 text-2xl font-bold tracking-tight sm:text-3xl">
               QR Code hoạt động như thế nào?
             </h2>
 
             <p className="leading-8 text-slate-300">
-              Khi camera nhận diện mã QR, ứng dụng quét sẽ giải mã dữ liệu
-              được mã hóa bên trong và hiển thị cho người dùng. Quá trình này
-              diễn ra gần như tức thì.
+              Camera chụp hình mã; phần mềm quét tìm các điểm định vị, đọc
+              những ô dữ liệu và dùng cơ chế sửa lỗi để khôi phục phần dữ liệu
+              bị mờ hoặc hỏng trong giới hạn cho phép. Nội dung có thể là văn
+              bản hoặc một đường dẫn. Nếu là đường dẫn, hãy kiểm tra địa chỉ
+              trước khi mở.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 id="ung-dung" className="mb-4 scroll-mt-24 text-2xl font-bold tracking-tight sm:text-3xl">
               QR Code dùng để làm gì?
             </h2>
 
             <ul className="space-y-4 text-slate-300">
-              <li>✓ Chia sẻ website.</li>
+              <li>✓ Chia sẻ đường dẫn tới website hoặc tài liệu.</li>
               <li>✓ Kết nối WiFi nhanh chóng.</li>
               <li>✓ Chia sẻ thông tin liên hệ.</li>
-              <li>✓ Thanh toán điện tử.</li>
-              <li>✓ Chia sẻ email và số điện thoại.</li>
+              <li>✓ Mở ứng dụng hoặc trang thanh toán tương thích.</li>
+              <li>✓ Chia sẻ văn bản ngắn.</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 id="cach-tao" className="mb-4 scroll-mt-24 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách tạo mã QR miễn phí
             </h2>
 
@@ -107,12 +106,12 @@ export default function BlogPage() {
               <li>2. Chọn loại nội dung.</li>
               <li>3. Nhập dữ liệu cần mã hóa.</li>
               <li>4. Tùy chỉnh màu sắc hoặc logo.</li>
-              <li>5. Tải xuống PNG, SVG hoặc PDF.</li>
+              <li>5. Tạo mã, quét thử để kiểm tra nội dung rồi tải PNG hoặc PDF.</li>
             </ol>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 id="an-toan" className="mb-4 scroll-mt-24 text-2xl font-bold tracking-tight sm:text-3xl">
               QR Code có an toàn không?
             </h2>
 
@@ -122,6 +121,11 @@ export default function BlogPage() {
             </p>
           </section>
         </article>
+
+        <section className="mx-auto mt-10 max-w-3xl border-t border-white/10 pt-6">
+          <h2 className="mb-3 text-xl font-bold">Nguồn tham khảo</h2>
+          <p className="leading-7 text-slate-300"><a href="https://www.denso-wave.com/en/system/qr/fundamental/qrcode/qrc/" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline underline-offset-4">DENSO WAVE: giới thiệu QR Code và các đặc tính</a>; <a href="https://www.qrcode.com/en/about/standards.html/index.html" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline underline-offset-4">thông tin tiêu chuẩn QR Code</a>.</p>
+        </section>
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">
@@ -143,7 +147,7 @@ export default function BlogPage() {
 
         {/* Related */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 

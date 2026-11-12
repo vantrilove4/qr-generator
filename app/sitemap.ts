@@ -33,9 +33,7 @@ const routes = [
 ];
 
 return routes.map((route) => ({
-url: `${baseUrl}${route}`,
-lastModified: new Date(),
-
+url: route ? `${baseUrl}${route}` : `${baseUrl}/`,
 changeFrequency:
   route === ""
     ? "daily"

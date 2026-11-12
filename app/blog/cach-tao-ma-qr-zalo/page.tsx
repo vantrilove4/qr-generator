@@ -1,21 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cách tạo mã QR Zalo cá nhân và Zalo OA miễn phí | QRFree",
-  description:
-    "Hướng dẫn tạo mã QR Zalo cá nhân và Zalo Official Account miễn phí để chia sẻ liên hệ nhanh chóng.",
-  keywords: [
-    "tạo qr zalo",
-    "mã qr zalo",
-    "tạo mã qr zalo cá nhân",
-    "qr zalo oa",
-    "zalo qr code",
-  ],
-  alternates: {
-    canonical: "https://qrfree.io.vn/blog/cach-tao-ma-qr-zalo",
-  },
-};
+export const metadata = createPageMetadata("Cách tạo mã QR Zalo cá nhân và Zalo OA miễn phí | QRFree", "Hướng dẫn tạo mã QR Zalo cá nhân và Zalo Official Account miễn phí để chia sẻ liên hệ nhanh chóng.", "/blog/cach-tao-ma-qr-zalo");
 
 export default function ZaloQRBlogPage() {
   return (
@@ -39,7 +25,7 @@ export default function ZaloQRBlogPage() {
             ZALO QR
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách tạo mã QR Zalo
             <span className="mt-2 block text-cyan-400">
               miễn phí trong vài giây
@@ -47,8 +33,8 @@ export default function ZaloQRBlogPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 17/06/2026</span>
-            <span>⏱️ 5 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>5 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -58,49 +44,48 @@ export default function ZaloQRBlogPage() {
         </div>
 
         {/* Content */}
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Mã QR Zalo là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
               Đây là mã QR chứa liên kết đến tài khoản Zalo của bạn.
-              Khi người khác quét mã, họ có thể truy cập hồ sơ và kết bạn
-              hoặc theo dõi OA ngay lập tức.
+              Khi người khác quét mã, thiết bị có thể mở ứng dụng Zalo hoặc trang liên kết. Người đó vẫn cần hoàn tất thao tác kết bạn hoặc theo dõi trong Zalo; kết quả phụ thuộc trạng thái đăng nhập và loại liên kết.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Lợi ích của QR Zalo
             </h2>
 
             <ul className="space-y-4 text-slate-300">
               <li>✓ Kết bạn nhanh chóng.</li>
               <li>✓ Chia sẻ thông tin dễ dàng.</li>
-              <li>✓ Tăng lượt theo dõi OA.</li>
+              <li>✓ Giúp khách tìm đúng tài khoản hoặc OA để kết nối.</li>
               <li>✓ Phù hợp cho cửa hàng và doanh nghiệp.</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách tạo mã QR Zalo miễn phí
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Sao chép liên kết Zalo của bạn.</li>
+              <li>1. Sao chép liên kết hồ sơ hoặc OA từ Zalo và thử mở liên kết đó trước.</li>
               <li>2. Truy cập QRFree.io.vn.</li>
               <li>3. Chọn loại QR Website.</li>
               <li>4. Dán liên kết Zalo vào.</li>
-              <li>5. Tùy chỉnh màu sắc hoặc logo.</li>
+              <li>5. Dán liên kết, tạo mã và quét thử để xác nhận mở đúng tài khoản.</li>
               <li>6. Tải mã QR về thiết bị.</li>
             </ol>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Ứng dụng thực tế
             </h2>
 
@@ -131,13 +116,13 @@ export default function ZaloQRBlogPage() {
 
         {/* Related */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
           <div className="grid gap-6 md:grid-cols-2">
             <Link
-              href="/blog/qr-code-la-gi"
+              href="/blog/qrcode-la-gi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
             >
               <h3 className="text-xl font-bold">

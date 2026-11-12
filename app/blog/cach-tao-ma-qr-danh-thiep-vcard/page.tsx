@@ -1,22 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cách tạo mã QR danh thiếp (vCard) miễn phí | QRFree",
-  description:
-    "Hướng dẫn tạo mã QR danh thiếp vCard miễn phí để chia sẻ thông tin liên hệ nhanh chóng chỉ bằng một lần quét.",
-  keywords: [
-    "qr danh thiếp",
-    "vcard qr",
-    "mã qr danh bạ",
-    "contact qr",
-    "tạo qr danh thiếp",
-  ],
-  alternates: {
-    canonical:
-      "https://qrfree.io.vn/blog/cach-tao-ma-qr-danh-thiep-vcard",
-  },
-};
+export const metadata = createPageMetadata("Cách tạo mã QR danh thiếp (vCard) miễn phí | QRFree", "Hướng dẫn tạo mã QR danh thiếp vCard miễn phí để chia sẻ thông tin liên hệ nhanh chóng chỉ bằng một lần quét.", "/blog/cach-tao-ma-qr-danh-thiep-vcard");
 
 export default function VCardQRPage() {
   return (
@@ -39,7 +24,7 @@ export default function VCardQRPage() {
             VCARD QR
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách tạo mã QR
             <span className="block text-cyan-400">
               danh thiếp (vCard) miễn phí
@@ -47,8 +32,8 @@ export default function VCardQRPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 20/06/2026</span>
-            <span>⏱️ 6 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>6 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -59,21 +44,19 @@ export default function VCardQRPage() {
         </div>
 
         {/* Nội dung */}
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               QR danh thiếp (vCard) là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
-              Đây là loại mã QR chứa thông tin liên hệ như họ tên, số điện thoại,
-              email, công ty, địa chỉ và website. Sau khi quét, người dùng có thể
-              lưu trực tiếp vào danh bạ điện thoại.
+              vCard là định dạng danh thiếp điện tử. QRFree hiện cho nhập họ tên và số điện thoại để tạo mã; điện thoại tương thích có thể đề xuất lưu thông tin đó vào danh bạ sau khi quét.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Lợi ích của QR danh thiếp
             </h2>
 
@@ -86,39 +69,34 @@ export default function VCardQRPage() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
-              Thông tin có thể chứa trong vCard
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
+              Thông tin trong QRFree
             </h2>
 
             <ul className="space-y-4 text-slate-300">
               <li>✓ Họ và tên</li>
-              <li>✓ Chức vụ</li>
-              <li>✓ Công ty</li>
               <li>✓ Số điện thoại</li>
-              <li>✓ Email</li>
-              <li>✓ Website</li>
-              <li>✓ Địa chỉ</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách tạo mã QR danh thiếp
             </h2>
 
             <ol className="space-y-4 text-slate-300">
               <li>1. Truy cập QRFree.io.vn.</li>
               <li>2. Chọn loại QR Danh bạ (vCard).</li>
-              <li>3. Nhập thông tin liên hệ.</li>
-              <li>4. Xem trước mã QR.</li>
-              <li>5. Tải về PNG hoặc SVG.</li>
+              <li>3. Nhập tên và số điện thoại bạn muốn chia sẻ.</li>
+              <li>4. Tạo mã, quét thử và xác nhận nội dung hiển thị.</li>
+              <li>5. Tải mã QR về thiết bị.</li>
               <li>6. In lên danh thiếp hoặc hồ sơ cá nhân.</li>
             </ol>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Ai nên sử dụng?
             </h2>
 
@@ -140,7 +118,7 @@ export default function VCardQRPage() {
           </h2>
 
           <p className="mt-4 text-slate-300">
-            Chia sẻ thông tin liên hệ chuyên nghiệp bằng QR Code.
+            Chia sẻ tên và số điện thoại để người khác lưu vào danh bạ.
           </p>
 
           <Link
@@ -153,7 +131,7 @@ export default function VCardQRPage() {
 
         {/* Related Posts */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
@@ -195,7 +173,7 @@ export default function VCardQRPage() {
             </Link>
 
             <Link
-              href="/blog/qr-code-la-gi"
+              href="/blog/qrcode-la-gi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
             >
               <h3 className="text-xl font-bold">

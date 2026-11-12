@@ -1,21 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cách tạo mã QR Google Maps miễn phí | QRFree",
-  description:
-    "Hướng dẫn tạo mã QR Google Maps để chia sẻ vị trí, cửa hàng hoặc địa điểm nhanh chóng bằng một lần quét.",
-  keywords: [
-    "qr google maps",
-    "mã qr google maps",
-    "tạo qr vị trí",
-    "chia sẻ vị trí bằng qr",
-    "qr chỉ đường",
-  ],
-  alternates: {
-    canonical: "https://qrfree.io.vn/blog/cach-tao-ma-qr-google-maps",
-  },
-};
+export const metadata = createPageMetadata("Cách tạo mã QR Google Maps miễn phí | QRFree", "Hướng dẫn tạo mã QR Google Maps để chia sẻ vị trí, cửa hàng hoặc địa điểm nhanh chóng bằng một lần quét.", "/blog/cach-tao-ma-qr-google-maps");
 
 export default function GoogleMapsQRPage() {
   return (
@@ -39,7 +25,7 @@ export default function GoogleMapsQRPage() {
             GOOGLE MAPS
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách tạo mã QR
             <span className="block text-cyan-400">
               Google Maps miễn phí
@@ -47,8 +33,8 @@ export default function GoogleMapsQRPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 20/06/2026</span>
-            <span>⏱️ 5 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>5 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -59,16 +45,15 @@ export default function GoogleMapsQRPage() {
         </div>
 
         {/* Nội dung */}
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Mã QR Google Maps là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
               Mã QR Google Maps là mã QR chứa liên kết đến một địa điểm cụ thể
-              trên Google Maps. Khi người dùng quét mã, ứng dụng Google Maps sẽ
-              mở ra và hiển thị vị trí cùng hướng dẫn chỉ đường.
+              trên Google Maps. Khi quét mã, liên kết có thể mở trong ứng dụng Maps hoặc trình duyệt tùy cài đặt thiết bị; người dùng có thể xem địa điểm rồi tự chọn chỉ đường.
             </p>
 
             <p className="mt-4 leading-8 text-slate-300">
@@ -77,8 +62,8 @@ export default function GoogleMapsQRPage() {
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Lợi ích của mã QR Google Maps
             </h2>
 
@@ -91,8 +76,8 @@ export default function GoogleMapsQRPage() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách tạo mã QR Google Maps
             </h2>
 
@@ -108,8 +93,8 @@ export default function GoogleMapsQRPage() {
             </ol>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Những trường hợp nên sử dụng
             </h2>
 
@@ -123,8 +108,8 @@ export default function GoogleMapsQRPage() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Mẹo sử dụng hiệu quả
             </h2>
 
@@ -134,8 +119,7 @@ export default function GoogleMapsQRPage() {
             </p>
 
             <p className="mt-4 leading-8 text-slate-300">
-              Nếu địa điểm thay đổi, bạn cần tạo lại mã QR mới vì QRFree hiện
-              hỗ trợ mã QR tĩnh miễn phí.
+              QRFree tạo mã tĩnh nên địa chỉ được mã hóa không thể sửa trực tiếp trong QR. Nếu địa điểm hoặc URL thay đổi, hãy tạo và thay mã mới; nếu chỉ cập nhật thông tin của cùng một địa điểm trên Google Maps, liên kết hiện tại có thể vẫn dùng được.
             </p>
           </section>
         </article>
@@ -160,13 +144,13 @@ export default function GoogleMapsQRPage() {
 
         {/* Bài liên quan */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
           <div className="grid gap-6 md:grid-cols-2">
             <Link
-              href="/blog/qr-code-la-gi"
+              href="/blog/qrcode-la-gi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
             >
               <h3 className="text-xl font-bold">

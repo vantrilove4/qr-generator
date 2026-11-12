@@ -1,21 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cách tạo mã QR cho file PDF miễn phí | QRFree",
-  description:
-    "Hướng dẫn tạo mã QR cho file PDF miễn phí để chia sẻ tài liệu, báo giá, hồ sơ hoặc hướng dẫn sử dụng nhanh chóng.",
-  keywords: [
-    "qr pdf",
-    "mã qr pdf",
-    "tạo qr cho file pdf",
-    "pdf qr code",
-    "chia sẻ pdf bằng qr",
-  ],
-  alternates: {
-    canonical: "https://qrfree.io.vn/blog/cach-tao-ma-qr-pdf",
-  },
-};
+export const metadata = createPageMetadata("Cách tạo mã QR liên kết tới file PDF", "Tạo mã QR trỏ tới liên kết PDF đang được lưu trữ trực tuyến bằng công cụ tạo QR miễn phí.", "/blog/cach-tao-ma-qr-pdf");
 
 export default function QRPDFPage() {
   return (
@@ -38,7 +24,7 @@ export default function QRPDFPage() {
             PDF QR
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách tạo mã QR
             <span className="block text-cyan-400">
               cho file PDF miễn phí
@@ -46,8 +32,8 @@ export default function QRPDFPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 20/06/2026</span>
-            <span>⏱️ 5 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>5 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -58,9 +44,9 @@ export default function QRPDFPage() {
         </div>
 
         {/* Nội dung */}
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Mã QR PDF là gì?
             </h2>
 
@@ -71,8 +57,8 @@ export default function QRPDFPage() {
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Lợi ích của mã QR PDF
             </h2>
 
@@ -85,8 +71,8 @@ export default function QRPDFPage() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách tạo mã QR cho PDF
             </h2>
 
@@ -101,8 +87,8 @@ export default function QRPDFPage() {
             </ol>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Ứng dụng thực tế
             </h2>
 
@@ -116,14 +102,13 @@ export default function QRPDFPage() {
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Lưu ý khi sử dụng
             </h2>
 
             <p className="leading-8 text-slate-300">
-              Hãy đảm bảo liên kết PDF có quyền truy cập công khai.
-              Nếu thay đổi hoặc xóa tệp PDF, mã QR sẽ không còn hoạt động.
+              Hãy đảm bảo người nhận có quyền mở liên kết, rồi quét thử ở cửa sổ riêng tư hoặc trên thiết bị khác. QR tĩnh lưu địa chỉ liên kết: nếu bạn thay nội dung tệp nhưng giữ nguyên URL thì mã vẫn dẫn tới URL đó; nếu xóa tệp, đổi URL hoặc thu hồi quyền chia sẻ thì người nhận có thể không mở được PDF.
             </p>
           </section>
         </article>
@@ -135,7 +120,7 @@ export default function QRPDFPage() {
           </h2>
 
           <p className="mt-4 text-slate-300">
-            Hỗ trợ Website, WiFi, Email, PDF và nhiều loại nội dung khác.
+            Tải PDF lên dịch vụ lưu trữ trực tuyến, sau đó tạo QR trỏ tới liên kết chia sẻ.
           </p>
 
           <Link
@@ -148,7 +133,7 @@ export default function QRPDFPage() {
 
         {/* Related Posts */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
@@ -173,7 +158,7 @@ export default function QRPDFPage() {
                 Cách tạo mã QR thanh toán ngân hàng
               </h3>
               <p className="mt-3 text-slate-400">
-                Tạo mã QR chuyển khoản VietQR.
+                Hướng dẫn tạo mã thanh toán bằng ứng dụng ngân hàng hoặc dịch vụ VietQR.
               </p>
             </Link>
 

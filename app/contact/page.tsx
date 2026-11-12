@@ -1,11 +1,9 @@
 
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Liên hệ | Contact | QRFree",
-  description: "Thông tin liên hệ của QRFree.io.vn",
-};
+export const metadata = createPageMetadata("Liên hệ QRFree", "Thông tin liên hệ của QRFree.io.vn", "/contact");
 
 export default function ContactPage() {
   return (

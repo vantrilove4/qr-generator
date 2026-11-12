@@ -1,23 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "QR động và QR tĩnh khác nhau thế nào? | QRFree",
-  description:
-    "So sánh QR động và QR tĩnh. Tìm hiểu ưu điểm, nhược điểm và nên sử dụng loại mã QR nào cho từng nhu cầu.",
-  keywords: [
-    "qr động",
-    "qr tĩnh",
-    "dynamic qr",
-    "static qr",
-    "qr động và qr tĩnh",
-    "nên dùng qr động hay qr tĩnh",
-  ],
-  alternates: {
-    canonical:
-      "https://qrfree.io.vn/blog/qr-dong-va-qr-tinh-khac-nhau-the-nao",
-  },
-};
+export const metadata = createPageMetadata("QR động và QR tĩnh khác nhau thế nào? | QRFree", "So sánh QR động và QR tĩnh. Tìm hiểu ưu điểm, nhược điểm và nên sử dụng loại mã QR nào cho từng nhu cầu.", "/blog/qr-dong-va-qr-tinh-khac-nhau-the-nao");
 
 export default function DynamicVsStaticQRPage() {
   return (
@@ -41,7 +25,7 @@ export default function DynamicVsStaticQRPage() {
             QR GUIDE
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             QR động và QR tĩnh
             <span className="block text-cyan-400">
               khác nhau thế nào?
@@ -49,8 +33,8 @@ export default function DynamicVsStaticQRPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 20/06/2026</span>
-            <span>⏱️ 6 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>6 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -61,51 +45,50 @@ export default function DynamicVsStaticQRPage() {
         </div>
 
         {/* Content */}
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               QR tĩnh là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
               QR tĩnh (Static QR) là loại mã QR chứa trực tiếp dữ liệu bên trong.
-              Sau khi tạo, nội dung sẽ không thể chỉnh sửa hoặc thay đổi.
+              Dữ liệu được mã hóa trực tiếp trong hình QR. Muốn đổi dữ liệu, thường phải tạo mã mới. Với QR chứa một URL, chủ trang vẫn có thể đổi nội dung ở chính địa chỉ đó.
             </p>
 
             <ul className="mt-6 space-y-3 text-slate-300">
-              <li>✓ Miễn phí</li>
+              <li>✓ Không phụ thuộc dịch vụ chuyển hướng QR</li>
               <li>✓ Không cần máy chủ trung gian</li>
               <li>✓ Hoạt động lâu dài</li>
               <li>✗ Không thể chỉnh sửa nội dung</li>
-              <li>✗ Không có thống kê lượt quét</li>
+              <li>✗ Bản thân mã không cung cấp thống kê lượt quét</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               QR động là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
-              QR động (Dynamic QR) không chứa dữ liệu thực tế mà chứa một liên kết
-              trung gian. Nội dung đích có thể thay đổi mà không cần tạo lại mã QR.
+              QR động thường mã hóa một URL chuyển hướng do nhà cung cấp quản lý. Nhà cung cấp có thể cho phép đổi địa chỉ đích mà không in lại mã; các tính năng cụ thể phụ thuộc dịch vụ.
             </p>
 
             <ul className="mt-6 space-y-3 text-slate-300">
               <li>✓ Có thể chỉnh sửa nội dung</li>
-              <li>✓ Theo dõi lượt quét</li>
-              <li>✓ Theo dõi vị trí và thiết bị</li>
+              <li>✓ Một số dịch vụ có thống kê lượt quét</li>
+              <li>✓ Mức dữ liệu thống kê tùy nhà cung cấp và cài đặt quyền riêng tư</li>
               <li>✓ Phù hợp cho marketing</li>
-              <li>✗ Thường mất phí</li>
+              <li>✓ Giá và giới hạn sử dụng tùy gói dịch vụ</li>
             </ul>
           </section>
 
           <section className="rounded-3xl border border-slate-800 bg-white/5 p-8 overflow-x-auto">
-            <h2 className="mb-6 text-3xl font-bold">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               So sánh QR động và QR tĩnh
             </h2>
 
-            <table className="w-full border-collapse text-left">
+            <table className="w-full min-w-[620px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-slate-700">
                   <th className="p-3">Tiêu chí</th>
@@ -116,9 +99,9 @@ export default function DynamicVsStaticQRPage() {
 
               <tbody>
                 <tr className="border-b border-slate-800">
-                  <td className="p-3">Miễn phí</td>
-                  <td className="p-3">✅</td>
-                  <td className="p-3">❌</td>
+                  <td className="p-3">Chi phí</td>
+                  <td className="p-3">Tùy công cụ</td>
+                  <td className="p-3">Tùy nhà cung cấp</td>
                 </tr>
 
                 <tr className="border-b border-slate-800">
@@ -128,9 +111,9 @@ export default function DynamicVsStaticQRPage() {
                 </tr>
 
                 <tr className="border-b border-slate-800">
-                  <td className="p-3">Thống kê lượt quét</td>
-                  <td className="p-3">❌</td>
-                  <td className="p-3">✅</td>
+                  <td className="p-3">Thống kê qua dịch vụ QR</td>
+                  <td className="p-3">Không có sẵn trong mã</td>
+                  <td className="p-3">Có thể có, tùy dịch vụ</td>
                 </tr>
 
                 <tr className="border-b border-slate-800">
@@ -148,8 +131,8 @@ export default function DynamicVsStaticQRPage() {
             </table>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Nên sử dụng loại nào?
             </h2>
 
@@ -160,8 +143,8 @@ export default function DynamicVsStaticQRPage() {
             <ul className="space-y-3 text-slate-300">
               <li>✓ Website cá nhân</li>
               <li>✓ WiFi</li>
-              <li>✓ Email</li>
-              <li>✓ Danh bạ</li>
+              <li>✓ Email hoặc số điện thoại</li>
+              <li>✓ Danh bạ vCard</li>
               <li>✓ Facebook hoặc Zalo</li>
             </ul>
 
@@ -174,12 +157,12 @@ export default function DynamicVsStaticQRPage() {
               <li>✓ Nhà hàng, quán cà phê</li>
               <li>✓ Sự kiện</li>
               <li>✓ Chiến dịch quảng cáo</li>
-              <li>✓ Theo dõi hành vi khách hàng</li>
+              <li>✓ Đo lường chiến dịch khi dịch vụ và thiết lập quyền riêng tư phù hợp</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               QRFree hỗ trợ loại nào?
             </h2>
 
@@ -191,9 +174,8 @@ export default function DynamicVsStaticQRPage() {
               <li>✓ Website URL</li>
               <li>✓ WiFi</li>
               <li>✓ Văn bản</li>
-              <li>✓ Email</li>
-              <li>✓ Số điện thoại</li>
-              <li>✓ Danh bạ liên hệ</li>
+              <li>✓ Danh bạ vCard</li>
+              <li>✓ Địa chỉ ví crypto</li>
             </ul>
           </section>
         </article>
@@ -205,7 +187,7 @@ export default function DynamicVsStaticQRPage() {
           </h2>
 
           <p className="mt-4 text-slate-300">
-            Hỗ trợ Website, WiFi, Email, Văn bản và nhiều loại nội dung khác.
+            Hỗ trợ URL, Wi-Fi, văn bản, vCard và địa chỉ ví crypto.
           </p>
 
           <Link
@@ -218,13 +200,13 @@ export default function DynamicVsStaticQRPage() {
 
         {/* Related Posts */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
           <div className="grid gap-6 md:grid-cols-2">
             <Link
-              href="/blog/qr-code-la-gi"
+              href="/blog/qrcode-la-gi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
             >
               <h3 className="text-xl font-bold">
@@ -267,7 +249,7 @@ export default function DynamicVsStaticQRPage() {
                 Cách tạo mã QR thanh toán ngân hàng
               </h3>
               <p className="mt-3 text-slate-400">
-                Hướng dẫn tạo QR chuyển khoản VietQR.
+                Tìm hiểu cách tạo mã thanh toán qua ứng dụng ngân hàng hoặc dịch vụ VietQR.
               </p>
             </Link>
           </div>

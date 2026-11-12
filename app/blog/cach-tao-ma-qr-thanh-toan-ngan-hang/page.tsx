@@ -1,22 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cách tạo mã QR thanh toán ngân hàng VietQR miễn phí | QRFree",
-  description:
-    "Hướng dẫn tạo mã QR thanh toán ngân hàng VietQR miễn phí để nhận chuyển khoản nhanh chóng và chính xác.",
-  keywords: [
-    "vietqr",
-    "mã qr thanh toán",
-    "qr chuyển khoản",
-    "tạo mã qr ngân hàng",
-    "qr thanh toán",
-  ],
-  alternates: {
-    canonical:
-      "https://qrfree.io.vn/blog/cach-tao-ma-qr-thanh-toan-ngan-hang",
-  },
-};
+export const metadata = createPageMetadata("Cách tạo mã QR thanh toán VietQR bằng ứng dụng ngân hàng", "Tìm hiểu cách tạo mã thanh toán VietQR bằng ứng dụng ngân hàng hoặc dịch vụ VietQR và các thông tin cần kiểm tra.", "/blog/cach-tao-ma-qr-thanh-toan-ngan-hang");
 
 export default function VietQRBlogPage() {
   return (
@@ -38,92 +23,99 @@ export default function VietQRBlogPage() {
             VIETQR
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
-            Cách tạo mã QR
-            <span className="block text-cyan-400">
-              thanh toán ngân hàng miễn phí
-            </span>
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
+            Cách tạo mã QR thanh toán VietQR
           </h1>
 
+          <div className="mt-5 flex flex-wrap gap-5 text-sm text-slate-400">
+            <span>Biên soạn: QRFree</span>
+            <span>5 phút đọc</span>
+          </div>
+
           <p className="mt-6 leading-8 text-slate-300">
-            Mã QR thanh toán giúp khách hàng chuyển khoản nhanh chóng,
-            hạn chế nhập sai số tài khoản và nâng cao tính chuyên nghiệp
-            cho cửa hàng, doanh nghiệp hoặc cá nhân kinh doanh.
+            Có thể tạo mã chuyển khoản từ ứng dụng ngân hàng hoặc dịch vụ hỗ trợ VietQR. Bài viết hướng dẫn các bước cần kiểm tra và nêu rõ QRFree hiện chỉ tạo QR cho liên kết, chưa tạo mã chuyển khoản VietQR.
           </p>
         </div>
 
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <aside className="mt-6 rounded-2xl border border-amber-400/25 bg-amber-300/5 p-5 text-sm leading-7 text-amber-100/90">
+          QRFree chưa tạo mã chuyển khoản VietQR. Hãy tạo mã bằng ứng dụng ngân hàng hoặc dịch vụ VietQR đáng tin cậy; không nhập thông tin đăng nhập hay OTP ngân hàng vào trang tạo QR.
+        </aside>
+
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               VietQR là gì?
             </h2>
 
             <p className="leading-8 text-slate-300">
-              VietQR là chuẩn mã QR thanh toán được nhiều ngân hàng tại Việt Nam
-              hỗ trợ. Người dùng chỉ cần quét mã để thực hiện chuyển khoản mà
-              không cần nhập thủ công thông tin tài khoản.
+              VietQR là thương hiệu và định dạng QR do NAPAS triển khai cho các dịch vụ thanh toán, chuyển tiền. Khi quét mã cá nhân bằng ứng dụng ngân hàng tương thích, thông tin người nhận có thể được điền sẵn để bạn kiểm tra; số tiền và nội dung chuyển khoản tùy mã.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Lợi ích của mã QR thanh toán
             </h2>
 
             <ul className="space-y-4 text-slate-300">
               <li>✓ Chuyển khoản nhanh chóng.</li>
-              <li>✓ Hạn chế sai sót thông tin.</li>
+              <li>✓ Có thể điền sẵn thông tin người nhận để giảm thao tác nhập.</li>
               <li>✓ Chuyên nghiệp hơn khi kinh doanh.</li>
               <li>✓ In trên hóa đơn, menu hoặc danh thiếp.</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách tạo mã QR thanh toán
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Chuẩn bị số tài khoản ngân hàng.</li>
-              <li>2. Chuẩn bị tên chủ tài khoản.</li>
-              <li>3. Tạo mã QR theo chuẩn VietQR.</li>
-              <li>4. Tải mã QR về máy.</li>
-              <li>5. In hoặc chia sẻ cho khách hàng.</li>
+              <li>1. Mở ứng dụng ngân hàng hoặc dịch vụ VietQR mà bạn tin cậy.</li>
+              <li>2. Nhập ngân hàng, số tài khoản và tên người nhận; thêm số tiền hoặc nội dung nếu cần.</li>
+              <li>3. Tạo mã trong ứng dụng và kiểm tra tên người nhận cùng các thông tin hiển thị.</li>
+              <li>4. Quét thử bằng ứng dụng ngân hàng khác trước khi in hoặc chia sẻ.</li>
+              <li>5. Khi nhận tiền, xác nhận giao dịch trong tài khoản ngân hàng thay vì chỉ dựa vào ảnh chụp.</li>
             </ol>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Những lưu ý khi sử dụng
             </h2>
 
             <ul className="space-y-4 text-slate-300">
-              <li>✓ Kiểm tra kỹ số tài khoản.</li>
-              <li>✓ Không chia sẻ thông tin nhạy cảm.</li>
-              <li>✓ Cập nhật mã QR khi thay đổi tài khoản ngân hàng.</li>
-              <li>✓ Sử dụng nguồn tạo QR uy tín.</li>
+              <li>✓ Kiểm tra tên người nhận, ngân hàng, số tài khoản, số tiền và nội dung trước khi xác nhận.</li>
+              <li>✓ Không cung cấp mật khẩu, mã OTP hoặc mã PIN để tạo hay nhận thanh toán.</li>
+              <li>✓ Tạo lại và thay QR đã in nếu tài khoản nhận tiền thay đổi.</li>
+              <li>✓ Chỉ dùng ứng dụng ngân hàng hoặc nguồn VietQR đáng tin cậy.</li>
             </ul>
           </section>
         </article>
 
+        <section className="mt-10 rounded-3xl border border-slate-800 bg-white/5 p-8">
+          <h2 className="mb-4 text-2xl font-bold">Nguồn tham khảo</h2>
+          <p className="leading-7 text-slate-300">Thông tin về chuyển tiền bằng mã VietQR được tham khảo từ hướng dẫn chính thức của <a href="https://www.napas.com.vn/dich-vu-chuyen-tien-nhanh-napas-247" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline decoration-cyan-300/50 underline-offset-4 hover:text-cyan-200">NAPAS</a>.</p>
+        </section>
+
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">
           <h2 className="text-3xl font-bold">
-            Tạo mã QR miễn phí ngay hôm nay
+            Tạo mã QR cho đường dẫn thanh toán
           </h2>
 
           <p className="mt-4 text-slate-300">
-            Tạo QR cho website, WiFi, email, danh bạ và nhiều nội dung khác.
+            QRFree hiện chỉ tạo QR cho đường dẫn. Để nhận chuyển khoản, hãy dùng mã do ngân hàng hoặc dịch vụ VietQR tạo và xác minh thông tin người nhận trước khi chia sẻ.
           </p>
 
           <Link
             href="/generate"
             className="mt-8 inline-block rounded-2xl bg-cyan-500 px-8 py-4 font-bold text-black transition hover:bg-cyan-400"
           >
-            Tạo mã QR
+            Tạo QR cho liên kết
           </Link>
         </section>
         <section className="mt-16">
-  <h2 className="mb-6 text-3xl font-bold">
+  <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
     Bài viết liên quan
   </h2>
 
@@ -142,7 +134,7 @@ export default function VietQRBlogPage() {
     </Link>
 
     <Link
-      href="/blog/qr-code-la-gi"
+      href="/blog/qrcode-la-gi"
       className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
     >
       <h3 className="text-xl font-bold">
@@ -176,7 +168,7 @@ export default function VietQRBlogPage() {
       </h3>
 
       <p className="mt-3 text-slate-400">
-        Tăng lượt theo dõi Fanpage bằng QR Code.
+        Chia sẻ trang cá nhân hoặc Fanpage bằng QR.
       </p>
     </Link>
   </div>

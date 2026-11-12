@@ -1,22 +1,8 @@
 
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cách quét mã QR trên điện thoại Android và iPhone | QRFree",
-  description:
-    "Hướng dẫn chi tiết cách quét mã QR trên điện thoại Android và iPhone bằng camera hoặc từ ảnh trong thư viện.",
-  keywords: [
-    "cách quét mã qr",
-    "quét qr android",
-    "quét qr iphone",
-    "đọc mã qr từ ảnh",
-    "qr scanner",
-  ],
-  alternates: {
-    canonical: "https://qrfree.io.vn/blog/quet-ma-qr-tren-dien-thoai",
-  },
-};
+export const metadata = createPageMetadata("Cách quét mã QR trên iPhone và Android | QRFree", "Hướng dẫn quét mã QR bằng camera trên iPhone, Android hoặc đọc mã từ ảnh đã lưu bằng cách tải lên hay dán ảnh.", "/blog/quet-ma-qr-tren-dien-thoai");
 
 export default function ScanQRBlogPage() {
   return (
@@ -34,15 +20,13 @@ export default function ScanQRBlogPage() {
         >
           ← Quay lại Blog
         </Link>
-<script async data-cfasync="false" src="https://pl29783748.effectivecpmnetwork.com/721828cd8f8c6a17755c9736f4a6116a/invoke.js"></script>
-<div id="container-721828cd8f8c6a17755c9736f4a6116a"></div>
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
           <span className="rounded-full bg-cyan-500/10 px-4 py-1 text-sm text-cyan-300">
             QR SCANNER
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách quét mã QR
             <span className="mt-2 block text-cyan-400">
               trên Android và iPhone
@@ -50,33 +34,31 @@ export default function ScanQRBlogPage() {
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
-            <span>📅 Cập nhật: 17/06/2026</span>
-            <span>⏱️ 4 phút đọc</span>
+            <span>Biên soạn: QRFree</span>
+            <span>4 phút đọc</span>
           </div>
 
           <p className="mt-6 max-w-3xl leading-8 text-slate-300">
-            Mã QR ngày càng được sử dụng phổ biến trong thanh toán, chia sẻ
-            thông tin và truy cập website. Dưới đây là hướng dẫn chi tiết
-            giúp bạn quét mã QR nhanh chóng trên cả Android và iPhone.
+            Dùng camera để quét mã trực tiếp, hoặc đọc mã từ ảnh đã lưu. Các bước cụ thể có thể khác nhau tùy thiết bị và ứng dụng Camera.
           </p>
         </div>
 
         {/* TOC */}
-        <div className="mt-10 rounded-3xl border border-slate-800 bg-white/5 p-6">
-          <h2 className="mb-4 text-xl font-bold">Mục lục</h2>
+        <nav aria-label="Mục lục bài viết" className="mt-10 rounded-2xl border border-white/10 bg-slate-900/70 p-6">
+          <h2 className="mb-4 text-lg font-bold">Trong bài viết</h2>
 
-          <ul className="space-y-2 text-slate-300">
-            <li>• Cách quét mã QR trên iPhone</li>
-            <li>• Cách quét mã QR trên Android</li>
-            <li>• Quét mã QR từ ảnh trong thư viện</li>
-            <li>• Khi nào nên dùng công cụ quét QR online?</li>
+          <ul className="grid gap-2 text-slate-300 sm:grid-cols-2">
+            <li><a className="hover:text-cyan-300" href="#iphone">01 · iPhone</a></li>
+            <li><a className="hover:text-cyan-300" href="#android">02 · Android</a></li>
+            <li><a className="hover:text-cyan-300" href="#anh-luu">03 · Ảnh đã lưu</a></li>
+            <li><a className="hover:text-cyan-300" href="#quet-online">04 · Quét trực tuyến</a></li>
           </ul>
-        </div>
+        </nav>
 
         {/* Content */}
-        <article className="mt-10 space-y-10">
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+        <article className="mx-auto mt-10 max-w-3xl space-y-10">
+          <section id="iphone" className="scroll-mt-24 border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách quét mã QR trên iPhone
             </h2>
 
@@ -88,12 +70,12 @@ export default function ScanQRBlogPage() {
             </ol>
 
             <p className="mt-6 leading-8 text-slate-300">
-              Tính năng này được hỗ trợ trên hầu hết các phiên bản iOS hiện đại.
+              Trên iPhone, ứng dụng Camera có thể nhận diện QR và hiện liên kết để bạn xem trước. Nếu không thấy thông báo, thử mở Trung tâm điều khiển và dùng Trình đọc mã, hoặc kiểm tra phần cài đặt Camera.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section id="android" className="scroll-mt-24 border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Cách quét mã QR trên Android
             </h2>
 
@@ -105,41 +87,49 @@ export default function ScanQRBlogPage() {
             </ol>
 
             <p className="mt-6 leading-8 text-slate-300">
-              Một số dòng điện thoại Android có thể yêu cầu bật tính năng quét QR trong phần cài đặt camera.
+              Tên nút và khả năng quét thay đổi theo hãng máy, phiên bản Android và ứng dụng Camera. Nếu camera không nhận mã, thử Google Lens hoặc trình quét tích hợp trong máy.
             </p>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section id="anh-luu" className="scroll-mt-24 border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Quét mã QR từ ảnh trong thư viện
             </h2>
 
             <p className="leading-8 text-slate-300">
-              Nếu bạn nhận được ảnh chứa mã QR qua Zalo, Messenger hoặc Email,
-              bạn có thể sử dụng công cụ quét QR trực tuyến để đọc nội dung
-              mà không cần chụp lại màn hình.
+              Nếu mã QR nằm trong ảnh nhận qua Zalo, Messenger, email hoặc đã lưu trong thư viện, bạn không cần chụp màn hình lại. Mở QRFree trên thiết bị đó rồi tải ảnh lên hoặc sao chép ảnh và dán trực tiếp vào trang quét.
             </p>
 
             <ul className="mt-6 space-y-3 text-slate-300">
-              <li>✓ Tải ảnh chứa mã QR lên.</li>
-              <li>✓ Hệ thống tự động nhận diện.</li>
-              <li>✓ Sao chép hoặc mở liên kết ngay lập tức.</li>
+              <li>✓ Chọn ảnh từ thiết bị hoặc nhấn Ctrl+V / ⌘V để dán ảnh đã sao chép.</li>
+              <li>✓ Xem nội dung được giải mã và kiểm tra liên kết trước khi mở.</li>
+              <li>✓ Sao chép nội dung nếu cần.</li>
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-slate-800 bg-white/5 p-8">
-            <h2 className="mb-6 text-3xl font-bold">
+          <section id="quet-online" className="scroll-mt-24 border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
               Khi nào nên dùng công cụ quét QR online?
             </h2>
 
             <p className="leading-8 text-slate-300">
-              Công cụ quét QR online đặc biệt hữu ích khi bạn cần đọc mã QR
-              từ ảnh đã lưu trên máy tính hoặc điện thoại. Ngoài ra, việc xử lý
-              trực tiếp trên trình duyệt cũng giúp tiết kiệm thời gian và không
-              cần cài đặt thêm ứng dụng.
+              Công cụ quét QR trực tuyến hữu ích khi bạn đang mở ảnh trên máy tính, hoặc muốn dán ảnh từ clipboard. Hãy kiểm tra nội dung hiện ra trước khi truy cập website, đăng nhập hay thanh toán.
             </p>
           </section>
         </article>
+
+        <section className="mx-auto mt-10 max-w-3xl border-t border-white/10 pt-6">
+          <h2 className="mb-3 text-xl font-bold">Hướng dẫn chính thức</h2>
+          <ul className="space-y-2 text-sm text-slate-300">
+            <li><a href="https://support.apple.com/en-ie/guide/iphone/iphe8bda8762/ios" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline underline-offset-4">Apple: quét mã QR bằng camera iPhone</a></li>
+            <li><a href="https://support.google.com/camerafromgoogle/answer/12033278?hl=en" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline underline-offset-4">Google Camera: quét mã QR</a></li>
+          </ul>
+        </section>
+
+        <aside aria-label="Quảng cáo" className="mx-auto mt-10 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+          <script async data-cfasync="false" src="https://pl29783748.effectivecpmnetwork.com/721828cd8f8c6a17755c9736f4a6116a/invoke.js"></script>
+          <div id="container-721828cd8f8c6a17755c9736f4a6116a"></div>
+        </aside>
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">
@@ -161,13 +151,13 @@ export default function ScanQRBlogPage() {
 
         {/* Related */}
         <section className="mt-16">
-          <h2 className="mb-6 text-3xl font-bold">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Bài viết liên quan
           </h2>
 
           <div className="grid gap-6 md:grid-cols-2">
             <Link
-              href="/blog/qr-code-la-gi"
+              href="/blog/qrcode-la-gi"
               className="rounded-3xl border border-slate-800 bg-white/5 p-6 transition hover:border-cyan-500/40"
             >
               <h3 className="text-xl font-bold">

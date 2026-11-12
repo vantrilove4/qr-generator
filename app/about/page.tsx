@@ -1,11 +1,9 @@
 
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Giới thiệu | About | QRFree",
-  description: "Giới thiệu về QRFree.io.vn - Công cụ tạo và quét mã QR miễn phí.",
-};
+export const metadata = createPageMetadata("Giới thiệu QRFree", "Giới thiệu về QRFree.io.vn - Công cụ tạo và quét mã QR miễn phí.", "/about");
 
 export default function AboutPage() {
   return (
@@ -22,8 +20,8 @@ export default function AboutPage() {
         </p>
 
         <p>
-          Chúng tôi hỗ trợ tạo mã QR cho nhiều loại nội dung như:
-          URL, văn bản, Wi-Fi, email, số điện thoại, danh bạ và nhiều định dạng khác.
+          Công cụ hiện hỗ trợ tạo QR tĩnh cho URL, văn bản, Wi-Fi, danh bạ vCard
+          và địa chỉ ví crypto; đồng thời cho phép tùy chỉnh màu, thêm logo và tải PNG hoặc PDF.
         </p>
 
         <p>

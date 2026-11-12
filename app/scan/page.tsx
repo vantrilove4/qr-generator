@@ -3,63 +3,18 @@
 import QrScanner from "@/components/qr-scanner";
 import Link from "next/link";
 //import { ScanLine } from "lucide-react";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 
 
 
-export const metadata: Metadata = {
-  title:
-    "Free QR Code Scanner Online | Camera, Image & Screen Scanner",
-
-  description:
-    "Scan QR codes instantly using camera, image upload, or screen capture. Free online QR scanner with snipping tool support.",
-
-  keywords: [
-    "qr scanner",
-    "scan qr code",
-    "qr code scanner online",
-    "scan qr from image",
-    "scan qr from screen",
-    "free qr scanner",
-  ],
-
-  alternates: {
-    canonical: "https://qrfree.io.vn/scan",
-  },
-
-  openGraph: {
-    title:
-      "Free QR Code Scanner Online | QRFree",
-
-    description:
-      "Scan QR codes using camera, uploaded images, or screen capture.",
-
-    url: "https://qrfree.io.vn/scan",
-
-    siteName: "QRFree",
-
-    locale: "en_US",
-
-    type: "website",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-
-    title:
-      "Free QR Code Scanner Online | QRFree",
-
-    description:
-      "Scan QR codes instantly from camera, images, or your screen.",
-  },
-};
+export const metadata = createPageMetadata("Quét mã QR trực tuyến miễn phí", "Quét mã QR bằng camera, ảnh tải lên hoặc vùng màn hình đã chọn. Nội dung được đọc ngay trên trình duyệt.", "/scan");
 
 export default function ScanPage() {
   return (
     
     <main className="min-h-screen bg-[#f5f7fb]">
-      <div className="mx-auto flex min-h-screen max-w-[1200px] items-center px-4 py-10">
-        <div className="grid w-full gap-8 lg:grid-cols-[340px_minmax(0,1fr)]">
+      <div className="mx-auto flex min-h-screen max-w-[1200px] items-start px-4 py-8 sm:px-6 lg:py-12">
+        <div className="grid w-full items-start gap-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-8">
           {/* Left */}
           <div className="flex flex-col justify-center">
             <Link
@@ -69,39 +24,21 @@ export default function ScanPage() {
               ← Tạo QR
             </Link>
 
-            <h1 className="text-5xl font-bold leading-tight tracking-tight text-zinc-900">
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-zinc-900 sm:text-4xl">
               Quét mã QR trực tuyến miễn phí
             </h1>
             <h2 className="sr-only">
-  Scan QR codes from camera, image upload,
-  and screen capture online for free
+              Quét QR bằng camera, ảnh, clipboard hoặc màn hình
 </h2>
             <p className="mt-5 max-w-sm text-base leading-7 text-zinc-500">
-              Quét mã QR bằng camera hoặc tải ảnh lên.
-              Nhanh, đơn giản và hoạt động trực tiếp trên trình duyệt.
+              Dùng camera, tải ảnh lên, dán ảnh vừa sao chép hoặc chọn vùng QR trên màn hình.
             </p>
 
-            <div className="mt-8 flex gap-3">
-              <div className="rounded-2xl border border-white/60 bg-white/80 px-5 py-4 shadow-lg backdrop-blur">
-                <p className="text-2xl font-bold text-zinc-900">
-                  100%
-                </p>
-
-                <p className="text-sm text-zinc-500">
-                  Client-side
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-white/60 bg-white/80 px-5 py-4 shadow-lg backdrop-blur">
-                <p className="text-2xl font-bold text-zinc-900">
-                  Free
-                </p>
-
-                <p className="text-sm text-zinc-500">
-                  No login
-                </p>
-              </div>
-            </div>
+            <ul className="mt-7 space-y-3 text-sm text-zinc-600">
+              <li className="flex items-center gap-2"><span className="text-emerald-600">✓</span> Không cần đăng ký</li>
+              <li className="flex items-center gap-2"><span className="text-emerald-600">✓</span> Nội dung QR được đọc trong trình duyệt</li>
+              <li className="flex items-center gap-2"><span className="text-emerald-600">✓</span> Sao chép kết quả chỉ với một nút</li>
+            </ul>
           </div>
 
           {/* Right */}
@@ -116,7 +53,7 @@ export default function ScanPage() {
 
       "@type": "SoftwareApplication",
 
-      name: "QRFree Scanner",
+      name: "QRFree - Quét mã QR",
 
       applicationCategory:
         "UtilitiesApplication",
@@ -124,7 +61,7 @@ export default function ScanPage() {
       operatingSystem: "Web Browser",
 
       description:
-        "Free online QR code scanner using camera, image upload, and screen capture.",
+        "Công cụ quét mã QR trực tuyến bằng camera, ảnh tải lên hoặc vùng màn hình đã chọn.",
 
       url: "https://qrfree.io.vn/scan",
 
