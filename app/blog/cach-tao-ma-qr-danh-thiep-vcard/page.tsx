@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Cách tạo mã QR danh thiếp (vCard) miễn phí | QRFree", "Hướng dẫn tạo mã QR danh thiếp vCard miễn phí để chia sẻ thông tin liên hệ nhanh chóng chỉ bằng một lần quét.", "/blog/cach-tao-ma-qr-danh-thiep-vcard");
@@ -11,12 +12,7 @@ export default function VCardQRPage() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex text-sm text-cyan-400 hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/cach-tao-ma-qr-danh-thiep-vcard" currentTitle="Cách tạo mã QR danh thiếp vCard" />
 
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
@@ -86,12 +82,12 @@ export default function VCardQRPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Truy cập QRFree.io.vn.</li>
-              <li>2. Chọn loại QR Danh bạ (vCard).</li>
-              <li>3. Nhập tên và số điện thoại bạn muốn chia sẻ.</li>
-              <li>4. Tạo mã, quét thử và xác nhận nội dung hiển thị.</li>
-              <li>5. Tải mã QR về thiết bị.</li>
-              <li>6. In lên danh thiếp hoặc hồ sơ cá nhân.</li>
+              <li>Truy cập QRFree.io.vn.</li>
+              <li>Chọn loại QR Danh bạ (vCard).</li>
+              <li>Nhập tên và số điện thoại bạn muốn chia sẻ.</li>
+              <li>Nhấn “Tạo mã QR”, quét thử và xác nhận nội dung hiển thị.</li>
+              <li>Tải mã QR về thiết bị.</li>
+              <li>In lên danh thiếp hoặc hồ sơ cá nhân.</li>
             </ol>
           </section>
 
@@ -109,7 +105,37 @@ export default function VCardQRPage() {
               <li>✓ Người tham gia hội chợ, triển lãm</li>
             </ul>
           </section>
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Định dạng số điện thoại để người nhận lưu dễ hơn</h2>
+            <p className="leading-8 text-slate-300">Nhập số có mã quốc gia nếu bạn thường chia sẻ danh thiếp với người ở nước ngoài, chẳng hạn định dạng +84 cho số Việt Nam. Kiểm tra lại số và tên sau khi quét vì lỗi một chữ số có thể đưa người khác tới sai liên hệ.</p>
+            <p className="mt-4 leading-8 text-slate-300">QRFree hiện chỉ có trường tên và số điện thoại. Nếu cần chức danh, email hoặc website, hãy dùng một trang hồ sơ liên hệ do bạn quản lý rồi tạo QR cho đường dẫn đó, hoặc dùng công cụ có các trường vCard bổ sung.</p>
+          </section>
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Quy trình thử danh thiếp trước khi in</h2>
+            <ol className="space-y-3 text-slate-300">
+              <li>Quét bằng ít nhất một iPhone và một thiết bị Android nếu có thể.</li>
+              <li>Kiểm tra đúng tên và số trong màn hình liên hệ.</li>
+              <li>Lưu thử, gọi hoặc nhắn tin xác nhận số.</li>
+              <li>In mẫu ở kích thước thật rồi quét trước khi đặt số lượng lớn.</li>
+            </ol>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "QRFree lưu được những thông tin danh bạ nào?",
+                    "answer": "Biểu mẫu hiện tạo vCard từ họ tên và số điện thoại. Không nên hướng dẫn người đọc nhập email, chức vụ hay công ty vì công cụ chưa có các trường đó."
+          },
+          {
+                    "question": "Quét vCard có tự thêm liên hệ vào danh bạ không?",
+                    "answer": "Thông thường thiết bị sẽ hiển thị thông tin và yêu cầu người dùng xác nhận lưu; cách hiển thị phụ thuộc ứng dụng quét và hệ điều hành."
+          },
+          {
+                    "question": "Khi đổi số điện thoại có cần tạo lại mã không?",
+                    "answer": "Có. QR tĩnh vẫn chứa số cũ, vì vậy hãy tạo mã mới và thay các bản in hoặc hình ảnh đã chia sẻ."
+          }
+]} />
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Mã QR có an toàn không? 7 lưu ý giúp tránh bị lừa đảo | QRFree", "Tìm hiểu mã QR có an toàn không và những lưu ý quan trọng giúp bạn tránh các hình thức lừa đảo thông qua QR Code.", "/blog/ma-qr-co-an-toan-khong");
@@ -12,12 +13,7 @@ export default function QRSecurityBlogPage() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex items-center text-sm text-cyan-400 transition hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/ma-qr-co-an-toan-khong" currentTitle="Mã QR có an toàn không?" />
 
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
@@ -102,7 +98,33 @@ export default function QRSecurityBlogPage() {
               Nội dung mã QR được tạo hoặc giải mã ngay trên thiết bị; nội dung đó không được gửi lên máy chủ để xử lý. Website vẫn ghi nhận số lượt sử dụng và dùng dịch vụ phân tích truy cập. Xem thêm tại <Link href="/privacy" className="text-cyan-300 underline">chính sách bảo mật</Link>.
             </p>
           </section>
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Quy trình kiểm tra nhanh trước khi tiếp tục</h2>
+            <ol className="space-y-3 text-slate-300">
+              <li><strong className="text-white">Nhìn nguồn:</strong> kiểm tra mã có bị dán đè, che phủ hoặc đặt ở vị trí bất thường không.</li>
+              <li><strong className="text-white">Đọc đích:</strong> soát tên miền, chính tả và giao thức trước khi mở liên kết.</li>
+              <li><strong className="text-white">Xác minh yêu cầu:</strong> không nhập OTP, mật khẩu hay thông tin thẻ vào trang không đáng tin.</li>
+              <li><strong className="text-white">Xác nhận giao dịch:</strong> kiểm tra người nhận và số tiền trong ứng dụng ngân hàng.</li>
+            </ol>
+            <p className="mt-4 text-sm leading-7 text-slate-400">FTC cũng khuyến nghị thận trọng với mã QR lạ ở nơi công cộng và kiểm tra kỹ trước khi truy cập liên kết: <a href="https://consumer.ftc.gov/consumer-alerts/2026/09/see-qr-code-parked-somewhere-dont-scan-ityet" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline underline-offset-4">cảnh báo của Federal Trade Commission</a>.</p>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "Chỉ quét mã QR có làm mất tiền không?",
+                    "answer": "Việc đọc mã thường chỉ giải mã nội dung. Rủi ro thường phát sinh khi bạn mở trang, nhập thông tin, cài ứng dụng hoặc xác nhận giao dịch theo hướng dẫn đáng ngờ."
+          },
+          {
+                    "question": "Làm sao kiểm tra QR thanh toán trước khi chuyển?",
+                    "answer": "Trong ứng dụng ngân hàng, đối chiếu tên người nhận, ngân hàng, số tài khoản, số tiền và nội dung. Dừng lại nếu bất kỳ thông tin nào không khớp."
+          },
+          {
+                    "question": "Quét QR bằng công cụ trực tuyến có an toàn tuyệt đối không?",
+                    "answer": "Không công cụ nào thay thế việc kiểm tra nội dung và nguồn mã. Với QRFree, việc giải mã diễn ra trên thiết bị theo chính sách bảo mật; vẫn hãy thận trọng trước khi mở liên kết."
+          }
+]} />
 
         <section className="mt-10 rounded-3xl border border-slate-800 bg-white/5 p-8">
           <h2 className="mb-4 text-2xl font-bold">Nguồn tham khảo</h2>

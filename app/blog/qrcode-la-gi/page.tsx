@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("QR Code là gì? Cách tạo mã QR miễn phí", "Tìm hiểu QR Code là gì, cách hoạt động, các ứng dụng phổ biến và cách tạo mã QR tĩnh.", "/blog/qrcode-la-gi");
@@ -13,12 +14,7 @@ export default function BlogPage() {
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
         {/* Back */}
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex items-center text-sm text-cyan-400 hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/qrcode-la-gi" currentTitle="QR Code là gì? Cách hoạt động và cách tạo mã QR" />
 
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
@@ -49,12 +45,14 @@ export default function BlogPage() {
             <li><a className="hover:text-cyan-300" href="#ung-dung">• QR Code dùng để làm gì?</a></li>
             <li><a className="hover:text-cyan-300" href="#cach-tao">• Cách tạo mã QR miễn phí</a></li>
             <li><a className="hover:text-cyan-300" href="#an-toan">• QR Code có an toàn không?</a></li>
+            <li><a className="hover:text-cyan-300" href="#du-lieu-va-kha-nang-quet">• Độ dài dữ liệu và khả năng quét</a></li>
+            <li><a className="hover:text-cyan-300" href="#checklist-in-qr">• Checklist trước khi in</a></li>
           </ul>
         </nav>
 
         {/* Content */}
         <article className="mx-auto mt-10 max-w-3xl space-y-12">
-          <section className="border-b border-white/10 pb-8">
+          <section id="qr-code-la-gi" className="scroll-mt-24 border-b border-white/10 pb-8">
             <h2 id="qr-code-la-gi" className="mb-4 scroll-mt-24 text-2xl font-bold tracking-tight sm:text-3xl">
               QR Code là gì?
             </h2>
@@ -102,11 +100,11 @@ export default function BlogPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Truy cập công cụ tạo QR.</li>
-              <li>2. Chọn loại nội dung.</li>
-              <li>3. Nhập dữ liệu cần mã hóa.</li>
-              <li>4. Tùy chỉnh màu sắc hoặc logo.</li>
-              <li>5. Tạo mã, quét thử để kiểm tra nội dung rồi tải PNG hoặc PDF.</li>
+              <li>Truy cập công cụ tạo QR.</li>
+              <li>Chọn loại nội dung.</li>
+              <li>Nhập dữ liệu cần mã hóa.</li>
+              <li>Tùy chỉnh màu sắc hoặc logo.</li>
+              <li>Tạo mã, quét thử để kiểm tra nội dung rồi tải PNG hoặc PDF.</li>
             </ol>
           </section>
 
@@ -116,11 +114,41 @@ export default function BlogPage() {
             </h2>
 
             <p className="leading-8 text-slate-300">
-              QR Code bản thân không nguy hiểm. Tuy nhiên, bạn nên kiểm tra
-              kỹ liên kết trước khi mở để tránh các website giả mạo hoặc lừa đảo.
+              QR Code là định dạng mã hóa dữ liệu; rủi ro phụ thuộc vào nội dung bạn mở và hành động tiếp theo. Hãy kiểm tra tên miền trước khi truy cập liên kết.
             </p>
           </section>
+
+          <section id="du-lieu-va-kha-nang-quet" className="scroll-mt-24 border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Độ dài dữ liệu ảnh hưởng khả năng quét ra sao?</h2>
+            <p className="leading-8 text-slate-300">URL hoặc đoạn văn bản càng dài thì mã thường cần nhiều ô dữ liệu hơn. Khi in cùng một kích thước, ô nhỏ hơn có thể khó đọc hơn, nhất là khi ảnh bị nén hoặc in mờ. Nếu có thể, dùng URL gọn và giữ mã đủ lớn để camera lấy nét.</p>
+            <p className="mt-4 leading-8 text-slate-300">Mức sửa lỗi giúp khôi phục một phần dữ liệu bị bẩn hoặc hỏng, nhưng không thay thế bản in rõ nét. DENSO WAVE mô tả bốn mức L, M, Q, H với khả năng khôi phục xấp xỉ tăng dần; mức cao cũng làm mã dày hơn. QRFree hiện kết xuất ở mức H và đặt logo ở giữa nếu bạn chọn thêm, nhưng vẫn cần quét thử bản tải xuống và bản in thật.</p>
+          </section>
+          <section id="checklist-in-qr" className="scroll-mt-24 border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Checklist trước khi chia sẻ hoặc in QR</h2>
+            <ol className="space-y-3 text-slate-300">
+              <li>Quét thử bằng điện thoại khác với thiết bị tạo mã.</li>
+              <li>Kiểm tra đúng nội dung hoặc đúng tên miền trước khi phát hành.</li>
+              <li>Giữ vùng trắng quanh mã và tương phản rõ giữa mã với nền.</li>
+              <li>Nếu in, kiểm tra lại ở đúng kích thước và khoảng cách người dùng sẽ quét.</li>
+            </ol>
+            <p className="mt-4 text-sm leading-7 text-slate-400">Tham khảo: <a href="https://www.qrcode.com/en/about/error_correction.html" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline underline-offset-4">DENSO WAVE về sửa lỗi QR</a> và <a href="https://www.qrcode.com/en/howto/code.html/index.html" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline underline-offset-4">vùng trắng bảo vệ mã</a>.</p>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "Mã QR có tự hết hạn không?",
+                    "answer": "Mã QR tĩnh không có ngày hết hạn được nhúng sẵn. Tuy vậy, đường dẫn bên trong có thể ngừng hoạt động nếu trang đích bị xóa, đổi URL hoặc yêu cầu quyền truy cập."
+          },
+          {
+                    "question": "Mã QR lưu được những nội dung nào?",
+                    "answer": "QRFree hiện tạo mã cho đường dẫn, văn bản, Wi‑Fi, danh bạ vCard gồm tên và số điện thoại, cùng địa chỉ ví crypto."
+          },
+          {
+                    "question": "Mã bị trầy xước có quét được không?",
+                    "answer": "Khả năng khôi phục phụ thuộc mức sửa lỗi và phần dữ liệu bị hỏng. Mức sửa lỗi cao hơn không đảm bảo mã đọc được nếu vùng quan trọng bị che hoặc bản in quá nhỏ."
+          }
+]} />
 
         <section className="mx-auto mt-10 max-w-3xl border-t border-white/10 pt-6">
           <h2 className="mb-3 text-xl font-bold">Nguồn tham khảo</h2>

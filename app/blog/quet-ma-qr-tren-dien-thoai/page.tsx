@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Cách quét mã QR trên iPhone và Android | QRFree", "Hướng dẫn quét mã QR bằng camera trên iPhone, Android hoặc đọc mã từ ảnh đã lưu bằng cách tải lên hay dán ảnh.", "/blog/quet-ma-qr-tren-dien-thoai");
@@ -14,12 +15,7 @@ export default function ScanQRBlogPage() {
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
         {/* Back */}
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex items-center text-sm text-cyan-400 transition hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/quet-ma-qr-tren-dien-thoai" currentTitle="Cách quét mã QR trên iPhone và Android" />
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
           <span className="rounded-full bg-cyan-500/10 px-4 py-1 text-sm text-cyan-300">
@@ -52,6 +48,7 @@ export default function ScanQRBlogPage() {
             <li><a className="hover:text-cyan-300" href="#android">02 · Android</a></li>
             <li><a className="hover:text-cyan-300" href="#anh-luu">03 · Ảnh đã lưu</a></li>
             <li><a className="hover:text-cyan-300" href="#quet-online">04 · Quét trực tuyến</a></li>
+            <li><a className="hover:text-cyan-300" href="#kiem-tra-lien-ket">05 · Kiểm tra liên kết</a></li>
           </ul>
         </nav>
 
@@ -63,10 +60,10 @@ export default function ScanQRBlogPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Mở ứng dụng Camera.</li>
-              <li>2. Hướng camera vào mã QR.</li>
-              <li>3. Chờ vài giây để điện thoại nhận diện.</li>
-              <li>4. Nhấn vào thông báo hiện ra trên màn hình.</li>
+              <li>Mở ứng dụng Camera.</li>
+              <li>Hướng camera vào mã QR.</li>
+              <li>Chờ vài giây để điện thoại nhận diện.</li>
+              <li>Nhấn vào thông báo hiện ra trên màn hình.</li>
             </ol>
 
             <p className="mt-6 leading-8 text-slate-300">
@@ -80,10 +77,10 @@ export default function ScanQRBlogPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Mở ứng dụng Camera hoặc Google Lens.</li>
-              <li>2. Đưa camera đến gần mã QR.</li>
-              <li>3. Đợi hệ thống nhận diện.</li>
-              <li>4. Nhấn vào liên kết hoặc nội dung được hiển thị.</li>
+              <li>Mở ứng dụng Camera hoặc Google Lens.</li>
+              <li>Đưa camera đến gần mã QR.</li>
+              <li>Đợi hệ thống nhận diện.</li>
+              <li>Nhấn vào liên kết hoặc nội dung được hiển thị.</li>
             </ol>
 
             <p className="mt-6 leading-8 text-slate-300">
@@ -116,7 +113,28 @@ export default function ScanQRBlogPage() {
               Công cụ quét QR trực tuyến hữu ích khi bạn đang mở ảnh trên máy tính, hoặc muốn dán ảnh từ clipboard. Hãy kiểm tra nội dung hiện ra trước khi truy cập website, đăng nhập hay thanh toán.
             </p>
           </section>
+
+          <section id="kiem-tra-lien-ket" className="scroll-mt-24 border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Quét QR an toàn: dừng ở bước xem trước</h2>
+            <p className="leading-8 text-slate-300">Ứng dụng camera có thể hiển thị văn bản, tên miền hoặc nút mở liên kết. Hãy kiểm tra địa chỉ trước khi nhấn; tên miền giả có thể chỉ khác một ký tự. Nếu mã yêu cầu đăng nhập, cài ứng dụng hoặc thanh toán, hãy tự mở dịch vụ chính thức để xác minh.</p>
+            <p className="mt-4 leading-8 text-slate-300">Mở QRFree trên cùng thiết bị để xử lý ảnh lưu sẵn; trên máy tính, có thể tải ảnh lên hoặc dán ảnh đã sao chép. Tính năng clipboard phụ thuộc trình duyệt và quyền của thiết bị.</p>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "Không thấy thông báo sau khi đưa camera vào mã QR thì làm sao?",
+                    "answer": "Giữ máy ổn định, đưa toàn bộ mã vào khung hình và tăng ánh sáng. Trên Android, thử Google Lens hoặc công cụ quét của máy; trên iPhone, thử Trình đọc mã trong Trung tâm điều khiển."
+          },
+          {
+                    "question": "Có thể quét mã QR nằm trong ảnh trên cùng điện thoại không?",
+                    "answer": "Có. Mở QRFree, tải ảnh từ thư viện lên hoặc sao chép ảnh rồi dán vào trang /scan nếu trình duyệt và thiết bị hỗ trợ clipboard."
+          },
+          {
+                    "question": "Quét được mã rồi có nên mở liên kết ngay không?",
+                    "answer": "Hãy đọc tên miền và kiểm tra nội dung trước. Không tiếp tục nếu đường dẫn lạ, sai chính tả hoặc yêu cầu mật khẩu, OTP hay thanh toán bất thường."
+          }
+]} />
 
         <section className="mx-auto mt-10 max-w-3xl border-t border-white/10 pt-6">
           <h2 className="mb-3 text-xl font-bold">Hướng dẫn chính thức</h2>
@@ -138,7 +156,7 @@ export default function ScanQRBlogPage() {
           </h2>
 
           <p className="mt-4 text-slate-300">
-            Hỗ trợ quét bằng camera hoặc tải ảnh từ thiết bị.
+            Hỗ trợ camera, tải ảnh hoặc dán ảnh đã sao chép.
           </p>
 
           <Link

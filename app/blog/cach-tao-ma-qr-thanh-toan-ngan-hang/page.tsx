@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Cách tạo mã QR thanh toán VietQR bằng ứng dụng ngân hàng", "Tìm hiểu cách tạo mã thanh toán VietQR bằng ứng dụng ngân hàng hoặc dịch vụ VietQR và các thông tin cần kiểm tra.", "/blog/cach-tao-ma-qr-thanh-toan-ngan-hang");
@@ -11,12 +12,7 @@ export default function VietQRBlogPage() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex text-sm text-cyan-400 hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/cach-tao-ma-qr-thanh-toan-ngan-hang" currentTitle="Cách tạo mã QR thanh toán VietQR" />
 
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
           <span className="rounded-full bg-cyan-500/10 px-4 py-1 text-sm text-cyan-300">
@@ -71,11 +67,11 @@ export default function VietQRBlogPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Mở ứng dụng ngân hàng hoặc dịch vụ VietQR mà bạn tin cậy.</li>
-              <li>2. Nhập ngân hàng, số tài khoản và tên người nhận; thêm số tiền hoặc nội dung nếu cần.</li>
-              <li>3. Tạo mã trong ứng dụng và kiểm tra tên người nhận cùng các thông tin hiển thị.</li>
-              <li>4. Quét thử bằng ứng dụng ngân hàng khác trước khi in hoặc chia sẻ.</li>
-              <li>5. Khi nhận tiền, xác nhận giao dịch trong tài khoản ngân hàng thay vì chỉ dựa vào ảnh chụp.</li>
+              <li>Mở ứng dụng ngân hàng hoặc dịch vụ VietQR mà bạn tin cậy.</li>
+              <li>Nhập ngân hàng, số tài khoản và tên người nhận; thêm số tiền hoặc nội dung nếu cần.</li>
+              <li>Tạo mã trong ứng dụng và kiểm tra tên người nhận cùng các thông tin hiển thị.</li>
+              <li>Quét thử bằng ứng dụng ngân hàng khác trước khi in hoặc chia sẻ.</li>
+              <li>Khi nhận tiền, xác nhận giao dịch trong tài khoản ngân hàng thay vì chỉ dựa vào ảnh chụp.</li>
             </ol>
           </section>
 
@@ -91,7 +87,37 @@ export default function VietQRBlogPage() {
               <li>✓ Chỉ dùng ứng dụng ngân hàng hoặc nguồn VietQR đáng tin cậy.</li>
             </ul>
           </section>
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Phân biệt QR chuyển khoản và QR thanh toán tại cửa hàng</h2>
+            <p className="leading-8 text-slate-300">Mã cá nhân để nhận chuyển khoản và mã thanh toán tại đơn vị chấp nhận thanh toán có thể đi qua các dịch vụ, ứng dụng và luồng xác nhận khác nhau. Hãy tạo đúng loại trong ứng dụng ngân hàng hoặc dịch vụ đang dùng; không biến một đường dẫn thanh toán thông thường thành mã chuyển khoản bằng cách dán URL vào QRFree.</p>
+            <p className="mt-4 leading-8 text-slate-300">NAPAS mô tả dịch vụ chuyển tiền NAPAS 247 bằng VietQR và dịch vụ thanh toán VietQR riêng. Chi tiết có thể khác theo ngân hàng, vì vậy người nhận và người trả cần đọc thông tin giao dịch trong ứng dụng trước khi xác nhận.</p>
+          </section>
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Cách thay mã chuyển khoản đã in</h2>
+            <ol className="space-y-3 text-slate-300">
+              <li>Tạo mã mới trong ứng dụng ngân hàng hoặc nguồn VietQR.</li>
+              <li>Quét thử bằng ứng dụng ngân hàng và soát tên người nhận.</li>
+              <li>Thay mã ở quầy, hóa đơn, website và tài liệu cũ.</li>
+              <li>Xác nhận tiền đã vào tài khoản trước khi giao hàng hoặc dịch vụ.</li>
+            </ol>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "QRFree có tạo mã chuyển khoản VietQR không?",
+                    "answer": "Chưa. QRFree tạo QR cho đường dẫn và các loại dữ liệu được liệt kê trong công cụ; hãy tạo mã chuyển khoản bằng ứng dụng ngân hàng hoặc dịch vụ VietQR đáng tin cậy."
+          },
+          {
+                    "question": "Mã VietQR có luôn chứa số tiền không?",
+                    "answer": "Không. Người tạo có thể để người chuyển tự nhập số tiền hoặc tạo mã kèm số tiền và nội dung. Hãy kiểm tra thông tin hiện trong ứng dụng ngân hàng trước khi xác nhận."
+          },
+          {
+                    "question": "Ảnh chụp màn hình báo đã chuyển tiền có đủ để xác nhận không?",
+                    "answer": "Không nên chỉ dựa vào ảnh chụp. Người nhận hãy kiểm tra giao dịch đã ghi có trong ứng dụng hoặc tài khoản ngân hàng của mình."
+          }
+]} />
 
         <section className="mt-10 rounded-3xl border border-slate-800 bg-white/5 p-8">
           <h2 className="mb-4 text-2xl font-bold">Nguồn tham khảo</h2>

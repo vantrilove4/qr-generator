@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Cách tạo mã QR liên kết tới file PDF", "Tạo mã QR trỏ tới liên kết PDF đang được lưu trữ trực tuyến bằng công cụ tạo QR miễn phí.", "/blog/cach-tao-ma-qr-pdf");
@@ -11,12 +12,7 @@ export default function QRPDFPage() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex text-sm text-cyan-400 hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/cach-tao-ma-qr-pdf" currentTitle="Cách tạo mã QR liên kết tới file PDF" />
 
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
@@ -77,13 +73,13 @@ export default function QRPDFPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Tải file PDF lên Google Drive hoặc OneDrive.</li>
-              <li>2. Chia sẻ công khai liên kết PDF.</li>
-              <li>3. Sao chép đường dẫn.</li>
-              <li>4. Truy cập QRFree.io.vn.</li>
-              <li>5. Chọn loại QR Website.</li>
-              <li>6. Dán liên kết PDF.</li>
-              <li>7. Tải mã QR về thiết bị.</li>
+              <li>Tải file PDF lên Google Drive hoặc OneDrive.</li>
+              <li>Chia sẻ công khai liên kết PDF.</li>
+              <li>Sao chép đường dẫn.</li>
+              <li>Truy cập QRFree.io.vn.</li>
+              <li>Chọn loại QR Website và dán liên kết PDF vào trường URL.</li>
+              <li>Nhấn “Tạo mã QR”, quét thử trên thiết bị chưa đăng nhập để kiểm tra quyền xem.</li>
+              <li>Tải mã về thiết bị hoặc dùng chức năng chia sẻ.</li>
             </ol>
           </section>
 
@@ -111,7 +107,37 @@ export default function QRPDFPage() {
               Hãy đảm bảo người nhận có quyền mở liên kết, rồi quét thử ở cửa sổ riêng tư hoặc trên thiết bị khác. QR tĩnh lưu địa chỉ liên kết: nếu bạn thay nội dung tệp nhưng giữ nguyên URL thì mã vẫn dẫn tới URL đó; nếu xóa tệp, đổi URL hoặc thu hồi quyền chia sẻ thì người nhận có thể không mở được PDF.
             </p>
           </section>
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Thiết lập quyền chia sẻ và giữ liên kết ổn định</h2>
+            <ol className="space-y-3 text-slate-300">
+              <li>Chọn quyền chỉ xem nếu người nhận không cần chỉnh sửa tệp.</li>
+              <li>Mở liên kết trong cửa sổ riêng tư hoặc thiết bị chưa đăng nhập để phát hiện yêu cầu quyền.</li>
+              <li>Lưu lại URL đã dùng và cập nhật tệp tại cùng vị trí nếu dịch vụ cho phép.</li>
+              <li>Nếu đổi URL hoặc nhà cung cấp lưu trữ, tạo QR mới và thay mọi bản in cũ.</li>
+            </ol>
+            <p className="mt-4 leading-8 text-slate-300">Không dùng quyền “bất kỳ ai có liên kết” cho hồ sơ riêng tư. Hãy thử cả trên điện thoại vì một số dịch vụ mở trang xem trước thay vì tải file trực tiếp.</p>
+          </section>
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Kiểm tra bản in với tài liệu nhiều trang</h2>
+            <p className="leading-8 text-slate-300">Nếu QR nằm trên catalogue hoặc tài liệu đào tạo, ghi rõ loại tài liệu và phiên bản ở cạnh mã. Khi phát hành phiên bản PDF mới, kiểm tra xem URL cũ có trỏ tới file mới không; nếu không, thay mã hoặc thêm hướng dẫn cập nhật.</p>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "QR có chứa toàn bộ file PDF không?",
+                    "answer": "Cách làm trong bài này mã hóa đường dẫn tới tệp lưu trữ trực tuyến, không phải nội dung PDF. Người nhận cần truy cập được đường dẫn đó."
+          },
+          {
+                    "question": "Có thể thay PDF mà không in lại QR không?",
+                    "answer": "Nếu dịch vụ lưu trữ giữ nguyên URL chia sẻ thì thường có thể cập nhật tệp tại cùng địa chỉ. Nếu URL đổi hoặc quyền chia sẻ bị thu hồi, người quét có thể không mở được tài liệu."
+          },
+          {
+                    "question": "Có nên bật quyền xem công khai cho mọi PDF?",
+                    "answer": "Chỉ bật quyền phù hợp với tài liệu bạn muốn chia sẻ. Không dùng liên kết công khai cho hồ sơ có dữ liệu cá nhân, nội bộ hoặc nhạy cảm."
+          }
+]} />
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">

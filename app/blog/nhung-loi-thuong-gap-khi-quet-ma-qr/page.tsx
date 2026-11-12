@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Những lỗi thường gặp khi quét mã QR và cách khắc phục | QRFree", "Tổng hợp các lỗi phổ biến khi quét mã QR như không nhận diện được mã, camera không đọc được QR hoặc QR bị hỏng cùng cách khắc phục hiệu quả.", "/blog/nhung-loi-thuong-gap-khi-quet-ma-qr");
@@ -11,12 +12,7 @@ export default function QRScanErrorsPage() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex text-sm text-cyan-400 hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/nhung-loi-thuong-gap-khi-quet-ma-qr" currentTitle="Lỗi quét mã QR và cách khắc phục" />
 
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
@@ -130,15 +126,48 @@ export default function QRScanErrorsPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Thử quét trên nhiều điện thoại khác nhau.</li>
-              <li>2. Kiểm tra độ sắc nét của ảnh QR.</li>
-              <li>3. Kiểm tra liên kết đích.</li>
-              <li>4. Kiểm tra màu sắc và độ tương phản.</li>
-              <li>5. Thử bằng công cụ quét QR trực tuyến.</li>
+              <li>Thử quét trên nhiều điện thoại khác nhau.</li>
+              <li>Kiểm tra độ sắc nét của ảnh QR.</li>
+              <li>Kiểm tra liên kết đích.</li>
+              <li>Kiểm tra màu sắc và độ tương phản.</li>
+              <li>Thử bằng công cụ quét QR trực tuyến.</li>
             </ol>
           </section>
 
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Phân biệt lỗi đọc mã và lỗi ở trang đích</h2>
+            <div className="overflow-x-auto rounded-2xl border border-white/10">
+              <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+                <thead><tr className="border-b border-white/10 text-slate-200"><th className="p-3">Dấu hiệu</th><th className="p-3">Nguyên nhân có thể</th><th className="p-3">Bước tiếp theo</th></tr></thead>
+                <tbody className="text-slate-300">
+                  <tr className="border-b border-white/10"><td className="p-3">Không hiện nội dung</td><td className="p-3">Mờ, thiếu sáng, mã bị cắt hoặc camera chưa lấy nét</td><td className="p-3">Tăng sáng, giữ trọn mã trong khung hoặc tải ảnh rõ hơn</td></tr>
+                  <tr><td className="p-3">Đã hiện URL nhưng trang lỗi</td><td className="p-3">Đích bị xóa, yêu cầu quyền hoặc URL sai</td><td className="p-3">Kiểm tra URL và quyền truy cập; tạo mã mới nếu URL đổi</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Nếu bạn là người tạo mã: kiểm tra chất lượng bản in</h2>
+            <p className="leading-8 text-slate-300">Giữ khoảng trắng quanh mã, dùng màu đủ tương phản và tránh logo che các ô định vị ở ba góc. Mức sửa lỗi cao không thể cứu mọi bản in; hãy quét thử file PNG/PDF và mẫu in thật trước khi phát hành.</p>
+            <p className="mt-4 text-sm leading-7 text-slate-400">DENSO WAVE khuyến nghị vùng trắng bảo vệ rộng bốn mô-đun quanh mã: <a href="https://www.qrcode.com/en/howto/code.html/index.html" target="_blank" rel="noopener noreferrer" className="text-cyan-300 underline underline-offset-4">hướng dẫn thiết lập vùng mã QR</a>.</p>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "Camera không đọc được mã thì nên kiểm tra gì trước?",
+                    "answer": "Lau ống kính, tăng ánh sáng, giữ toàn bộ mã trong khung hình và để camera lấy nét. Nếu quét từ màn hình, phóng to ảnh nhưng tránh làm mờ."
+          },
+          {
+                    "question": "Mã được nhận diện nhưng liên kết báo lỗi, QR có hỏng không?",
+                    "answer": "Không nhất thiết. Khi nội dung đã giải mã nhưng trang không mở, hãy kiểm tra URL, quyền truy cập, tên miền và trạng thái dịch vụ đích."
+          },
+          {
+                    "question": "Có thể kiểm tra mã từ ảnh mà không dùng camera không?",
+                    "answer": "Có. Tải ảnh QR lên /scan hoặc sao chép ảnh rồi dán vào trang nếu clipboard được hỗ trợ."
+          }
+]} />
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">

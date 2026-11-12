@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Cách tạo mã QR Facebook cá nhân và Fanpage miễn phí | QRFree", "Hướng dẫn tạo mã QR Facebook miễn phí để chia sẻ trang cá nhân hoặc Fanpage nhanh chóng.", "/blog/cach-tao-ma-qr-facebook");
@@ -12,12 +13,7 @@ export default function FacebookQRBlogPage() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex text-sm text-cyan-400 hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/cach-tao-ma-qr-facebook" currentTitle="Cách tạo mã QR Facebook cá nhân hoặc Fanpage" />
 
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
@@ -28,13 +24,13 @@ export default function FacebookQRBlogPage() {
           <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách tạo mã QR Facebook
             <span className="mt-2 block text-cyan-400">
-              miễn phí trong vài giây
+              cho cá nhân và Fanpage
             </span>
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
             <span>Biên soạn: QRFree</span>
-            <span>5 phút đọc</span>
+            <span>4 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -75,12 +71,11 @@ export default function FacebookQRBlogPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Sao chép liên kết Facebook cá nhân hoặc Fanpage và thử mở để kiểm tra quyền xem.</li>
-              <li>2. Truy cập QRFree.io.vn.</li>
-              <li>3. Chọn loại QR Website.</li>
-              <li>4. Dán liên kết Facebook vào ô nhập liệu.</li>
-              <li>5. Dán liên kết, tạo mã và quét thử để chắc chắn mở đúng trang.</li>
-              <li>6. Tải mã QR về thiết bị.</li>
+              <li>Sao chép liên kết Facebook cá nhân hoặc Fanpage và thử mở để kiểm tra quyền xem.</li>
+              <li>Truy cập QRFree.io.vn.</li>
+              <li>Chọn loại QR Website và dán liên kết Facebook vào trường URL.</li>
+              <li>Nhấn “Tạo mã QR”, quét thử và xác nhận mở đúng trang.</li>
+              <li>Tải mã về thiết bị hoặc dùng chức năng chia sẻ.</li>
             </ol>
           </section>
 
@@ -94,7 +89,32 @@ export default function FacebookQRBlogPage() {
               standee quảng cáo, danh thiếp hoặc chia sẻ trực tuyến.
             </p>
           </section>
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Kiểm tra quyền xem trang Facebook</h2>
+            <p className="leading-8 text-slate-300">Liên kết có thể mở đúng trang nhưng nội dung vẫn bị giới hạn bởi cài đặt riêng tư, nhóm kín, khu vực hoặc yêu cầu đăng nhập. Hãy thử mở URL trong cửa sổ riêng tư hoặc trên thiết bị chưa đăng nhập để biết khách mới sẽ nhìn thấy gì.</p>
+            <p className="mt-4 leading-8 text-slate-300">Trước khi in số lượng lớn, quét QR và xác nhận đúng trang cá nhân hoặc Fanpage. Nếu đổi URL tùy chỉnh, tạo mã mới; nếu chỉ thay nội dung trên cùng trang, mã thường vẫn dẫn tới URL đó.</p>
+          </section>
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Đặt lời kêu gọi hành động cạnh mã</h2>
+            <p className="leading-8 text-slate-300">Nói rõ người quét sẽ đến đâu, ví dụ “Xem sản phẩm trên Fanpage” hoặc “Theo dõi trang cập nhật”. Tránh hứa chắc chắn tăng lượt theo dõi: QR chỉ giúp mở đúng liên kết, còn quyết định theo dõi thuộc về người dùng.</p>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "Dùng liên kết trang cá nhân hay Fanpage?",
+                    "answer": "Chọn trang phù hợp với mục tiêu: hồ sơ cá nhân để kết nối cá nhân, Fanpage để khách tìm doanh nghiệp. Kiểm tra quyền xem của trang trước khi chia sẻ."
+          },
+          {
+                    "question": "Người quét có cần đăng nhập Facebook không?",
+                    "answer": "Có thể. Một số nội dung hoặc hồ sơ bị giới hạn quyền riêng tư, khu vực hay độ tuổi và có thể yêu cầu đăng nhập."
+          },
+          {
+                    "question": "Nếu đổi tên Fanpage thì mã QR có hỏng không?",
+                    "answer": "QR tĩnh giữ nguyên URL đã mã hóa. Nếu nền tảng tiếp tục chuyển URL cũ tới trang mới thì mã vẫn dùng được; hãy quét thử sau khi đổi tên hoặc đổi đường dẫn."
+          }
+]} />
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Cách tạo mã QR Google Maps miễn phí | QRFree", "Hướng dẫn tạo mã QR Google Maps để chia sẻ vị trí, cửa hàng hoặc địa điểm nhanh chóng bằng một lần quét.", "/blog/cach-tao-ma-qr-google-maps");
@@ -12,12 +13,7 @@ export default function GoogleMapsQRPage() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex text-sm text-cyan-400 hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/cach-tao-ma-qr-google-maps" currentTitle="Cách tạo mã QR Google Maps cho địa điểm" />
 
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
@@ -82,14 +78,14 @@ export default function GoogleMapsQRPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Mở Google Maps trên điện thoại hoặc máy tính.</li>
-              <li>2. Tìm địa điểm muốn chia sẻ.</li>
-              <li>3. Chọn nút Chia sẻ.</li>
-              <li>4. Sao chép liên kết Google Maps.</li>
-              <li>5. Truy cập QRFree.io.vn.</li>
-              <li>6. Chọn loại QR Website.</li>
-              <li>7. Dán liên kết Google Maps vào ô nhập liệu.</li>
-              <li>8. Tải mã QR về thiết bị.</li>
+              <li>Mở Google Maps trên điện thoại hoặc máy tính.</li>
+              <li>Tìm địa điểm muốn chia sẻ.</li>
+              <li>Chọn nút Chia sẻ.</li>
+              <li>Sao chép liên kết Google Maps.</li>
+              <li>Truy cập QRFree.io.vn.</li>
+              <li>Chọn loại QR Website và dán liên kết Google Maps vào trường URL.</li>
+              <li>Nhấn “Tạo mã QR”, quét thử và xác nhận đúng địa điểm.</li>
+              <li>Tải mã về thiết bị hoặc dùng chức năng chia sẻ.</li>
             </ol>
           </section>
 
@@ -122,7 +118,32 @@ export default function GoogleMapsQRPage() {
               QRFree tạo mã tĩnh nên địa chỉ được mã hóa không thể sửa trực tiếp trong QR. Nếu địa điểm hoặc URL thay đổi, hãy tạo và thay mã mới; nếu chỉ cập nhật thông tin của cùng một địa điểm trên Google Maps, liên kết hiện tại có thể vẫn dùng được.
             </p>
           </section>
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Chọn đúng loại vị trí cần chia sẻ</h2>
+            <ul className="space-y-3 text-slate-300">
+              <li><strong className="text-white">Ghim tọa độ:</strong> phù hợp địa điểm chưa có trang doanh nghiệp hoặc điểm vào cụ thể trong khuôn viên.</li>
+              <li><strong className="text-white">Trang địa điểm:</strong> phù hợp cửa hàng muốn khách xem tên, giờ mở cửa và thông tin công khai.</li>
+              <li><strong className="text-white">Điểm hẹn tạm thời:</strong> kiểm tra lối vào, cổng hoặc bãi đỗ xe thay vì chỉ kiểm tra tên đường.</li>
+            </ul>
+            <p className="mt-4 leading-8 text-slate-300">Sau khi sao chép liên kết, dán vào trình duyệt riêng tư để chắc rằng người nhận mở được. Địa chỉ và hướng đi hiển thị có thể thay đổi theo vị trí hiện tại, phương tiện và ứng dụng bản đồ của người dùng.</p>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "QR Google Maps có mở ứng dụng Maps trên mọi máy không?",
+                    "answer": "Không phải lúc nào cũng vậy. Liên kết có thể mở ứng dụng Maps hoặc trình duyệt tùy thiết bị, ứng dụng mặc định và trạng thái đăng nhập."
+          },
+          {
+                    "question": "Nên chia sẻ ghim bản đồ hay trang doanh nghiệp?",
+                    "answer": "Chọn ghim chính xác nếu muốn dẫn khách tới một vị trí cụ thể; chọn trang địa điểm nếu muốn họ xem thêm giờ mở cửa, thông tin hoặc đánh giá."
+          },
+          {
+                    "question": "Có cần thử QR trước khi in không?",
+                    "answer": "Có. Quét bằng một thiết bị khác, kiểm tra đúng địa điểm và thử ở kích thước in dự kiến. Đừng chỉ kiểm tra bằng liên kết đang mở trên máy tạo mã."
+          }
+]} />
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">

@@ -5,17 +5,17 @@ import Link from "next/link";
 import { ArrowRight, Search, ShieldCheck } from "lucide-react";
 
 const posts = [
-  { title: "QR Code là gì? Cách tạo mã QR miễn phí năm 2026", description: "Tìm hiểu QR Code là gì, cách hoạt động và ứng dụng trong cuộc sống.", href: "/blog/qrcode-la-gi", category: "Kiến thức QR", topic: "Kiến thức QR", time: "5 phút đọc" },
+  { title: "QR Code là gì? Cách hoạt động và cách tạo mã QR", description: "Tìm hiểu dữ liệu, sửa lỗi, khả năng quét và cách kiểm tra mã QR trước khi in.", href: "/blog/qrcode-la-gi", category: "Kiến thức QR", topic: "Kiến thức QR", time: "5 phút đọc" },
   { title: "Cách tạo mã QR WiFi miễn phí", description: "Chia sẻ WiFi nhanh chóng mà không cần đọc mật khẩu cho từng người.", href: "/blog/cach-tao-ma-qr-wifi", category: "QR WiFi", topic: "Tạo QR", time: "4 phút đọc" },
-  { title: "Cách quét mã QR trên điện thoại", description: "Hướng dẫn quét QR trên Android, iPhone và từ ảnh.", href: "/blog/quet-ma-qr-tren-dien-thoai", category: "QR Scanner", topic: "Quét QR", time: "4 phút đọc" },
+  { title: "Cách quét mã QR trên điện thoại", description: "Hướng dẫn quét QR trên iPhone, Android và từ ảnh đã lưu hoặc clipboard.", href: "/blog/quet-ma-qr-tren-dien-thoai", category: "QR Scanner", topic: "Quét QR", time: "4 phút đọc" },
   { title: "Mã QR có an toàn không?", description: "Nhận biết liên kết đáng ngờ và các bước giảm rủi ro khi quét mã.", href: "/blog/ma-qr-co-an-toan-khong", category: "Bảo mật", topic: "Bảo mật", time: "6 phút đọc" },
-  { title: "Cách tạo mã QR Zalo miễn phí", description: "Chia sẻ Zalo cá nhân hoặc OA bằng mã QR trỏ tới trang của bạn.", href: "/blog/cach-tao-ma-qr-zalo", category: "QR Zalo", topic: "Tạo QR", time: "5 phút đọc" },
-  { title: "Cách tạo mã QR Facebook miễn phí", description: "Tạo QR dẫn tới trang cá nhân hoặc Fanpage.", href: "/blog/cach-tao-ma-qr-facebook", category: "QR Facebook", topic: "Tạo QR", time: "5 phút đọc" },
+  { title: "Cách tạo mã QR Zalo miễn phí", description: "Chia sẻ đúng liên kết Zalo cá nhân hoặc OA và kiểm tra trước khi in.", href: "/blog/cach-tao-ma-qr-zalo", category: "QR Zalo", topic: "Tạo QR", time: "4 phút đọc" },
+  { title: "Cách tạo mã QR Facebook miễn phí", description: "Tạo QR tới trang cá nhân hoặc Fanpage, kiểm tra quyền xem và liên kết.", href: "/blog/cach-tao-ma-qr-facebook", category: "QR Facebook", topic: "Tạo QR", time: "4 phút đọc" },
   { title: "Cách tạo mã QR thanh toán ngân hàng", description: "Tìm hiểu cách tạo mã thanh toán bằng ứng dụng ngân hàng hoặc dịch vụ VietQR.", href: "/blog/cach-tao-ma-qr-thanh-toan-ngan-hang", category: "VietQR", topic: "Tạo QR", time: "5 phút đọc" },
   { title: "QR động và QR tĩnh khác nhau thế nào?", description: "So sánh QR động và QR tĩnh để chọn loại phù hợp với nhu cầu.", href: "/blog/qr-dong-va-qr-tinh-khac-nhau-the-nao", category: "Kiến thức QR", topic: "Kiến thức QR", time: "6 phút đọc" },
   { title: "Cách tạo mã QR Google Maps miễn phí", description: "Chia sẻ địa điểm hoặc đường dẫn chỉ đường bằng QR.", href: "/blog/cach-tao-ma-qr-google-maps", category: "Google Maps", topic: "Tạo QR", time: "5 phút đọc" },
-  { title: "Cách tạo mã QR cho file PDF", description: "Tạo QR trỏ tới đường dẫn chia sẻ của tài liệu PDF.", href: "/blog/cach-tao-ma-qr-pdf", category: "PDF QR", topic: "Tạo QR", time: "5 phút đọc" },
-  { title: "Cách tạo mã QR danh thiếp (vCard)", description: "Chia sẻ thông tin liên hệ để người nhận lưu vào danh bạ.", href: "/blog/cach-tao-ma-qr-danh-thiep-vcard", category: "vCard", topic: "Tạo QR", time: "6 phút đọc" },
+  { title: "Cách tạo mã QR cho file PDF", description: "Tạo QR cho link PDF, thiết lập quyền xem và giữ đường dẫn ổn định.", href: "/blog/cach-tao-ma-qr-pdf", category: "PDF QR", topic: "Tạo QR", time: "5 phút đọc" },
+  { title: "Cách tạo mã QR danh thiếp (vCard)", description: "Chia sẻ tên và số điện thoại; thử lưu liên hệ trước khi in danh thiếp.", href: "/blog/cach-tao-ma-qr-danh-thiep-vcard", category: "vCard", topic: "Tạo QR", time: "6 phút đọc" },
   { title: "Những lỗi thường gặp khi quét mã QR", description: "Cách xử lý khi camera không nhận mã hoặc ảnh QR khó đọc.", href: "/blog/nhung-loi-thuong-gap-khi-quet-ma-qr", category: "QR Scanner", topic: "Quét QR", time: "6 phút đọc" },
 ];
 

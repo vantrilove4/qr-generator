@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostFaq, BlogPostSeo } from "@/components/blog-post";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata("Cách tạo mã QR Zalo cá nhân và Zalo OA miễn phí | QRFree", "Hướng dẫn tạo mã QR Zalo cá nhân và Zalo Official Account miễn phí để chia sẻ liên hệ nhanh chóng.", "/blog/cach-tao-ma-qr-zalo");
@@ -12,12 +13,7 @@ export default function ZaloQRBlogPage() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 py-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex text-sm text-cyan-400 hover:text-cyan-300"
-        >
-          ← Quay lại Blog
-        </Link>
+        <BlogPostSeo metadata={metadata} path="/blog/cach-tao-ma-qr-zalo" currentTitle="Cách tạo mã QR Zalo cá nhân và OA" />
 
         {/* Hero */}
         <div className="rounded-3xl border border-cyan-500/20 bg-white/5 p-8 backdrop-blur">
@@ -28,13 +24,13 @@ export default function ZaloQRBlogPage() {
           <h1 className="mt-6 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
             Cách tạo mã QR Zalo
             <span className="mt-2 block text-cyan-400">
-              miễn phí trong vài giây
+              cho cá nhân và OA
             </span>
           </h1>
 
           <div className="mt-6 flex flex-wrap gap-6 text-sm text-slate-400">
             <span>Biên soạn: QRFree</span>
-            <span>5 phút đọc</span>
+            <span>4 phút đọc</span>
           </div>
 
           <p className="mt-6 leading-8 text-slate-300">
@@ -75,12 +71,11 @@ export default function ZaloQRBlogPage() {
             </h2>
 
             <ol className="space-y-4 text-slate-300">
-              <li>1. Sao chép liên kết hồ sơ hoặc OA từ Zalo và thử mở liên kết đó trước.</li>
-              <li>2. Truy cập QRFree.io.vn.</li>
-              <li>3. Chọn loại QR Website.</li>
-              <li>4. Dán liên kết Zalo vào.</li>
-              <li>5. Dán liên kết, tạo mã và quét thử để xác nhận mở đúng tài khoản.</li>
-              <li>6. Tải mã QR về thiết bị.</li>
+              <li>Sao chép liên kết hồ sơ hoặc OA từ Zalo và thử mở liên kết đó trước.</li>
+              <li>Truy cập QRFree.io.vn.</li>
+              <li>Chọn loại QR Website và dán liên kết Zalo vào trường URL.</li>
+              <li>Nhấn “Tạo mã QR”, quét thử và xác nhận mở đúng tài khoản.</li>
+              <li>Tải mã về thiết bị hoặc dùng chức năng chia sẻ.</li>
             </ol>
           </section>
 
@@ -94,7 +89,32 @@ export default function ZaloQRBlogPage() {
               menu hoặc quầy thanh toán để khách hàng dễ dàng liên hệ.
             </p>
           </section>
+
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Chọn đúng liên kết trước khi in QR Zalo</h2>
+            <p className="leading-8 text-slate-300">Tách rõ liên kết hồ sơ cá nhân với liên kết OA để khách không nhầm nơi cần nhắn tin. Dùng URL chia sẻ do Zalo cung cấp hoặc liên kết công khai bạn kiểm soát; tránh sao chép một đường dẫn chỉ mở được trong phiên đăng nhập của chính bạn.</p>
+            <p className="mt-4 leading-8 text-slate-300">Sau khi quét thử, đối chiếu tên tài khoản và ảnh đại diện. Nếu trang đích hoặc liên kết đổi, tạo mã mới và thay mã ở menu, quầy thanh toán, danh thiếp và các bài đăng cũ.</p>
+          </section>
+          <section className="border-b border-white/10 pb-8">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">Mẹo đặt QR Zalo tại điểm bán</h2>
+            <p className="leading-8 text-slate-300">Đặt cạnh lời kêu gọi cụ thể như “Quét để nhắn tin đặt hàng”, để mã không bị hiểu nhầm là mã thanh toán. Với bản in nhỏ, tránh đặt trên nền có hoa văn hoặc phản chiếu và luôn giữ một khoảng trắng quanh mã.</p>
+          </section>
         </article>
+
+        <BlogPostFaq items={[
+          {
+                    "question": "Nên dùng QR cá nhân hay QR Zalo OA?",
+                    "answer": "Dùng liên kết hồ sơ nếu muốn người khác tìm tài khoản cá nhân; dùng liên kết OA nếu mục tiêu là trang chính thức của cửa hàng hoặc tổ chức."
+          },
+          {
+                    "question": "Quét mã có tự động kết bạn hoặc theo dõi OA không?",
+                    "answer": "Không nhất thiết. Thiết bị có thể mở ứng dụng hoặc trang liên kết, nhưng người quét thường vẫn phải xác nhận thao tác trong Zalo và có thể cần đăng nhập."
+          },
+          {
+                    "question": "Làm sao chắc mã mở đúng Zalo?",
+                    "answer": "Mở liên kết nguồn trước, tạo QR, rồi quét thử bằng thiết bị khác và kiểm tra tên, ảnh đại diện hoặc OA trước khi in."
+          }
+]} />
 
         {/* CTA */}
         <section className="mt-16 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">
