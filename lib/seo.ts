@@ -14,18 +14,29 @@ export function createPageMetadata(
   path: string,
 ): Metadata {
   const cleanTitle = title.replace(/\s*\|\s*QRFree$/, "");
-  const url = `https://qrfree.io.vn${path}`;
+  const baseUrl = "https://qrfree.io.vn";
+  const normalizedPath = path === "/" ? "" : path;
+  const url = `${baseUrl}${normalizedPath || "/"}`;
+  const englishUrl = `${baseUrl}/en${normalizedPath}`;
 
   return {
     title: cleanTitle,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: {
+        "vi-VN": url,
+        "en-US": englishUrl,
+        "x-default": url,
+      },
+    },
     openGraph: {
       title: cleanTitle,
       description,
       url,
       siteName,
       locale: "vi_VN",
+      alternateLocale: ["en_US"],
       type: "website",
       images: [socialImage],
     },

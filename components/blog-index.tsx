@@ -1,10 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Search, ShieldCheck } from "lucide-react";
+import { englishPosts } from "@/components/english-site";
 
-const posts = [
+const vietnamesePosts = [
   { title: "QR Code là gì? Cách hoạt động và cách tạo mã QR", description: "Tìm hiểu dữ liệu, sửa lỗi, khả năng quét và cách kiểm tra mã QR trước khi in.", href: "/blog/qrcode-la-gi", category: "Kiến thức QR", topic: "Kiến thức QR", time: "5 phút đọc" },
   { title: "Cách tạo mã QR WiFi miễn phí", description: "Chia sẻ WiFi nhanh chóng mà không cần đọc mật khẩu cho từng người.", href: "/blog/cach-tao-ma-qr-wifi", category: "QR WiFi", topic: "Tạo QR", time: "4 phút đọc" },
   { title: "Cách quét mã QR trên điện thoại", description: "Hướng dẫn quét QR trên iPhone, Android và từ ảnh đã lưu hoặc clipboard.", href: "/blog/quet-ma-qr-tren-dien-thoai", category: "QR Scanner", topic: "Quét QR", time: "4 phút đọc" },
@@ -19,19 +21,34 @@ const posts = [
   { title: "Những lỗi thường gặp khi quét mã QR", description: "Cách xử lý khi camera không nhận mã hoặc ảnh QR khó đọc.", href: "/blog/nhung-loi-thuong-gap-khi-quet-ma-qr", category: "QR Scanner", topic: "Quét QR", time: "6 phút đọc" },
 ];
 
-const topics = ["Tất cả", "Tạo QR", "Quét QR", "Kiến thức QR", "Bảo mật"];
-const featuredPost = posts.find((post) => post.href === "/blog/ma-qr-co-an-toan-khong")!;
+const topicsVi = ["Tất cả", "Tạo QR", "Quét QR", "Kiến thức QR", "Bảo mật"];
+const englishTopics = ["All", "Create QR", "Scan QR", "QR basics", "Security"];
 
 export default function BlogIndex() {
-  const [activeTopic, setActiveTopic] = useState("Tất cả");
+  const isEnglish = (usePathname() || "").startsWith("/en");
+  const posts = useMemo(() => isEnglish
+    ? englishPosts.map((post) => ({
+        title: post.title,
+        description: post.description,
+        href: `/en/blog/${post.slug}`,
+        category: post.category,
+        topic: post.category === "Security" ? "Security" : post.category === "QR basics" ? "QR basics" : post.category === "QR scanner" ? "Scan QR" : "Create QR",
+        time: post.readTime,
+      }))
+    : vietnamesePosts, [isEnglish]);
+  const topics = isEnglish ? englishTopics : topicsVi;
+  const allTopic = isEnglish ? "All" : "Tất cả";
+  const featuredSlug = "ma-qr-co-an-toan-khong";
+  const featuredPost = posts.find((post) => post.href.endsWith(featuredSlug))!;
+  const [activeTopic, setActiveTopic] = useState(allTopic);
   const [query, setQuery] = useState("");
-  const normalizedQuery = query.trim().toLocaleLowerCase("vi");
+  const normalizedQuery = query.trim().toLocaleLowerCase(isEnglish ? "en-US" : "vi-VN");
   const visiblePosts = useMemo(() => posts.filter((post) => {
-    const matchesTopic = activeTopic === "Tất cả" || post.topic === activeTopic;
-    const searchable = `${post.title} ${post.description} ${post.category}`.toLocaleLowerCase("vi");
+    const matchesTopic = activeTopic === allTopic || post.topic === activeTopic;
+    const searchable = `${post.title} ${post.description} ${post.category}`.toLocaleLowerCase(isEnglish ? "en-US" : "vi-VN");
     return matchesTopic && (!normalizedQuery || searchable.includes(normalizedQuery));
-  }), [activeTopic, normalizedQuery]);
-  const showFeatured = activeTopic === "Tất cả" && !normalizedQuery;
+  }), [posts, activeTopic, allTopic, isEnglish, normalizedQuery]);
+  const showFeatured = activeTopic === allTopic && !normalizedQuery;
   const listPosts = showFeatured ? visiblePosts.filter((post) => post.href !== featuredPost.href) : visiblePosts;
 
   return (
@@ -42,23 +59,23 @@ export default function BlogIndex() {
 
       <div className="relative z-10">
         <header className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
-          <Link href="/" className="text-xl font-extrabold tracking-tight">QR<span className="text-cyan-400">Free</span></Link>
-          <nav aria-label="Điều hướng chính" className="hidden items-center gap-6 text-sm font-medium text-slate-300 sm:flex">
-            <Link href="/generate" className="hover:text-white">Tạo QR</Link>
-            <Link href="/scan" className="hover:text-white">Quét QR</Link>
+          <Link href={isEnglish ? "/en" : "/"} className="text-xl font-extrabold tracking-tight">QR<span className="text-cyan-400">Free</span></Link>
+          <nav aria-label={isEnglish ? "Main navigation" : "Điều hướng chính"} className="hidden items-center gap-6 text-sm font-medium text-slate-300 sm:flex">
+            <Link href={isEnglish ? "/en/generate" : "/generate"} className="hover:text-white">{isEnglish ? "Create QR" : "Tạo QR"}</Link>
+            <Link href={isEnglish ? "/en/scan" : "/scan"} className="hover:text-white">{isEnglish ? "Scan QR" : "Quét QR"}</Link>
           </nav>
-          <Link href="/generate" className="rounded-xl bg-cyan-400 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-300">Tạo mã QR</Link>
+          <Link href={isEnglish ? "/en/generate" : "/generate"} className="rounded-xl bg-cyan-400 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-300">{isEnglish ? "Create QR Code" : "Tạo mã QR"}</Link>
         </header>
 
         <section className="mx-auto max-w-7xl px-5 pb-10 pt-10 sm:px-8 sm:pt-14">
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-cyan-300">QRFree Blog</p>
-          <h1 className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">Kiến thức về <span className="text-cyan-400">mã QR</span></h1>
-          <p className="mt-4 max-w-2xl leading-7 text-slate-300">Hướng dẫn tạo và quét mã QR, cùng những lưu ý về bảo mật và cách sử dụng trong đời sống.</p>
+          <h1 className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">{isEnglish ? <>QR Code <span className="text-cyan-400">guides</span></> : <>Kiến thức về <span className="text-cyan-400">mã QR</span></>}</h1>
+          <p className="mt-4 max-w-2xl leading-7 text-slate-300">{isEnglish ? "Guides to creating and scanning QR Codes, security, and practical ways to use them." : "Hướng dẫn tạo và quét mã QR, cùng những lưu ý về bảo mật và cách sử dụng trong đời sống."}</p>
         </section>
 
-        <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label="Tìm và lọc bài viết">
+        <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label={isEnglish ? "Search and filter articles" : "Tìm và lọc bài viết"}>
           <div className="flex flex-col gap-4 rounded-2xl border border-slate-800 bg-white/[0.04] p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
-            <div className="flex flex-wrap gap-2" role="group" aria-label="Lọc theo chủ đề">
+            <div className="flex flex-wrap gap-2" role="group" aria-label={isEnglish ? "Filter by topic" : "Lọc theo chủ đề"}>
               {topics.map((topic) => (
                 <button key={topic} type="button" onClick={() => setActiveTopic(topic)} aria-pressed={activeTopic === topic} className={`rounded-full px-3.5 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${activeTopic === topic ? "bg-cyan-400 text-slate-950" : "border border-slate-700 text-slate-300 hover:border-slate-500 hover:text-white"}`}>
                   {topic}
@@ -66,9 +83,9 @@ export default function BlogIndex() {
               ))}
             </div>
             <label className="relative block w-full sm:max-w-xs">
-              <span className="sr-only">Tìm bài viết</span>
+              <span className="sr-only">{isEnglish ? "Search articles" : "Tìm bài viết"}</span>
               <Search aria-hidden="true" size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Tìm bài viết…" className="w-full rounded-xl border border-slate-700 bg-slate-950/70 py-2.5 pl-10 pr-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" />
+              <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={isEnglish ? "Search articles…" : "Tìm bài viết…"} className="w-full rounded-xl border border-slate-700 bg-slate-950/70 py-2.5 pl-10 pr-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" />
             </label>
           </div>
         </section>
@@ -77,18 +94,18 @@ export default function BlogIndex() {
           <Link href={featuredPost.href} className="group grid gap-6 rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-cyan-400/10 to-white/[0.03] p-6 transition hover:border-cyan-300/50 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:p-8">
             <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-300"><ShieldCheck size={28} /></span>
             <span>
-              <span className="text-xs font-semibold uppercase tracking-widest text-cyan-300">Bài nên đọc · {featuredPost.time}</span>
+              <span className="text-xs font-semibold uppercase tracking-widest text-cyan-300">{isEnglish ? "Featured guide" : "Bài nên đọc"} · {featuredPost.time}</span>
               <span id="featured-title" className="mt-2 block text-2xl font-bold">{featuredPost.title}</span>
               <span className="mt-2 block leading-7 text-slate-300">{featuredPost.description}</span>
             </span>
-            <span className="inline-flex items-center gap-2 text-sm font-bold text-cyan-300">Đọc bài <ArrowRight size={17} className="transition group-hover:translate-x-1" /></span>
+            <span className="inline-flex items-center gap-2 text-sm font-bold text-cyan-300">{isEnglish ? "Read guide" : "Đọc bài"} <ArrowRight size={17} className="transition group-hover:translate-x-1" /></span>
           </Link>
         </section>}
 
-        <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Danh sách bài viết">
+        <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label={isEnglish ? "Article list" : "Danh sách bài viết"}>
           <div className="mb-5 flex items-center justify-between gap-3">
-            <h2 className="text-xl font-bold">{activeTopic === "Tất cả" ? "Tất cả bài viết" : activeTopic}</h2>
-            <p className="text-sm text-slate-400">{listPosts.length + (showFeatured ? 1 : 0)} bài viết</p>
+            <h2 className="text-xl font-bold">{activeTopic === allTopic ? (isEnglish ? "All articles" : "Tất cả bài viết") : activeTopic}</h2>
+            <p className="text-sm text-slate-400">{listPosts.length + (showFeatured ? 1 : 0)} {isEnglish ? "articles" : "bài viết"}</p>
           </div>
           {listPosts.length > 0 ? <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {listPosts.map((post) => (
@@ -100,27 +117,27 @@ export default function BlogIndex() {
               </Link>
             ))}
           </div> : <div className="rounded-2xl border border-slate-800 bg-white/[0.03] px-5 py-12 text-center">
-            <p className="font-semibold text-slate-200">Chưa tìm thấy bài phù hợp</p>
-            <p className="mt-2 text-sm text-slate-400">Thử từ khóa khác hoặc chọn một chủ đề khác.</p>
-            <button type="button" onClick={() => { setQuery(""); setActiveTopic("Tất cả"); }} className="mt-4 text-sm font-semibold text-cyan-300 hover:text-cyan-200">Xóa bộ lọc</button>
+            <p className="font-semibold text-slate-200">{isEnglish ? "No matching articles found" : "Chưa tìm thấy bài phù hợp"}</p>
+            <p className="mt-2 text-sm text-slate-400">{isEnglish ? "Try another search or choose a different topic." : "Thử từ khóa khác hoặc chọn một chủ đề khác."}</p>
+            <button type="button" onClick={() => { setQuery(""); setActiveTopic(allTopic); }} className="mt-4 text-sm font-semibold text-cyan-300 hover:text-cyan-200">{isEnglish ? "Clear filters" : "Xóa bộ lọc"}</button>
           </div>}
         </section>
 
         <section className="mx-auto max-w-5xl px-5 pb-20 sm:px-8">
           <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-7 text-center sm:p-10">
-            <h2 className="text-2xl font-bold sm:text-3xl">Bạn đã sẵn sàng tạo mã QR?</h2>
-            <p className="mt-3 text-slate-300">Dùng công cụ tạo hoặc quét QR miễn phí ngay trên trình duyệt.</p>
+            <h2 className="text-2xl font-bold sm:text-3xl">{isEnglish ? "Ready to make a QR Code?" : "Bạn đã sẵn sàng tạo mã QR?"}</h2>
+            <p className="mt-3 text-slate-300">{isEnglish ? "Create or scan a QR Code for free in your browser." : "Dùng công cụ tạo hoặc quét QR miễn phí ngay trên trình duyệt."}</p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Link href="/generate" className="rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 transition hover:bg-cyan-300">Tạo mã QR</Link>
-              <Link href="/scan" className="rounded-xl border border-cyan-300/30 px-5 py-3 font-bold text-white transition hover:bg-white/5">Quét mã QR</Link>
+              <Link href={isEnglish ? "/en/generate" : "/generate"} className="rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 transition hover:bg-cyan-300">{isEnglish ? "Create QR Code" : "Tạo mã QR"}</Link>
+              <Link href={isEnglish ? "/en/scan" : "/scan"} className="rounded-xl border border-cyan-300/30 px-5 py-3 font-bold text-white transition hover:bg-white/5">{isEnglish ? "Scan QR Code" : "Quét mã QR"}</Link>
             </div>
           </div>
         </section>
 
         <footer className="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
-          <p>© 2026 QRFree.io.vn · Blog về mã QR</p>
-          <nav aria-label="Liên kết bổ sung" className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2">
-            <Link href="/">Trang chủ</Link><Link href="/generate">Tạo QR</Link><Link href="/scan">Quét QR</Link><Link href="/contact">Liên hệ</Link>
+          <p>© 2026 QRFree.io.vn · {isEnglish ? "QR Code blog" : "Blog về mã QR"}</p>
+          <nav aria-label={isEnglish ? "Additional links" : "Liên kết bổ sung"} className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2">
+            <Link href={isEnglish ? "/en" : "/"}>{isEnglish ? "Home" : "Trang chủ"}</Link><Link href={isEnglish ? "/en/generate" : "/generate"}>{isEnglish ? "Create QR" : "Tạo QR"}</Link><Link href={isEnglish ? "/en/scan" : "/scan"}>{isEnglish ? "Scan QR" : "Quét QR"}</Link><Link href={isEnglish ? "/en/contact" : "/contact"}>{isEnglish ? "Contact" : "Liên hệ"}</Link>
           </nav>
         </footer>
       </div>

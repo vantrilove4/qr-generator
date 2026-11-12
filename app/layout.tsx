@@ -4,6 +4,8 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
+import { headers } from "next/headers";
+import LanguageSwitcher from "@/components/language-switcher";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://qrfree.io.vn"),
@@ -90,13 +92,16 @@ export const viewport: Viewport = {
   themeColor: "#06b6d4",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const requestHeaders = await headers();
+  const locale = requestHeaders.get("x-qrfree-locale") === "en" ? "en" : "vi";
+
   return (
-    <html lang="vi">
+    <html lang={locale}>
       <head>
         {/* Google Analytics */}
         <Script
@@ -126,6 +131,9 @@ export default function RootLayout({
       </head>
 
       <body suppressHydrationWarning>
+        <div className="mx-auto flex max-w-7xl justify-end px-5 pt-3 sm:px-8">
+          <LanguageSwitcher />
+        </div>
         {children}
 
         <Analytics />

@@ -32,28 +32,30 @@ const routes = [
 
 ];
 
-return routes.map((route) => ({
-url: route ? `${baseUrl}${route}` : `${baseUrl}/`,
-changeFrequency:
-  route === ""
-    ? "daily"
+return routes.flatMap((route) => {
+  const viUrl = route ? `${baseUrl}${route}` : `${baseUrl}/`;
+  const enUrl = `${baseUrl}/en${route}`;
+  const changeFrequency = route === ""
+    ? "daily" as const
     : route === "/generate" || route === "/scan"
-    ? "weekly"
+    ? "weekly" as const
     : route.startsWith("/blog")
-    ? "monthly"
-    : "yearly",
-
-priority:
-  route === ""
+    ? "monthly" as const
+    : "yearly" as const;
+  const priority = route === ""
     ? 1.0
-    : route === "/generate"
-    ? 0.95
-    : route === "/scan"
+    : route === "/generate" || route === "/scan"
     ? 0.95
     : route === "/blog"
     ? 0.9
     : route.startsWith("/blog")
     ? 0.8
-    : 0.5,
-}));
+    : 0.5;
+  const alternates = { languages: { vi: viUrl, en: enUrl, "x-default": viUrl } };
+
+  return [
+    { url: viUrl, changeFrequency, priority, alternates },
+    { url: enUrl, changeFrequency, priority, alternates },
+  ];
+});
 }
